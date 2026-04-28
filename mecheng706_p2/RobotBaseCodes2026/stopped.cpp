@@ -1,0 +1,16 @@
+#include "Arduino.h"
+#include "stopped.h"
+#include "firefighter.h"
+
+void Stopped::begin() {
+  firefighter_->_motors->writeAllMotors(0.0, 0.0, 0.0);
+}
+
+void Stopped::end() {
+}
+
+void Stopped::poll() {
+  // Stay stopped. Project 2 requires the robot to cease all movement
+  // immediately after extinguishing the second fire.
+  firefighter_->_motors->writeAllMotors(0.0, 0.0, 0.0);
+}
