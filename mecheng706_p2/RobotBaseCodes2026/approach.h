@@ -17,7 +17,8 @@ class Approach : public State {
     void poll() override;
 
   private:
-    float _bearing = 0.0; // bearing to fire (rad), set via begin(StateData)
+    float _bearing = 0.0;            // bearing to fire (rad), set via begin(StateData)
+    unsigned long _last_seen_ms = 0; // millis() of last valid fire detection (for lost-signal grace period)
 };
 
 

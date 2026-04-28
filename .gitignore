@@ -1,0 +1,8 @@
+# Local visualisation - kept off main per author request.
+mecheng706_p2/RobotBaseCodes2026/sensor_layout.html
+
+# Claude Code worktree / agent state
+.claude/
+
+# VS Code workspace settings
+.vscode/

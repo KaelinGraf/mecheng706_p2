@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include "state.h"
 #include "sensors.h"
+#include "fire.h"
 #include "servo_control.h"
 #include "pid.h"
 
@@ -17,6 +18,10 @@ private:
     HardwareSerial *serialCom_;
     SoftwareSerial *btSerial_ = nullptr;
 
+    // Counter shared across EXTINGUISH triggers so the FSM knows when the
+    // task is over (after the second fire, the brief requires us to stop).
+    int fires_extinguished_ = 0;
+
 public:
     LongRangeIR *_front_left_ir;
     LongRangeIR *_front_right_ir;
@@ -25,6 +30,20 @@ public:
     Gyroscope *_gyro;
     Ultrasonic *_ultrasonic;
     driveMotors *_motors;
+
+    // Fire-detection bank + fan (added for Project 2). The four photocells are
+    // owned by the FireFighter and aggregated through _fire_bank for the FSM.
+    Phototransistor *_photo_front;
+    Phototransistor *_photo_right;
+    Phototransistor *_photo_rear;
+    Phototransistor *_photo_left;
+    FireBank        *_fire_bank;
+    Fan             *_fan;
+
+    // Fire counter accessors (used by Extinguish to drive the SEARCH/STOPPED
+    // transition once two fires are out).
+    inline int  firesExtinguished() const { return fires_extinguished_; }
+    inline void noteFireExtinguished()    { fires_extinguished_++; }
 
     FireFighter(Adafruit_BNO08x *bno08x, sh2_SensorValue_t *sensorValue, HardwareSerial *SerialCom);
     ~FireFighter();

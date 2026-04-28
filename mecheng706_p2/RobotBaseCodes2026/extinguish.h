@@ -16,11 +16,15 @@ class Extinguish : public State {
     void end() override;
     void poll() override;
 
-    static constexpr unsigned long FAN_MAX_MS = 10000;
+    // Brief: fan runs for up to 10 s. Centralised in mappings.h.
+    static constexpr unsigned long FAN_HARD_TIMEOUT_MS = FAN_MAX_MS;
 
   private:
     unsigned long _start_millis;
-    int _fires_out = 0;
+    // Counter of consecutive polls where the fire bank reads below FIRE_OUT_V.
+    // Acts as a debounce: the LED can flicker as the thermistor cools, so we
+    // require a short run of "out" readings before declaring victory.
+    int _below_count = 0;
 };
 
 
