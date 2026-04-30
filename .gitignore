@@ -1,6 +1,11 @@
 # Local visualisation - kept off main per author request.
 mecheng706_p2/RobotBaseCodes2026/sensor_layout.html
 
+# PlatformIO build output
+mecheng706_p2/.pio/
+mecheng706_p2/.piolibdeps/
+mecheng706_p2/.pioenvs/
+
 # Claude Code worktree / agent state
 .claude/
 
