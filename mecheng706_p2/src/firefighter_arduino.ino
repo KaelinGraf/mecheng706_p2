@@ -23,7 +23,7 @@
 
 #include "arduino_clock.h"
 #include "arduino_analog_input.h"
-#include "arduino_gyro_source.h"
+#include "arduino_imu_source.h"
 #include "arduino_ultrasonic_source.h"
 #include "arduino_motor_output.h"
 #include "arduino_fan_output.h"
@@ -40,7 +40,7 @@ SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // ---------------------------------------------------------------------------
 // BNO085 driver instance + the buffer it fills with sensor events.
-// Owned at file scope so the ArduinoGyroSource can keep references to them.
+// Owned at file scope so the ArduinoIMUSource can keep references to them.
 // ---------------------------------------------------------------------------
 Adafruit_BNO08x bno08x(-1);
 sh2_SensorValue_t sensorValue;
@@ -50,7 +50,7 @@ sh2_SensorValue_t sensorValue;
 // ---------------------------------------------------------------------------
 ArduinoClock              hal_clock;
 ArduinoAnalogInput        hal_adc;
-ArduinoGyroSource         hal_gyro(&bno08x, &sensorValue);
+ArduinoIMUSource          hal_imu(&bno08x, &sensorValue, &hal_clock);
 ArduinoUltrasonicSource   hal_us(TRIG_PIN, ECHO_PIN);
 ArduinoMotorOutput        hal_motors;
 ArduinoFanOutput          hal_fan(fan_pin);
@@ -69,7 +69,7 @@ void setup(void)
 
     // Bring up the BNO before we hand its source to the FireFighter; the
     // controller's Gyroscope assumes the source is producing samples.
-    hal_gyro.begin();
+    hal_imu.begin();
 
     // Configure the ultrasonic ISR + trigger pin.
     hal_us.begin();
@@ -78,7 +78,8 @@ void setup(void)
     HardwareContext hw;
     hw.clock              = &hal_clock;
     hw.analog_input       = &hal_adc;
-    hw.gyro_source        = &hal_gyro;
+    hw.gyro_source        = &hal_imu;
+    hw.imu_source         = &hal_imu;
     hw.ultrasonic_source  = &hal_us;
     hw.motor_output       = &hal_motors;
     hw.fan_output         = &hal_fan;
@@ -90,12 +91,15 @@ void setup(void)
 
     delay(100);
 
-    // Brief rotational nudge to confirm motors are alive, then zero the gyro.
+    // Brief rotational nudge to confirm motors are alive, then zero the
+    // gyro and tare the IMU so the starting pose is "yaw = 0".
     firefighter->_motors->writeAllMotors(0.0f, 0.0f, -100.0f);
     delay(450);
     firefighter->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
     delay(100);
     firefighter->_gyro->resetAngle();
+    firefighter->_imu->update();
+    firefighter->_imu->tare_yaw();
     lastSensPrint = millis();
 
     // CSV header for sensor logging.

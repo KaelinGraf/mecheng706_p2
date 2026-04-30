@@ -31,16 +31,6 @@ uint16_t Motor::scaleMotor(float control_effort_sum, float output_min, float out
 }
 
 
-void turret::writeMotor(int angle) {
-    if (!_hw) return;
-    if (angle < 0) angle = 0;
-    if (angle > 180) angle = 180;
-    // Standard hobby-servo mapping: 0..180 deg -> min_duty_turret..max_duty_turret.
-    uint16_t pw = (uint16_t)(min_duty_turret + (uint32_t)(max_duty_turret - min_duty_turret) * (uint32_t)angle / 180UL);
-    _hw->write_us(_channel, pw);
-}
-
-
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta) {
     _left_front_motor.writeMotor(vx, vy, vtheta);
     _left_rear_motor.writeMotor(vx, vy, vtheta);

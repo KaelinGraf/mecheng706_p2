@@ -53,19 +53,37 @@
 #define rear_left_ir_pin    57   // A3  - short-range, over rear-left wheel (yaw +40 deg)
 #define rear_right_ir_pin   58   // A4  - short-range, over rear-right wheel (yaw -40 deg)
 
-// ---------------------------------------------------------------------------
-// Phototransistor analog input pins (4x for fire LED detection)
-// Cardinal layout (front/right/rear/left). Comparing intensities across the
-// front-vs-rear and left-vs-right pairs gives a coarse bearing to the fire
-// in the robot frame.
-// ---------------------------------------------------------------------------
-#define photo_front_pin     64   // A10
-#define photo_right_pin     65   // A11
-#define photo_rear_pin      66   // A12
-#define photo_left_pin      67   // A13
+// The four body-cardinal phototransistor pins (A10-A13) used by the
+// retired FireBank are now free; fire bearing comes from the turret's
+// boom-mounted PhotoArray on A1/A2 (see below).
 
 // Battery sense (LiPo divider into a Mega ADC channel).
 #define battery_sense_pin   54   // A0
+
+// ---------------------------------------------------------------------------
+// Turret subsystem (NEW — body-mounted panning boom carrying the fan and
+// SFH 300 FA IR phototransistor array). Fan + photodiodes ride the boom
+// so the fan auto-aims at the candle once the turret locks.
+// ---------------------------------------------------------------------------
+// Pan servo (the small hobby servo from the kit). Driven through the same
+// IMotorOutput pool as the drive motors; channel 4 (drive uses 0..3).
+#define turret_servo_pin     11
+#define TURRET_SERVO_CHANNEL  4
+
+// Boom-mounted photodiode pins. Two minimum (left/right of the boom
+// centerline); add more by extending the PhotoArray in FireFighter.
+#define turret_photo_left_pin    55   // A1
+#define turret_photo_right_pin   56   // A2
+
+// Soft-centroid mount angles for the two boom photodiodes (rad,
+// right-positive). +/-30 deg fan-out gives a ~60 deg overlap window
+// where both photodiodes contribute to the bearing centroid.
+#define TURRET_PHOTO_LEFT_RAD   (-0.5235988f)   // -30 deg
+#define TURRET_PHOTO_RIGHT_RAD  ( 0.5235988f)   // +30 deg
+
+// Mechanical pan range relative to body forward (rad).
+#define TURRET_PAN_MIN_RAD  (-1.5707963f)       // -90 deg
+#define TURRET_PAN_MAX_RAD  ( 1.5707963f)       // +90 deg
 
 // ---------------------------------------------------------------------------
 // Fan (extinguisher) - drives the gate of the FQP30N06 (FDPF55N06-D shown in
@@ -82,23 +100,23 @@
 #define l_len 9
 
 // ---------------------------------------------------------------------------
-// Behaviour tuning constants. Centralised here so all FSM states pull from
+// Behaviour tuning constants. Centralised here so all behaviors pull from
 // the same source of truth and the report can quote them directly.
 // All distances in cm, speeds in the [-300, +300] control-effort scale used
 // by driveMotors::writeAllMotors (see servo_control.cpp).
 // ---------------------------------------------------------------------------
 
-// SEARCH: forward cruise speed and turn speeds while wandering / wall-following.
+// FindFire wall-bias / cruise turn speed (rear-IR side push).
 #define SEARCH_FORWARD_SPEED   110.0f
 #define SEARCH_TURN_SPEED       70.0f
 
 // Distance below which an object on the front arc is treated as an obstacle
-// (forces transition to AVOID). Sized so the robot can react before the ~10 cm
-// dia. cylinder enters the dead-zone of the long-range IRs.
+// by AvoidObstacleBehavior. Sized so the robot can react before the
+// ~10 cm dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM     22.0f
 
-// Hysteresis: must read this clear before AVOID is allowed to release back to
-// SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
+// Hysteresis: must read this clear before AvoidObstacle releases. Wider
+// than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
 #define OBSTACLE_CLEAR_CM       35.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
@@ -128,5 +146,39 @@
 // strafe speed below.
 #define AVOID_STRAFE_MS         900UL
 #define AVOID_STRAFE_SPEED      130.0f
+
+// ---------------------------------------------------------------------------
+// BEHAVIOR ARBITER TUNING (placeholders - tune on the bench).
+// All distances cm, speeds in [-300,+300] effort scale, angles in radians.
+// ---------------------------------------------------------------------------
+
+// FindFire: cruise speed and exploration nudge cadence while the turret
+// hunts for a candle. The turret does its own SWEEP; the body just moves
+// to expose new arena to the boom-mounted photo array.
+#define FINDFIRE_FORWARD_SPEED       100.0f
+#define FINDFIRE_NUDGE_PERIOD_MS    4500UL
+#define FINDFIRE_NUDGE_LEN_MS        400UL
+#define FINDFIRE_NUDGE_TURN           50.0f
+
+// MoveToFire: open-loop yaw-rate gain on the turret's body-relative
+// bearing. Step 6 swaps this for closed-loop yaw control on the IMU's
+// quaternion-derived absolute yaw.
+#define MOVETOFIRE_KP_TURN          120.0f
+#define MOVETOFIRE_FORWARD_SPEED     90.0f
+// Above this body-relative bearing magnitude the body pivots in place
+// instead of driving forward (avoid arcing wide past a candle).
+#define MOVETOFIRE_PIVOT_RAD          0.6f
+
+// ExtinguishFire: aim window (turret bearing magnitude) and fire-out
+// debounce count (ticks) before the LED is declared extinguished.
+#define EXTINGUISH_AIM_RAD            0.35f
+#define EXTINGUISH_OUT_DEBOUNCE       10
+#define EXTINGUISH_HARD_TIMEOUT_MS    10000UL    // matches FAN_MAX_MS
+
+// AvoidObstacle: window around the turret bearing to treat a forward
+// reading as the candle (suppress avoid). The body's front IRs at +-30
+// deg can each spot something close - if it lines up with where the
+// turret is looking and the candle is bright there, it is the fire.
+#define AVOID_FIRE_MASK_RAD           0.5f      // ~28 deg
 
 #endif // MAPPINGS_H

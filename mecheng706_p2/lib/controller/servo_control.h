@@ -79,19 +79,8 @@ public:
 };
 
 
-// ---------------------------------------------------------------------------
-// turret: small servo. Currently defined for completeness; not instantiated
-// by the FireFighter today. Converts an angle (0..180) into a pulse width.
-// ---------------------------------------------------------------------------
-class turret : public Motor {
-public:
-    using Motor::writeMotor;  // unhide the inherited (uint16_t) and (vx,vy,vtheta) overloads
-
-    turret(IMotorOutput* hw, uint8_t channel, uint8_t motor_pin)
-        : Motor(hw, channel, motor_pin) {}
-
-    void writeMotor(int angle);
-};
-
+// The legacy `turret` class that lived here has been promoted to its own
+// PanServo header (lib/controller/pan_servo.h) which exposes a rad-based
+// interface and is wired by the TurretController state machine.
 
 #endif

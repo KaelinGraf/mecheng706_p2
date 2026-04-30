@@ -18,13 +18,17 @@
 // ADC voltage rises as more light hits the device.
 // ---------------------------------------------------------------------------
 class Phototransistor : public Sensor {
-private:
+protected:
     float _filtered_v = 0.0f;
     float _alpha = 0.4f;
     bool _initialised = false;
 
 public:
-    Phototransistor(IAnalogInput* adc, uint8_t read_pin) : Sensor(adc, read_pin) {}
+    Phototransistor(IAnalogInput* adc, uint8_t read_pin, float alpha = 0.4f)
+        : Sensor(adc, read_pin) { _alpha = alpha; (void)0; }
+    // ^ explicit body assignment (instead of init list) so the in-class
+    //   `_alpha = 0.4f` default still serves as documentation; the ctor
+    //   parameter overrides it for callers that want a different smoothing.
 
     float readSensor() override;
     inline float applyCalibration(float adc_voltage) override { return adc_voltage; }
@@ -40,37 +44,10 @@ public:
 };
 
 
-// ---------------------------------------------------------------------------
-// FireBank: aggregates the four cardinal phototransistors into a single
-// object answering "is there a fire?" and "in roughly which direction?".
-//
-// Bearing convention:
-//   bearing = 0 rad  -> straight ahead (+Y, FORWARD)
-//   bearing > 0      -> CCW (toward the body LEFT)
-//   bearing < 0      -> CW  (toward the body RIGHT)
-// ---------------------------------------------------------------------------
-class FireBank {
-public:
-    Phototransistor* front;
-    Phototransistor* right;
-    Phototransistor* rear;
-    Phototransistor* left;
-
-    FireBank(Phototransistor* f, Phototransistor* r, Phototransistor* b, Phototransistor* l)
-        : front(f), right(r), rear(b), left(l) {}
-
-    void update();
-    float maxV() const;
-
-    inline bool anyDetection(float threshold = FIRE_DETECT_V) const {
-        return maxV() >= threshold;
-    }
-
-    bool allBelow(float threshold = FIRE_OUT_V) const;
-    float estimateBearing(bool* valid = nullptr, float threshold = FIRE_DETECT_V) const;
-    void reset();
-};
-
+// The body-cardinal FireBank that the legacy FSM used has been retired:
+// the panning turret's PhotoArray (lib/controller/photo_array.h) now owns
+// the "is there a fire and in which direction" question, with the boom-
+// mounted SFH 300 FA photodiodes giving a much sharper bearing.
 
 // ---------------------------------------------------------------------------
 // Fan: extinguisher actuator wrapper. Owns the "on/off" state plus timing;

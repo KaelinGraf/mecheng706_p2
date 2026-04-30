@@ -4,6 +4,7 @@
 #include "iclock.h"
 #include "ianalog_input.h"
 #include "igyro_source.h"
+#include "iimu_source.h"
 #include "iultrasonic_source.h"
 #include "imotor_output.h"
 #include "ifan_output.h"
@@ -21,7 +22,12 @@
 struct HardwareContext {
     IClock*            clock              = nullptr;
     IAnalogInput*      analog_input       = nullptr;
+    // gyro_source is the legacy single-axis interface still consumed by the
+    // controller's Gyroscope wrapper during the migration. On both Arduino
+    // and sim it points at the same instance as imu_source. After step 5
+    // (FSM removal) only imu_source is used.
     IGyroSource*       gyro_source        = nullptr;
+    IIMUSource*        imu_source         = nullptr;
     IUltrasonicSource* ultrasonic_source  = nullptr;
     IMotorOutput*      motor_output       = nullptr;
     IFanOutput*        fan_output         = nullptr;
