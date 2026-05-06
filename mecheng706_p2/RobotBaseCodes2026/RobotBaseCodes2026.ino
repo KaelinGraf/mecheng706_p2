@@ -1,10 +1,11 @@
 /*
-  MechEng 706 Project 2 - Behavior Control Robotics (Fire Fighting)
+  MechEng 706 Project 2 - Behavior-Based Control Robotics (Fire Fighting)
 
   Re-uses the Project 1 mecanum chassis, gyroscope, IR/ultrasonic sensors and
   servo/motor framework. Project-1-specific tilling/snake/homing logic has
-  been stripped; the FSM now scaffolds SEARCH / AVOID / APPROACH / EXTINGUISH
-  states for the fire-fighting demo.
+  been stripped; the system now uses behavior-based control with two main
+  states: TRACKING (which coordinates search, avoid, and approach behaviors)
+  and EXTINGUISHING (which coordinates the fan control behavior).
 
   Hardware (carried over from Project 1):
     Arduino Mega2560, BNO085 IMU, HC-SR04, 2x long-range IR, 2x short-range IR,

@@ -98,6 +98,16 @@
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM          15.0f
 
+// APPROACH: speed toward detected fire, turn gain for bearing correction
+#define APPROACH_FORWARD_SPEED  90.0f
+#define APPROACH_TURN_GAIN      30.0f
+#define APPROACH_MAX_TURN       100.0f
+
+// AVOID: strafe and rotation speeds
+#define AVOID_STRAFE_SPEED      130.0f
+#define AVOID_FORWARD_SPEED     60.0f
+#define AVOID_ROTATE_SPEED      80.0f
+
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more

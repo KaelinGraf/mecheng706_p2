@@ -2,18 +2,21 @@
 #define SEARCH_H
 
 #include "state.h"
-#include "pid.h"
+#include "tracking.h"
 
-// SEARCH: wander the table looking for fires (phototransistor signal).
-// Transition to APPROACH on fire detection, AVOID on obstacle detection.
+// SEARCH owns the behaviour controller that blends find-fire, avoid, and
+// move-towards-fire behaviours without leaving the SEARCH state.
 class Search : public State {
   public:
-    Search(FireFighter* firefighter) : State(State::SEARCH, firefighter) {};
+    Search(FireFighter* firefighter) : State(State::SEARCH, firefighter), tracking_(firefighter) {};
     ~Search() {};
 
     void begin() override;
     void end() override;
     void poll() override;
+
+  private:
+    Tracking tracking_;
 };
 
 

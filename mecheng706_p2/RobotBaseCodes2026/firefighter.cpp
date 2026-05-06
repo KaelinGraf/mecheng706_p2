@@ -3,8 +3,6 @@
 #include "firefighter.h"
 #include "initialising.h"
 #include "search.h"
-#include "avoid.h"
-#include "approach.h"
 #include "extinguish.h"
 #include "stopped.h"
 
@@ -59,8 +57,6 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   // Initialise all states up-front to avoid runtime allocation
   states_[State::INITIALISING] = new Initialising(this);
   states_[State::SEARCH]       = new Search(this);
-  states_[State::AVOID]        = new Avoid(this);
-  states_[State::APPROACH]     = new Approach(this);
   states_[State::EXTINGUISH]   = new Extinguish(this);
   states_[State::STOPPED]      = new Stopped(this);
 

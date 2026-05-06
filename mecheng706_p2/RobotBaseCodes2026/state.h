@@ -19,8 +19,6 @@ public:
     {
         INITIALISING,
         SEARCH,        // wander/explore looking for fire
-        AVOID,         // avoid an obstacle / wall in the path
-        APPROACH,      // move into the 20cm extinguishing radius of a detected fire
         EXTINGUISH,    // run fan up to 10s to put out the fire
         STOPPED,
 
