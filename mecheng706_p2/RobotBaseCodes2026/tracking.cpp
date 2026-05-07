@@ -6,7 +6,6 @@
 
 namespace {
 static const unsigned long LOST_FIRE_MS = 1500;
-static const unsigned long AVOID_STRAFE_MS = 900;
 static const unsigned long AVOID_TIMEOUT_MS = 3000;
 static const unsigned long NUDGE_PERIOD_MS = 4000;
 static const unsigned long NUDGE_LEN_MS = 350;
@@ -69,6 +68,7 @@ void Tracking::enterMoveToFire(float bearing) {
 }
 
 void Tracking::begin() {
+    firefighter_->println("Tracking");
     bearing_ = 0.0f;
     resume_bearing_ = 0.0f;
     resume_to_move_ = false;
@@ -103,12 +103,19 @@ void Tracking::poll() {
     bool obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(lf_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(rf_cm, OBSTACLE_TRIGGER_CM);
+    
 
-    bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM) ||
-                       blocked(lf_cm, EXTINGUISH_RANGE_CM) ||
-                       blocked(rf_cm, EXTINGUISH_RANGE_CM);
+    bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
 
     bool aimed = fabsf(bearing_) < 0.35f;
+
+    firefighter_->print("Obsatcle: ");
+    firefighter_->println(obstacle_ahead);
+    firefighter_->print("In Front of Fire: ");
+    firefighter_->println(close_front);
+    firefighter_->print("Aimed: ");
+    firefighter_->println(aimed);
+
 
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {
         if (fire_valid) {
@@ -159,7 +166,7 @@ void Tracking::poll() {
                      ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM));
 
         unsigned long elapsed = now - behavior_start_ms_;
-        if (clear && elapsed > AVOID_STRAFE_MS) {
+        if (clear && (elapsed > AVOID_STRAFE_MS)) {
             ff->println("SEARCH: obstacle cleared");
             if (resume_to_move_) {
                 enterMoveToFire(resume_bearing_);

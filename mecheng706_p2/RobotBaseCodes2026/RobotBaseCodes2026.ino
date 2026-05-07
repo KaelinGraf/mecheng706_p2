@@ -110,6 +110,7 @@ void loop(void) // main loop
     firefighter->timeStepData();
     lastSensPrint = millis();
   }
+  delay(1000);
 }
 
 void printBluetooth()

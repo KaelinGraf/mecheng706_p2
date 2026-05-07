@@ -89,7 +89,7 @@
 // Distance below which an object on the front arc is treated as an obstacle
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
-#define OBSTACLE_TRIGGER_CM     22.0f
+#define OBSTACLE_TRIGGER_CM     10.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
@@ -112,7 +112,7 @@
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more
 // forgiving value is used to allow for sensor noise / cylinder curvature.
-#define EXTINGUISH_RANGE_CM     12.0f
+#define EXTINGUISH_RANGE_CM     5.0f
 
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.
