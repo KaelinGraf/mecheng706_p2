@@ -87,6 +87,7 @@ void setup(void)
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
 
+  /*
   // CSV header for sensor logging
   firefighter->print("time");
   firefighter->print(",");
@@ -100,6 +101,7 @@ void setup(void)
   firefighter->print(",");
   firefighter->print("y_ult");
   firefighter->println(";");
+  */
 }
 
 void loop(void) // main loop
@@ -107,7 +109,7 @@ void loop(void) // main loop
   firefighter->pollState();
   if (millis() - lastSensPrint > 100)
   {
-    firefighter->timeStepData();
+    //firefighter->timeStepData();
     lastSensPrint = millis();
   }
 }

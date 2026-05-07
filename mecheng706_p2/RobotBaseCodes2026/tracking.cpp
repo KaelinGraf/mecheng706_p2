@@ -29,6 +29,7 @@ Tracking::Tracking(FireFighter *firefighter)
       nudge_dir_(1) {}
 
 void Tracking::enterFindFire() {
+    firefighter_->println("Find Fire");
     active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
     behavior_start_ms_ = millis();
     resume_to_move_ = false;
@@ -38,6 +39,7 @@ void Tracking::enterFindFire() {
 }
 
 void Tracking::enterAvoid(bool resume_to_move) {
+    firefighter_->println("Avoiding");
     active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
     behavior_start_ms_ = millis();
     resume_to_move_ = resume_to_move;
@@ -47,17 +49,11 @@ void Tracking::enterAvoid(bool resume_to_move) {
     bool lf_valid = (lf_cm > 0.0f);
     bool rf_valid = (rf_cm > 0.0f);
 
-    if (lf_valid && rf_valid) {
-        strafe_sign_ = (lf_cm > rf_cm) ? 1 : -1;
-    } else if (lf_valid) {
-        strafe_sign_ = 1;
-    } else if (rf_valid) {
-        strafe_sign_ = -1;
-    } else {
-        strafe_sign_ = 1;
-    }
+    firefighter_->_motors->writeAllMotors(-REVERSE_SPEED, 0.0f, 0.0f);
 
-    firefighter_->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+    if((lf_cm > 10.0) && (rf_cm)){
+        enterFindFire();
+    }
 }
 
 void Tracking::enterMoveToFire(float bearing) {
@@ -110,6 +106,20 @@ void Tracking::poll() {
 
     bool aimed = fabsf(bearing_) < 0.35f;
 
+<<<<<<< Updated upstream
+=======
+    firefighter_->print("Obsatcle: ");
+    firefighter_->println(obstacle_ahead);
+    firefighter_->print("In Front of Fire: ");
+    firefighter_->println(close_front);
+    firefighter_->print("Aimed: ");
+    firefighter_->println(aimed);
+    if(obstacle_ahead){
+        enterAvoid(false);
+    }
+
+
+>>>>>>> Stashed changes
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {
         if (fire_valid) {
             bearing_ = fire_bearing;

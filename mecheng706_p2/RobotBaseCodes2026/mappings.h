@@ -85,6 +85,7 @@
 // SEARCH: forward cruise speed and turn speeds while wandering / wall-following.
 #define SEARCH_FORWARD_SPEED   110.0f
 #define SEARCH_TURN_SPEED       70.0f
+#define REVERSE_SPEED           50.0f
 
 // Distance below which an object on the front arc is treated as an obstacle
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
