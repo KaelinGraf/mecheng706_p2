@@ -106,8 +106,6 @@ void Tracking::poll() {
 
     bool aimed = fabsf(bearing_) < 0.35f;
 
-<<<<<<< Updated upstream
-=======
     firefighter_->print("Obsatcle: ");
     firefighter_->println(obstacle_ahead);
     firefighter_->print("In Front of Fire: ");
@@ -118,8 +116,6 @@ void Tracking::poll() {
         enterAvoid(false);
     }
 
-
->>>>>>> Stashed changes
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {
         if (fire_valid) {
             bearing_ = fire_bearing;

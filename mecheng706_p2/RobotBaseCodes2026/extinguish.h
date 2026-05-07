@@ -2,6 +2,7 @@
 #define EXTINGUISH_H
 
 #include "state.h"
+#include "mappings.h"
 
 // EXTINGUISH: run the fan (via MOSFET) for up to 10 s. The thermistor in the
 // fire deactivates the LED once put out; if the LED goes out earlier the robot

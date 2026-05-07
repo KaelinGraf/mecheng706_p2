@@ -131,7 +131,6 @@
 
 // AVOID strafe duration (ms). Sized so a full chassis width clears at the
 // strafe speed below.
-#define AVOID_STRAFE_MS         900UL
 #define AVOID_STRAFE_SPEED      130.0f
 
 #endif // MAPPINGS_H
