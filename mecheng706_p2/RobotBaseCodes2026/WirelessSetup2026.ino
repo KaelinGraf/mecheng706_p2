@@ -99,30 +99,3 @@ void setupWireless() {
 
   delaySeconds(STARTUP_DELAY);
 }
-
-void Initialising::begin() {
-  delay(1000);  // One second delay to see the serial string "INITIALISING...."
-
-  // ultrasonic
-  pinMode(TRIG_PIN, OUTPUT);
-  digitalWrite(TRIG_PIN, LOW);
-  pinMode(ECHO_PIN, INPUT);
-
-  pinMode(INTERNAL_LED, OUTPUT);
-
-  // IR sensors
-  pinMode(front_right_ir_pin, INPUT);
-  pinMode(front_left_ir_pin, INPUT);
-  pinMode(rear_right_ir_pin, INPUT);
-  pinMode(rear_left_ir_pin, INPUT);
-
-  // TODO Project 2: pinMode(...) for phototransistors and fan_pin (OUTPUT)
-}
-
-void Initialising::end() {
-}
-
-void Initialising::poll() {
-  // Hand off to the SEARCH (wander) state once initialisation completes.
-  firefighter_->switchState(State::SEARCH);
-}
