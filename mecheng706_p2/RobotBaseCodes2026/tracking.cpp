@@ -6,7 +6,6 @@
 
 namespace {
 static const unsigned long LOST_FIRE_MS = 1500;
-static const unsigned long AVOID_STRAFE_MS = 900;
 static const unsigned long AVOID_TIMEOUT_MS = 3000;
 static const unsigned long NUDGE_PERIOD_MS = 4000;
 static const unsigned long NUDGE_LEN_MS = 350;
@@ -39,7 +38,6 @@ void Tracking::enterFindFire() {
 }
 
 void Tracking::enterAvoid(bool resume_to_move) {
-    firefighter_->println("Avoiding");
     active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
     behavior_start_ms_ = millis();
     resume_to_move_ = resume_to_move;
@@ -48,10 +46,11 @@ void Tracking::enterAvoid(bool resume_to_move) {
     float rf_cm = firefighter_->_front_right_ir->getAvg();
     bool lf_valid = (lf_cm > 0.0f);
     bool rf_valid = (rf_cm > 0.0f);
+    firefighter_->println("Avoiding");
+    firefighter_->_motors->writeAllMotors(100.0f, 0.0f, 0.0f);
 
-    firefighter_->_motors->writeAllMotors(-REVERSE_SPEED, 0.0f, 0.0f);
-
-    if((lf_cm > 10.0) && (rf_cm)){
+    if((lf_cm > 10.0) && (rf_cm > 10.0)){
+        firefighter_->println("Safe");
         enterFindFire();
     }
 }
@@ -65,6 +64,7 @@ void Tracking::enterMoveToFire(float bearing) {
 }
 
 void Tracking::begin() {
+    firefighter_->println("Tracking");
     bearing_ = 0.0f;
     resume_bearing_ = 0.0f;
     resume_to_move_ = false;
@@ -99,22 +99,26 @@ void Tracking::poll() {
     bool obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(lf_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(rf_cm, OBSTACLE_TRIGGER_CM);
+    
 
-    bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM) ||
-                       blocked(lf_cm, EXTINGUISH_RANGE_CM) ||
-                       blocked(rf_cm, EXTINGUISH_RANGE_CM);
+    bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
 
     bool aimed = fabsf(bearing_) < 0.35f;
 
+    /*
     firefighter_->print("Obsatcle: ");
     firefighter_->println(obstacle_ahead);
     firefighter_->print("In Front of Fire: ");
     firefighter_->println(close_front);
     firefighter_->print("Aimed: ");
     firefighter_->println(aimed);
+    */
+    
     if(obstacle_ahead){
-        enterAvoid(false);
+        enterAvoid(true);
+        return;
     }
+
 
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {
         if (fire_valid) {
@@ -147,7 +151,9 @@ void Tracking::poll() {
         float vy = (fabsf(bearing_) > BEARING_PIVOT_THRESH_RAD)
                        ? 0.0f
                        : (APPROACH_FORWARD_SPEED * cosf(bearing_));
-        ff->_motors->writeAllMotors(0.0f, vy, vtheta);
+        vy = 100.0f;
+        ff->println("Approach Bearing");
+        ff->_motors->writeAllMotors(-100.0f, 0.0f, 0.0f);
         return;
     }
 
@@ -165,7 +171,7 @@ void Tracking::poll() {
                      ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM));
 
         unsigned long elapsed = now - behavior_start_ms_;
-        if (clear && elapsed > AVOID_STRAFE_MS) {
+        if (clear && (elapsed > AVOID_STRAFE_MS)) {
             ff->println("SEARCH: obstacle cleared");
             if (resume_to_move_) {
                 enterMoveToFire(resume_bearing_);
@@ -177,7 +183,7 @@ void Tracking::poll() {
 
         if (elapsed > AVOID_TIMEOUT_MS) {
             float vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
-            ff->_motors->writeAllMotors(0.0f, 0.0f, vtheta);
+            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
             return;
         }
 
@@ -221,6 +227,6 @@ void Tracking::poll() {
             last_nudge_ms_ = now;
         }
     }
-
-    ff->_motors->writeAllMotors(0.0f, SEARCH_FORWARD_SPEED, vtheta);
+    ff->println("Search Forawrd");
+    ff->_motors->writeAllMotors(SEARCH_FORWARD_SPEED, 0.0f, 0.0f);
 }

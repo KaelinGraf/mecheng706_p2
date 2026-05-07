@@ -106,6 +106,7 @@
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_SPEED      130.0f
+#define AVOID_STRAFE_MS         1000.0f
 #define AVOID_FORWARD_SPEED     60.0f
 #define AVOID_ROTATE_SPEED      80.0f
 
