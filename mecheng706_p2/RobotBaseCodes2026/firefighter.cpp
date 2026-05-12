@@ -11,7 +11,7 @@
 volatile Ultrasonic* ultrasonicISR = nullptr;
 ISR(INT4_vect) {
   if (!ultrasonicISR) {
-    Serial.println("error");
+    // ISR called before the Ultrasonic instance is ready; do nothing.
     return;
   }
   // Rising edge on the echo pin: rotate the timestamp window forward
@@ -106,8 +106,12 @@ void FireFighter::pollState() {
   }
 }
 
+void FireFighter::setBearing(float bearing) {
+  bearing_ = bearing;
+}
+
 void FireFighter::testSensors() {
-  print("us med: "); println(_ultrasonic->getAvg());
+  print("us med: "); println(_ultrasonic->readBlocking());
 
   print("front left:");
   println(_front_left_ir->readSensor());

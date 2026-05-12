@@ -52,9 +52,12 @@ void bluetoothSerialOutputMonitor(int32_t Value1, int32_t Value2,
                                   int32_t Value3);
 void serialOutput(int32_t Value1, int32_t Value2, int32_t Value3);
 void setupWireless();
+void readTurretSerial();
+float turretAngleToBearing(int angle);
 
 int pos = 0;
 FireFighter *firefighter = nullptr;
+Turret *turret = nullptr;
 long lastSensPrint;
 
 void setup(void)
@@ -62,9 +65,11 @@ void setup(void)
   // Configure INT4 (ultrasonic echo) for any-edge interrupts
   EICRB |= (1 << ISC40);
   EICRB &= ~(1 << ISC41);
-  EIMSK |= (1 << INT4);
+  // Enable INT4 after the Ultrasonic instance is created in FireFighter
+  // (see below) to avoid the ISR firing before `ultrasonicISR` is set.
 
   Serial.begin(115200);
+  Serial.println("Turret serial ready. Send 0-180.");
   pinMode(LED_BUILTIN, OUTPUT);
 
   // The Trigger pin will tell the sensor to range find
@@ -78,12 +83,18 @@ void setup(void)
   firefighter = new FireFighter(&bno08x, &sensorValue, &Serial);
   firefighter->setBluetoothSerial(&BluetoothSerial); // Enable dual-printing to Bluetooth
 
+  // Now that the FireFighter (and its Ultrasonic instance) exist, enable
+  // the external interrupt which the Ultrasonic ISR expects.
+  EIMSK |= (1 << INT4);
+
+  // Turret is independent of FireFighter — create and initialise here.
+  turret = new Turret(turret_pin);
+  turret->attach();
+  turret->center();
+  turret->writeAngle(140);
+
   delay(100); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
-  firefighter->_motors->writeAllMotors(0.0, 0.0, -100.0);
-  delay(450);
-  firefighter->_motors->writeAllMotors(0.0, 0.0, 0.0);
-  delay(100);
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
 
@@ -107,11 +118,18 @@ void setup(void)
 void loop(void) // main loop
 {
   firefighter->pollState();
-  if (millis() - lastSensPrint > 100)
+  
+  float targetBearing = turretAngleToBearing(turret->angle_);
+  firefighter->setBearing(targetBearing);
+  Serial.print("Target bearing rad: ");
+  Serial.println(targetBearing, 4);
+  if (millis() - lastSensPrint > 1000)
   {
-    //firefighter->timeStepData();
+    //firefighter->testSensors();
     lastSensPrint = millis();
   }
+  delay(1000);
+  
 }
 
 void printBluetooth()
@@ -156,6 +174,69 @@ void speed_change_smooth()
   if (speed_val > 1000)
     speed_val = 1000;
   speed_change = 0;
+}
+
+float turretAngleToBearing(int angle)
+{
+  const float degreesToRadians = 0.017453292519943295f;
+  return (static_cast<float>(angle) - 90.0f) * degreesToRadians;
+}
+
+void readTurretSerial()
+{
+  static char buffer[8];
+  static uint8_t bufferIndex = 0;
+  static unsigned long lastInputMillis = 0;
+
+  auto finalizeCommand = [&]() {
+    if (bufferIndex == 0)
+    {
+      return;
+    }
+
+    buffer[bufferIndex] = '\0';
+    Serial.print("Turret input: ");
+    Serial.println(buffer);
+
+    int angle = atoi(buffer);
+    turret->writeAngle(angle);
+    Serial.print("Turret angle set to: ");
+    Serial.println(turret->angle_);
+    bufferIndex = 0;
+  };
+
+  while (Serial.available() > 0)
+  {
+    char incoming = static_cast<char>(Serial.read());
+    lastInputMillis = millis();
+
+    if (incoming == '\r' || incoming == '\n')
+    {
+      finalizeCommand();
+    }
+    else if ((incoming >= '0' && incoming <= '9') || (incoming == '-' && bufferIndex == 0))
+    {
+      if (bufferIndex < sizeof(buffer) - 1)
+      {
+        buffer[bufferIndex++] = incoming;
+        if (bufferIndex == 3)
+        {
+          finalizeCommand();
+        }
+      }
+    }
+    else
+    {
+      Serial.print("Ignored turret input char: ");
+      Serial.println(incoming);
+      bufferIndex = 0;
+    }
+  }
+
+  if (bufferIndex > 0 && (millis() - lastInputMillis) > 100)
+  {
+    finalizeCommand();
+  }
 }
 
 #ifndef NO_BATTERY_V_OK

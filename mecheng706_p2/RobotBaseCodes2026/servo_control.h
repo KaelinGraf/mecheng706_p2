@@ -36,6 +36,7 @@ class Motor{
     Motor(const int* control_multipliers,uint8_t motor_pin):_control_multipliers(control_multipliers),_motor_pin(motor_pin){
     }
     Motor(uint8_t motor_pin){
+      _motor_pin = motor_pin;
     }
     void attachMotor(){
       _motor.attach(_motor_pin);
@@ -70,11 +71,17 @@ class driveMotors{
 
 
 
-class turret : public Motor{
+// Turret (SG90) wrapper class providing a simple, safe API.
+class Turret : public Motor {
   public:
-    turret(uint8_t motor_pin):Motor(motor_pin){};
-    void writeMotor(int angle);
+    int angle_ = 90; // Current angle in degrees (0-180)
 
+    Turret(uint8_t motor_pin = turret_pin) : Motor(motor_pin) {};
+    void attach();
+    void detach();
+    void writeAngle(int angle); // degrees 0-180
+    void writeUS(uint16_t microseconds); // write in microseconds (clipped to turret range)
+    void center();
 };
 
 

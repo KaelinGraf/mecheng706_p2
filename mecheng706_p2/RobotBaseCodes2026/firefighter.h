@@ -52,6 +52,8 @@ public:
     void timeStepData();
     bool switchState(State::Name newState, StateData data = {-1.0, false, false});
     void pollState();
+    void setBearing(float bearing);
+    float bearing_ = 0.0f;
 
     inline void setSerialCom(HardwareSerial *serialCom) { serialCom_ = serialCom; };
     inline void setBluetoothSerial(SoftwareSerial *btSerial) { btSerial_ = btSerial; };

@@ -24,8 +24,31 @@ uint16_t Motor::scaleMotor(float control_effort_sum, float output_min, float out
 
 
 
-void turret::writeMotor(int angle){
+void Turret::attach(){
+  attachMotor();
+}
+
+void Turret::detach(){
+  _motor.detach();
+  _is_attatched = false;
+}
+
+void Turret::writeAngle(int angle){
+  if (!_is_attatched) attachMotor();
+  if (angle < 0) angle = 0;
+  if (angle > 180) angle = 180;
+  this->angle_ = angle;
   _motor.write(angle);
+}
+
+void Turret::writeUS(uint16_t microseconds){
+  if (!_is_attatched) attachMotor();
+  _motor.writeMicroseconds(int(clip<uint16_t>(microseconds,min_duty_turret,max_duty_turret)));
+}
+
+void Turret::center(){
+  // Center using neutral duty for small turret
+  writeAngle(90);
 }
 
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){

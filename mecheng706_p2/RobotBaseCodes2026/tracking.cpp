@@ -11,6 +11,7 @@ static const unsigned long NUDGE_PERIOD_MS = 4000;
 static const unsigned long NUDGE_LEN_MS = 350;
 static const float NUDGE_TURN = 60.0f;
 static const float BEARING_PIVOT_THRESH_RAD = 0.6f;
+static const float RAD_PER_DEG = 0.017453292519943295f;
 }
 
 Tracking::Tracking(FireFighter *firefighter)
@@ -96,6 +97,16 @@ void Tracking::poll() {
         fire_bearing = ff->_fire_bank->estimateBearing(&fire_valid, FIRE_DETECT_V);
     }
 
+    // Turret angle arrives from the main sketch as a 0-180 degree target.
+    // Convert it to the same robot-frame bearing convention used by the fire
+    // estimator: 0 rad = straight ahead, positive = left.
+    float target_bearing = ff->bearing_;
+    if (target_bearing > 3.1415926f || target_bearing < -3.1415926f) {
+        target_bearing = (target_bearing - 90.0f) * RAD_PER_DEG;
+    }
+
+    float bearing_error = fire_bearing - target_bearing;
+
     bool obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(lf_cm, OBSTACLE_TRIGGER_CM) ||
                           blocked(rf_cm, OBSTACLE_TRIGGER_CM);
@@ -103,7 +114,26 @@ void Tracking::poll() {
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
 
-    bool aimed = fabsf(bearing_) < 0.35f;
+    bool aimed = fabsf(bearing_error) < 0.35f;
+
+    ff->print("[TRACK] beh=");
+    ff->print((int)active_behavior_);
+    ff->print(" fire=");
+    ff->print(fire_detected);
+    ff->print(" valid=");
+    ff->print(fire_valid);
+    ff->print(" fireBear=");
+    ff->print(fire_bearing, 3);
+    ff->print(" target=");
+    ff->print(target_bearing, 3);
+    ff->print(" err=");
+    ff->print(bearing_error, 3);
+    ff->print(" aimed=");
+    ff->print(aimed);
+    ff->print(" obs=");
+    ff->print(obstacle_ahead);
+    ff->print(" close=");
+    ff->println(close_front);
 
     /*
     firefighter_->print("Obsatcle: ");
@@ -115,6 +145,7 @@ void Tracking::poll() {
     */
     
     if(obstacle_ahead){
+        ff->println("[TRACK] obstacle ahead -> AVOID");
         enterAvoid(true);
         return;
     }
@@ -144,16 +175,19 @@ void Tracking::poll() {
             return;
         }
 
-        float vtheta = APPROACH_TURN_GAIN * bearing_;
+        float vtheta = APPROACH_TURN_GAIN * bearing_error;
         if (vtheta > APPROACH_MAX_TURN) vtheta = APPROACH_MAX_TURN;
         if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
 
-        float vy = (fabsf(bearing_) > BEARING_PIVOT_THRESH_RAD)
+        float vy = (fabsf(bearing_error) > BEARING_PIVOT_THRESH_RAD)
                        ? 0.0f
-                       : (APPROACH_FORWARD_SPEED * cosf(bearing_));
+                       : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
         vy = 100.0f;
-        ff->println("Approach Bearing");
-        ff->_motors->writeAllMotors(-100.0f, 0.0f, 0.0f);
+        ff->print("[TRACK] MOVE_TO_FIRE vtheta=");
+        ff->print(vtheta, 2);
+        ff->print(" vy=");
+        ff->println(vy, 2);
+        ff->_motors->writeAllMotors(0.0f, 0.0f, vtheta);
         return;
     }
 
@@ -183,13 +217,15 @@ void Tracking::poll() {
 
         if (elapsed > AVOID_TIMEOUT_MS) {
             float vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
-            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+            ff->print("[TRACK] AVOID timeout vtheta=");
+            ff->println(vtheta, 2);
+            //ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
             return;
         }
 
-        ff->_motors->writeAllMotors(AVOID_STRAFE_SPEED * strafe_sign_,
-                                    AVOID_FORWARD_SPEED,
-                                    0.0f);
+        //ff->_motors->writeAllMotors(AVOID_STRAFE_SPEED * strafe_sign_,
+        //                            AVOID_FORWARD_SPEED,
+        //                            0.0f);
         return;
     }
 
@@ -218,6 +254,7 @@ void Tracking::poll() {
         nudge_active_ = true;
         nudge_start_ms_ = now;
         nudge_dir_ = -nudge_dir_;
+        ff->println("[TRACK] nudge start");
     }
     if (nudge_active_) {
         if ((now - nudge_start_ms_) < NUDGE_LEN_MS) {
@@ -225,8 +262,10 @@ void Tracking::poll() {
         } else {
             nudge_active_ = false;
             last_nudge_ms_ = now;
+            ff->println("[TRACK] nudge end");
         }
     }
-    ff->println("Search Forawrd");
-    ff->_motors->writeAllMotors(SEARCH_FORWARD_SPEED, 0.0f, 0.0f);
+    ff->print("[TRACK] FIND_FIRE vtheta=");
+    ff->println(vtheta, 2);
+    //ff->_motors->writeAllMotors(SEARCH_FORWARD_SPEED, 0.0f, 0.0f);
 }

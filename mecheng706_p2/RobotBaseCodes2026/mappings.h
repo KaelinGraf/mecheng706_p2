@@ -26,6 +26,8 @@
 #define left_rear_pin   47
 #define right_rear_pin  50
 #define right_front_pin 51
+// Small servo (turret) pin
+#define turret_pin 9
 
 // Drive motor PWM duty range (microseconds)
 #define max_duty_motor 2300
