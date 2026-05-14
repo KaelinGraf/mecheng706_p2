@@ -15,7 +15,7 @@ ISR(INT4_vect) {
     return;
   }
   // Rising edge on the echo pin: rotate the timestamp window forward
-  if (digitalRead(2)) {
+  if (digitalRead(US_INT_PIN)) {
     unsigned long last_t1 = ultrasonicISR->getSentTime();
     ultrasonicISR->setLastSent(last_t1);
     ultrasonicISR->setSentTime(micros());

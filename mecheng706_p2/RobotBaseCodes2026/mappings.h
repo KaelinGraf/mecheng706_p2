@@ -9,6 +9,7 @@
 // Ultrasonic ranging sensor pins (defined by the shield)
 #define TRIG_PIN  48
 #define ECHO_PIN  49
+#define US_INT_PIN 2
 
 // Anything over ~400 cm (23200 us pulse) is "out of range".
 #define MAX_DIST  23200

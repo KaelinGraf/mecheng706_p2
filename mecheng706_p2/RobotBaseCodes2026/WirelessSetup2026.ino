@@ -6,9 +6,9 @@
 #define INTERNAL_LED 13
 
 // Serial Data input pin
-#define BLUETOOTH_RX 19
+#define BLUETOOTH_RX 15
 // Serial Data output pin
-#define BLUETOOTH_TX 18
+#define BLUETOOTH_TX 16
 
 #define STARTUP_DELAY 1   // Seconds
 #define LOOP_DELAY 10     // miliseconds

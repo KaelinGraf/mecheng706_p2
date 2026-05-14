@@ -213,6 +213,7 @@ float Ultrasonic::readSensor() {
     if (pulse_width > _max_dist) {
       Serial.println("HC-SR04: Out of range");
     } else {
+      Serial.print("Non Blocking ");
       Serial.print("HC-SR04:");
       Serial.print(cm);
       Serial.println("cm");
@@ -242,7 +243,7 @@ float Ultrasonic::readBlocking() {
 
   // Wait for pulse on echo pin
   t1 = micros();
-  while (digitalRead(2) == 0) {
+  while (digitalRead(US_INT_PIN) == 0) {
     t2 = micros();
     pulse_width = t2 - t1;
     if (pulse_width > (_max_dist + 1000)) {
@@ -259,18 +260,18 @@ float Ultrasonic::readBlocking() {
   // Note: the micros() counter will overflow after ~70 min
 
   t1 = micros();
-  while (digitalRead(2) == 1) {
+  while (digitalRead(US_INT_PIN) == 1) {
     t2 = micros();
     pulse_width = t2 - t1;
     if (pulse_width > (_max_dist + 1000)) {
       if (DIAGNOSTICS){
-        Serial.println("HC-SR04: Out of range");
+        Serial.println("HC-SR04: Out of range - Waiting");
       }
       mapping_reading_ = -1.0;
       return -1.0;
     }
   }
-
+  
   pulse_width = t2 - t1;
 
   // Calculate distance in centimeters and inches. The constants
@@ -282,7 +283,7 @@ float Ultrasonic::readBlocking() {
   // Print out results
   if (DIAGNOSTICS){
     if (pulse_width > _max_dist) {
-      Serial.println("HC-SR04: Out of range");
+      Serial.println("HC-SR04: Out of range - Calced");
     }
   }
 

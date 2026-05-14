@@ -129,12 +129,12 @@ class Gyroscope: public Sensor{
       _prev_micros = micros();
       _serial_com->println("Enabling Gyroscope...");
 
-      //while (!_bno08x->begin_I2C() ||
-      //    !_bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED, 10000)) {
-      //      _serial_com->println("IMU failed");
-      //    }
+      while (!_bno08x->begin_I2C() ||
+          !_bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED, 10000)) {
+            _serial_com->println("IMU failed");
+          }
 
-      //_bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED,10000);
+      _bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED,10000);
       
     };
     float readSensor(bool apply_filter = false);

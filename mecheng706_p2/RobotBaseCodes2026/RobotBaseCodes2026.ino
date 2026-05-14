@@ -62,14 +62,13 @@ long lastSensPrint;
 
 void setup(void)
 {
-  // Configure INT4 (ultrasonic echo) for any-edge interrupts
+  // Configure INT4 (digital pin 2 ultrasonic echo) for any-edge interrupts
   EICRB |= (1 << ISC40);
   EICRB &= ~(1 << ISC41);
   // Enable INT4 after the Ultrasonic instance is created in FireFighter
   // (see below) to avoid the ISR firing before `ultrasonicISR` is set.
 
   Serial.begin(115200);
-  Serial.println("Turret serial ready. Send 0-180.");
   pinMode(LED_BUILTIN, OUTPUT);
 
   // The Trigger pin will tell the sensor to range find
@@ -82,16 +81,21 @@ void setup(void)
 
   firefighter = new FireFighter(&bno08x, &sensorValue, &Serial);
   firefighter->setBluetoothSerial(&BluetoothSerial); // Enable dual-printing to Bluetooth
+  firefighter->println("Serial");
 
   // Now that the FireFighter (and its Ultrasonic instance) exist, enable
   // the external interrupt which the Ultrasonic ISR expects.
   EIMSK |= (1 << INT4);
+  firefighter->println("Interupt");
 
   // Turret is independent of FireFighter — create and initialise here.
   turret = new Turret(turret_pin);
+
   turret->attach();
   turret->center();
   turret->writeAngle(140);
+  float targetBearing = 90;
+  firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
@@ -117,15 +121,14 @@ void setup(void)
 
 void loop(void) // main loop
 {
-  firefighter->pollState();
-  
-  float targetBearing = turretAngleToBearing(turret->angle_);
-  firefighter->setBearing(targetBearing);
-  Serial.print("Target bearing rad: ");
-  Serial.println(targetBearing, 4);
+  //firefighter->pollState();
+  //targetBearing = turretAngleToBearing(turret->angle_);
+  //firefighter->setBearing(targetBearing);
+  //Serial.print("Target bearing rad: ");
+  //Serial.println(targetBearing, 4);
   if (millis() - lastSensPrint > 1000)
   {
-    //firefighter->testSensors();
+    firefighter->testSensors();
     lastSensPrint = millis();
   }
   delay(1000);
