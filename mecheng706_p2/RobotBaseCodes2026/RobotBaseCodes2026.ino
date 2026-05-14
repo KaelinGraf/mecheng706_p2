@@ -33,6 +33,7 @@ Adafruit_BNO08x bno08x(-1);
 sh2_SensorValue_t sensorValue;
 
 float rad = 0.0;
+float targetBearing;
 
 // #define NO_READ_GYRO  //Uncomment if GYRO is not attached.
 
@@ -94,7 +95,6 @@ void setup(void)
   turret->attach();
   turret->center();
   turret->writeAngle(140);
-  float targetBearing = 90;
   firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
@@ -121,14 +121,14 @@ void setup(void)
 
 void loop(void) // main loop
 {
-  //firefighter->pollState();
-  //targetBearing = turretAngleToBearing(turret->angle_);
-  //firefighter->setBearing(targetBearing);
-  //Serial.print("Target bearing rad: ");
-  //Serial.println(targetBearing, 4);
+  firefighter->pollState();
+  targetBearing = turret->angle_;
+  firefighter->setBearing(targetBearing);
+  Serial.print("Target bearing degree: ");
+  Serial.println(targetBearing, 4);
   if (millis() - lastSensPrint > 1000)
   {
-    firefighter->testSensors();
+    //firefighter->testSensors();
     lastSensPrint = millis();
   }
   delay(1000);

@@ -267,5 +267,5 @@ void Tracking::poll() {
     }
     ff->print("[TRACK] FIND_FIRE vtheta=");
     ff->println(vtheta, 2);
-    //ff->_motors->writeAllMotors(SEARCH_FORWARD_SPEED, 0.0f, 0.0f);
+    ff->_motors->writeAllMotors(0.0f, 0.0f, vtheta);
 }
