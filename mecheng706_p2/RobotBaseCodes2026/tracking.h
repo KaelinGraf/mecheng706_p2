@@ -18,10 +18,6 @@ public:
     void poll();
 
 private:
-    void enterFindFire();
-    void enterAvoid(bool resume_to_move);
-    void enterMoveToFire(float bearing);
-
     FireFighter *firefighter_;
     BehaviorNS::SearchBehaviour active_behavior_;
 
