@@ -95,7 +95,7 @@ void setup(void)
 
   turret->attach();
   turret->center();
-  turret->writeAngle(140);
+  turret->writeAngle(110);
   firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
@@ -127,21 +127,12 @@ void loop(void) // main loop
   Serial.print("Target bearing degree: ");
   Serial.println(targetBearing, 4);
   firefighter->pollState();
+  //turret->pollState();
   if (millis() - lastSensPrint > 1000)
   {
-    //firefighter->testSensors();
+    firefighter->testSensors();
     lastSensPrint = millis();
-    count += 1;
-    if (count % 3 == 0) {
-      turret->angle_ -= 20;
-      if (turret->angle_ <= 30){
-        turret->angle_ = 150;
-      } 
-      turret->writeAngle(turret->angle_);
-    }
   }
-  
-  
 }
 
 void printBluetooth()

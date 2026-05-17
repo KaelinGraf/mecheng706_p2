@@ -33,6 +33,12 @@ void Turret::detach(){
   _is_attatched = false;
 }
 
+void Turret::pollState(){
+  if (!locked_on_) {
+    pan_scan(millis());
+  }
+}
+
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
   if (angle < 0) angle = 0;
@@ -51,6 +57,22 @@ void Turret::center(){
   writeAngle(90);
 }
 
+void Turret::pan_scan(unsigned long current_time_ms){
+  // Simple pan-scan behavior when not locked on
+  // Sweeps between 0 and 180 degrees at a fixed speed
+  const unsigned long scan_period_ms = 8000; // Time for a full sweep (back and forth)
+  const int scan_range_deg = 360; // Total range of motion
+  const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
+
+  // Calculate the angle based on the current time
+  float angle = (current_time_ms % scan_period_ms) / static_cast<float>(scan_period_ms) * scan_range_deg;
+  if ((current_time_ms / (scan_period_ms / 2)) % 2 == 1) {
+    angle = scan_range_deg - angle; // Reverse direction on the second half of the period
+  }
+  
+  writeAngle(static_cast<int>(angle));
+}
+
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){
   _left_front_motor.writeMotor(vx,vy,vtheta);
   _left_rear_motor.writeMotor(vx,vy,vtheta);
@@ -64,3 +86,4 @@ void driveMotors::attatchAll(){
   _right_front_motor.attachMotor();
   _right_rear_motor.attachMotor();
 }
+

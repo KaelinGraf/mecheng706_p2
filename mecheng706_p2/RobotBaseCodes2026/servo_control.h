@@ -5,6 +5,7 @@
 #include <Servo.h>
 #include "mappings.h"
 #include "utils.h"
+#include "Arduino.h"
 
 const int chassis_scale = (L_len+l_len);
 
@@ -75,13 +76,19 @@ class driveMotors{
 class Turret : public Motor {
   public:
     int angle_ = 90; // Current angle in degrees (0-180)
+    bool locked_on_ = true; // Whether the turret is facing fire
 
     Turret(uint8_t motor_pin = turret_pin) : Motor(motor_pin) {};
+    void pollState();
     void attach();
     void detach();
     void writeAngle(int angle); // degrees 0-180
     void writeUS(uint16_t microseconds); // write in microseconds (clipped to turret range)
     void center();
+    void lockOn(bool locked_on) {
+        locked_on_ = locked_on;
+    }
+    void pan_scan(unsigned long current_time_ms); // simple pan-scan behavior when not locked on
 };
 
 
