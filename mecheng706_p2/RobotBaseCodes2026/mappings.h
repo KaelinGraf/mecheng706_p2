@@ -112,7 +112,7 @@
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
 #define AVOID_ROTATE_SPEED      40.0f
-#define AVOID_URGENT            10.0f
+#define AVOID_URGENT            7.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the

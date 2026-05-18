@@ -95,7 +95,7 @@ void setup(void)
 
   turret->attach();
   turret->center();
-  turret->writeAngle(110);
+  turret->writeAngle(90);
   firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
