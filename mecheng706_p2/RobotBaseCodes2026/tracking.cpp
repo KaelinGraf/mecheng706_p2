@@ -13,7 +13,7 @@ static const unsigned long AVOID_TIMEOUT_MS = 3000;
 static const unsigned long NUDGE_PERIOD_MS = 4000;
 static const unsigned long NUDGE_LEN_MS = 350;
 static const float NUDGE_TURN = 60.0f;
-static const float BEARING_PIVOT_THRESH = 3.0f;
+static const float BEARING_PIVOT_THRESH = 5.0f;
 static const float RAD_PER_DEG = 0.017453292519943295f;
 }
 
@@ -72,9 +72,9 @@ void Tracking::poll() {
     float bearing_error = (90 - target_bearing) / 10;
 
     // Obstacle detection
-    bool obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM);
-    bool obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM) || blocked(lr_cm, OBSTACLE_TRIGGER_CM);
-    bool obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM) || blocked(rr_cm, OBSTACLE_TRIGGER_CM);
+    bool obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_F);
+    bool obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F); // || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
+    bool obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F); // || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = fabsf(bearing_error) < 1.0f;
@@ -92,6 +92,10 @@ void Tracking::poll() {
     ff->print(aimed);
     ff->print(" obs=");
     ff->print(obstacle_ahead);
+    ff->print(" L=");
+    ff->print(obstacle_left);
+    ff->print(" R=");
+    ff->print(obstacle_right);
     ff->print(" close=");
     ff->println(close_front);
 
@@ -101,7 +105,7 @@ void Tracking::poll() {
     float motor_vtheta = 0.0f;
 
     // PRIORITY 1: Obstacle ahead triggers AVOID
-    if (obstacle_ahead && !close_front) {
+    if ((obstacle_ahead && !close_front) || (obstacle_left || obstacle_right)) {
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             ff->println("[TRACK] obstacle ahead -> AVOID");
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
@@ -125,15 +129,19 @@ void Tracking::poll() {
                      ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM)) &&
                      ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM)) &&
                      ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM));
-
+        ff->println("[TRACK] obstacle cleared");
         if (clear && (elapsed > AVOID_STRAFE_MS)) {
-            ff->println("[TRACK] obstacle cleared");
+            ff->println("[TRACK] obstacle cleared and time");
             if (fire_detected) {
                 ff->println("[TRACK] resuming MOVE_TO_FIRE");
                 active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
+                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+                return;
             } else {
                 ff->println("[TRACK] returning to FIND_FIRE");
                 active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+                return;
             }
         } else if (elapsed > AVOID_TIMEOUT_MS) {
             // Timeout: rotate in place
@@ -141,13 +149,30 @@ void Tracking::poll() {
             ff->print("[TRACK] AVOID timeout");
         } else {
             if(obstacle_left) {
-                motor_vtheta = 40.0f;
+                ff->println("[TRACK] AVOID Left");
+                if ((lf_cm < AVOID_URGENT) || (lr_cm < AVOID_URGENT)) {
+                    // Reverse and turn
+                    motor_vtheta = AVOID_ROTATE_SPEED;
+                    motor_vx = -AVOID_SPEED;
+                } else {
+                    // Go forward and around
+                    motor_vtheta = AVOID_ROTATE_SPEED;
+                    motor_vx = AVOID_SPEED;
+                }
             } else if (obstacle_right){
-                motor_vtheta = -40.0f;
+                ff->println("[TRACK] AVOID Right");
+                if ((rf_cm < AVOID_URGENT) || (rr_cm < AVOID_URGENT)) {
+                    // Reverse and turn
+                    motor_vtheta = -AVOID_ROTATE_SPEED;
+                    motor_vx = -AVOID_SPEED;
+                } else {
+                    // Go forward and around
+                    motor_vtheta = -AVOID_ROTATE_SPEED;
+                    motor_vx = AVOID_SPEED;
+                }
+            } else {
+            ff->print("[TRACK] AVOID How did we get here");
             }
-            // Continue
-            motor_vy = 0.0f;
-            motor_vx = -AVOID_SPEED;
         }
     }
     
@@ -178,7 +203,7 @@ void Tracking::poll() {
 
             // If phototransistors read strong enough
             
-            //ff->switchState(State::EXTINGUISH);
+            ff->switchState(State::EXTINGUISH);
             return;
         }
 
@@ -192,9 +217,10 @@ void Tracking::poll() {
                        : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
         
                        vx = 100.0f;  // For testing
-
         motor_vtheta = vtheta;
-        motor_vx = vx;
+
+        // If close then slow down
+        motor_vx = obstacle_ahead ? (vx*0.6) : vx;
 
         ff->print("[TRACK] MOVE_TO_FIRE");
     }
