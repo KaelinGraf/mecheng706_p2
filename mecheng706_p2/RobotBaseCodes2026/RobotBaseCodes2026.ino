@@ -83,12 +83,11 @@ void setup(void)
 
   firefighter = new FireFighter(&bno08x, &sensorValue, &Serial);
   firefighter->setBluetoothSerial(&BluetoothSerial); // Enable dual-printing to Bluetooth
-  firefighter->println("Serial");
+  //firefighter->println("Serial");
 
   // Now that the FireFighter (and its Ultrasonic instance) exist, enable
   // the external interrupt which the Ultrasonic ISR expects.
   EIMSK |= (1 << INT4);
-  firefighter->println("Interupt");
 
   // Turret is independent of FireFighter — create and initialise here.
   turret = new Turret(turret_pin);
@@ -96,7 +95,7 @@ void setup(void)
   turret->attach();
   turret->center();
   turret->writeAngle(90);
-  firefighter->println("Turret middle");
+  //firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
@@ -133,6 +132,7 @@ void loop(void) // main loop
     firefighter->testSensors();
     lastSensPrint = millis();
   }
+  //delay(1000);
 }
 
 void printBluetooth()
