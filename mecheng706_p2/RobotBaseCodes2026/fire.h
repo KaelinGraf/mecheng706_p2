@@ -82,7 +82,7 @@ class FireBank {
     Phototransistor* _sr;
 
     FireBank(Phototransistor* sl, Phototransistor* l, Phototransistor* r, Phototransistor* sr)
-      : _sl(sl), _l(l), _r(r), _sr(sr) {}
+      : _sl(sl), _l(l), _r(r), _sr(sr), _angleValid(false) {}
 
     // Read all four cells. Call once per loop; getters below are non-blocking.
     void update();
