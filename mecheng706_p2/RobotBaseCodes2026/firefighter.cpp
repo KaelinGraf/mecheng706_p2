@@ -42,11 +42,11 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
 
   // Fire-detection bank: four cardinal phototransistors plus the
   // aggregator that produces "any detection" / "bearing to fire" answers.
-  _photo_front = new Phototransistor(photo_front_pin);
-  _photo_right = new Phototransistor(photo_right_pin);
-  _photo_rear  = new Phototransistor(photo_rear_pin);
-  _photo_left  = new Phototransistor(photo_left_pin);
-  _fire_bank   = new FireBank(_photo_front, _photo_right, _photo_rear, _photo_left);
+  _photo_sl = new Phototransistor(photo_sl_pin);
+  _photo_l = new Phototransistor(photo_l_pin);
+  _photo_r  = new Phototransistor(photo_r_pin);
+  _photo_sr  = new Phototransistor(photo_sr_pin);
+  _fire_bank   = new FireBank(_photo_sl, _photo_l, _photo_r, _photo_sr);
 
   // Fan / MOSFET driver. begin() forces the gate low before we start
   // running any state's poll(), so the fan can't be left on by a reset
@@ -100,7 +100,7 @@ void FireFighter::pollState() {
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
-  if (_fire_bank) _fire_bank->update();
+  _fire_bank->update();
   if (current_state_) {
     current_state_->poll();
   }

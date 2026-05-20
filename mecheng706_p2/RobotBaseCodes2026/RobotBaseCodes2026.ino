@@ -34,6 +34,7 @@ sh2_SensorValue_t sensorValue;
 
 float rad = 0.0;
 float targetBearing;
+float estimateAngle;
 int count;
 
 // #define NO_READ_GYRO  //Uncomment if GYRO is not attached.
@@ -121,18 +122,19 @@ void setup(void)
 
 void loop(void) // main loop
 {
+  firefighter->pollState();
+  estimateAngle = firefighter->_fire_bank->estimateBearing();
+  if (firefighter->_fire_bank->isValid()) turret->writeAngle(estimateAngle);
+
   targetBearing = turret->angle_;
   firefighter->setBearing(targetBearing);
   Serial.print("Target bearing degree: ");
   Serial.println(targetBearing, 4);
-  firefighter->pollState();
-  //turret->pollState();
   if (millis() - lastSensPrint > 1000)
   {
     firefighter->testSensors();
     lastSensPrint = millis();
   }
-  //delay(1000);
 }
 
 void printBluetooth()

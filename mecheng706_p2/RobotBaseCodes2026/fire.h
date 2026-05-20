@@ -73,14 +73,16 @@ class Phototransistor : public Sensor {
 //   bearing < 0      -> CW  (toward the body RIGHT)
 // ---------------------------------------------------------------------------
 class FireBank {
+  private: 
+    bool _angleValid;
   public:
-    Phototransistor* front;
-    Phototransistor* right;
-    Phototransistor* rear;
-    Phototransistor* left;
+    Phototransistor* _sl;
+    Phototransistor* _l;
+    Phototransistor* _r;
+    Phototransistor* _sr;
 
-    FireBank(Phototransistor* f, Phototransistor* r, Phototransistor* b, Phototransistor* l)
-      : front(f), right(r), rear(b), left(l) {}
+    FireBank(Phototransistor* sl, Phototransistor* l, Phototransistor* r, Phototransistor* sr)
+      : _sl(sl), _l(l), _r(r), _sr(sr) {}
 
     // Read all four cells. Call once per loop; getters below are non-blocking.
     void update();
@@ -99,10 +101,11 @@ class FireBank {
 
     // Bearing-to-fire estimate (radians, robot frame). Returns 0.0 and sets
     // *valid=false if no cell is above threshold.
-    float estimateBearing(bool* valid = nullptr, float threshold = FIRE_DETECT_V) const;
+    float estimateBearing(float threshold = FIRE_DETECT_V);
 
     // Reset the EWMA filter on each cell.
     void reset();
+    inline bool isValid() {return _angleValid;}
 };
 
 

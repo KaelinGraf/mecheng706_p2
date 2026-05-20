@@ -33,10 +33,10 @@ public:
 
     // Fire-detection bank + fan (added for Project 2). The four photocells are
     // owned by the FireFighter and aggregated through _fire_bank for the FSM.
-    Phototransistor *_photo_front;
-    Phototransistor *_photo_right;
-    Phototransistor *_photo_rear;
-    Phototransistor *_photo_left;
+    Phototransistor *_photo_sl;
+    Phototransistor *_photo_l;
+    Phototransistor *_photo_r;
+    Phototransistor *_photo_sr;
     FireBank        *_fire_bank;
     Fan             *_fan;
 

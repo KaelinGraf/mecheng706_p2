@@ -59,10 +59,10 @@
 // front-vs-rear and left-vs-right pairs gives a coarse bearing to the fire
 // in the robot frame.
 // ---------------------------------------------------------------------------
-#define photo_front_pin   A10
-#define photo_right_pin   A11
-#define photo_rear_pin    A12
-#define photo_left_pin    A13
+#define photo_sl_pin   A10
+#define photo_l_pin   A11
+#define photo_r_pin    A12
+#define photo_sr_pin    A13
 
 // ---------------------------------------------------------------------------
 // Fan (extinguisher) - drives the gate of the FQP30N06 (FDPF55N06-D shown in

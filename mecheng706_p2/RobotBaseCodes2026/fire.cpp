@@ -26,67 +26,80 @@ float Phototransistor::readSensor() {
 // Refresh all four cell readings. Cheap (4 ADC reads), so safe to call every
 // loop iteration; this keeps the EWMAs converging at the loop frequency.
 void FireBank::update() {
-    front->readSensor();
-    right->readSensor();
-    rear->readSensor();
-    left->readSensor();
+    _sl->readSensor();
+    _l->readSensor();
+    _r->readSensor();
+    _sr->readSensor();
 }
 
 float FireBank::maxV() const {
-    float v = front->getFilteredV();
-    if (right->getFilteredV() > v) v = right->getFilteredV();
-    if (rear ->getFilteredV() > v) v = rear ->getFilteredV();
-    if (left ->getFilteredV() > v) v = left ->getFilteredV();
+    float v = _sl->getFilteredV();
+    if (_l->getFilteredV() > v) v = _l->getFilteredV();
+    if (_r->getFilteredV() > v) v = _r ->getFilteredV();
+    if (_sr ->getFilteredV() > v) v = _sr ->getFilteredV();
     return v;
 }
 
 bool FireBank::allBelow(float threshold) const {
-    return front->getFilteredV() < threshold &&
-           right->getFilteredV() < threshold &&
-           rear ->getFilteredV() < threshold &&
-           left ->getFilteredV() < threshold;
+    return _sl->getFilteredV() < threshold &&
+           _l->getFilteredV() < threshold &&
+           _r->getFilteredV() < threshold &&
+           _sr ->getFilteredV() < threshold;
 }
 
 
 // ---------------------------------------------------------------------------
 // FireBank::estimateBearing
 // ---------------------------------------------------------------------------
-// Treat the four cells as unit vectors at 0 / +90 / 180 / -90 deg (front /
-// left / rear / right) weighted by their filtered voltage above an ambient
-// floor, then return the angle of their vector sum.
-//
-// Why this works (intuitively): a fire dead ahead lights up "front" the most,
-// "rear" the least, and the side cells roughly equally - so the resultant
-// vector lies along +Y. A fire to the front-left lights up "front" and "left"
-// strongly and "rear"/"right" weakly, so the resultant tilts toward
-// (forward, left). The estimator is coarse (quantisation ~ +/-30 deg in
-// practice) but it's a behaviour-control bearing, not a metrology bearing.
-//
-// We subtract the minimum cell value as an ambient offset so a uniformly
-// lit room doesn't bias the result toward zero.
-float FireBank::estimateBearing(bool* valid, float threshold) const {
-    float vf = front->getFilteredV();
-    float vl = left ->getFilteredV();
-    float vb = rear ->getFilteredV();
-    float vr = right->getFilteredV();
+// Treat the four forward-facing cells as unit vectors.
+// Left/Right inner are angled at 10 degrees, outer are angled at 20 degrees.
+// Vectors are weighted by their filtered voltage above an ambient floor, 
+// returning the angle of their vector sum.
+float FireBank::estimateBearing(float threshold) {
+    float sl = _sl->getFilteredV();
+    float l  = _l->getFilteredV();
+    float r  = _r->getFilteredV();
+    float sr = _sr->getFilteredV();
 
-    float ambient = vf;
-    if (vl < ambient) ambient = vl;
-    if (vb < ambient) ambient = vb;
-    if (vr < ambient) ambient = vr;
+    // Early exit if we don't meet the confidence threshold across any sensor
+    if (maxV() < threshold) {
+        _angleValid = false;
+        return 0.0f;
+    }
 
-    float wf = vf - ambient;
-    float wl = vl - ambient;
-    float wb = vb - ambient;
-    float wr = vr - ambient;
+    // Find the ambient floor (minimum reading)
+    float ambient = sl;
+    if (l < ambient) ambient = l;
+    if (r < ambient) ambient = r;
+    if (sr < ambient) ambient = sr;
 
-    // Vector sum in robot frame: x = right - left, y = front - rear.
-    // (Bearing convention uses CCW positive: +ve angle <=> +Y x,+X y vector.)
-    float x = wr - wl;
-    float y = wf - wb;
+    // Calculate weights (voltage above ambient)
+    float w_sl = sl - ambient;
+    float w_l  = l - ambient;
+    float w_r  = r - ambient;
+    float w_sr = sr - ambient;
 
-    if (valid) *valid = (maxV() >= threshold) && (fabs(x) + fabs(y) > 1e-3f);
-    if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) return 0.0f;
+    // Define vector components based on physical angles
+    // 20 degrees: sin(20) = 0.342, cos(20) = 0.940
+    // 10 degrees: sin(10) = 0.174, cos(10) = 0.985
+    const float sin20 = 0.34202f;
+    const float cos20 = 0.93969f;
+    const float sin10 = 0.17365f;
+    const float cos10 = 0.98481f;
+
+    // Vector sum in robot frame: 
+    // X is positive to the right, negative to the left.
+    // Y is positive forward.
+    float x = -sin20 * w_sl - sin10 * w_l + sin10 * w_r + sin20 * w_sr;
+    float y =  cos20 * w_sl + cos10 * w_l + cos10 * w_r + cos20 * w_sr;
+
+    // Check if vectors cancelled out entirely to avoid an unstable atan2(0,0)
+    if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) {
+        _angleValid = false;
+        return 0.0f;
+    }
+
+    _angleValid = true;
 
     // atan2(y, x) gives angle from +X axis. We want angle from +Y (forward),
     // measured CCW positive (toward body left), which is atan2(-x, y).
@@ -94,12 +107,11 @@ float FireBank::estimateBearing(bool* valid, float threshold) const {
 }
 
 void FireBank::reset() {
-    front->reset();
-    right->reset();
-    rear ->reset();
-    left ->reset();
+    _sl->reset();
+    _l->reset();
+    _r ->reset();
+    _sr ->reset();
 }
-
 
 // ---------------------------------------------------------------------------
 // Fan
