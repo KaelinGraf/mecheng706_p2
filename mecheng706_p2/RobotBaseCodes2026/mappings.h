@@ -124,7 +124,7 @@
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.
 // Tune on the bench: cover all 4, read the noise floor, then add ~3 sigma.
-#define FIRE_DETECT_V           1.6f
+#define FIRE_DETECT_V           0.1f
 
 // Phototransistor threshold for declaring a fire is OUT (LED has gone dark).
 // Lower than detect threshold by a margin to provide hysteresis against

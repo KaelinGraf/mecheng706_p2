@@ -40,6 +40,7 @@ class ShortRangeIR: public Sensor{
 
   public:
     ShortRangeIR(uint8_t read_pin) : Sensor(read_pin){
+      pinMode(read_pin, INPUT);
       _last_millis = millis();
       _prev_measurements = new RingBuffer<float, 3>();
     }
@@ -65,6 +66,7 @@ class LongRangeIR: public Sensor{
 
   public:
     LongRangeIR(uint8_t read_pin) : Sensor(read_pin){
+      pinMode(read_pin, INPUT);
       _last_millis = millis();
       _prev_reading = -1.0;
       _kalman_estimate = -1.0;

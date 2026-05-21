@@ -183,6 +183,7 @@ void Ultrasonic::runUltrasonic(){
 Ultrasonic::Ultrasonic(uint8_t echo_pin, uint8_t trigger_pin, int max_dist)
 : Sensor(uint8_t(255)),  _echo_pin(echo_pin), _trigger_pin(trigger_pin), _max_dist(max_dist){
   initUltrasonic();
+  pinMode(echo_pin, INPUT);
   _prev_measurements = new RingBuffer<float, 3>();
 };
 float Ultrasonic::readSensor() {

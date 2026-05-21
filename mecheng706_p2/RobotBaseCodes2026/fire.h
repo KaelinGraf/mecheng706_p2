@@ -30,7 +30,9 @@ class Phototransistor : public Sensor {
     bool  _initialised = false;
 
   public:
-    Phototransistor(uint8_t read_pin) : Sensor(read_pin) {}
+    Phototransistor(uint8_t read_pin) : Sensor(read_pin) {
+      pinMode(read_pin, INPUT);
+    }
 
     // Reads the ADC, updates the filter, and stores the smoothed value in
     // mapping_reading_ for the data-logger.

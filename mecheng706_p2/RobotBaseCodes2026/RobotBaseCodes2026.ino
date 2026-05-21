@@ -26,6 +26,7 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
+#define TEST_FIRE_BANK false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -36,11 +37,6 @@ float rad = 0.0;
 float targetBearing;
 float estimateAngle;
 int count;
-
-// #define NO_READ_GYRO  //Uncomment if GYRO is not attached.
-
-#define NO_HC \
-  -SR04 // Uncomment if HC-SR04 ultrasonic ranging sensor is not attached.
 
 // #define NO_BATTERY_V_OK //Uncomment if BATTERY_V_OK if you do not care about battery damage.
 
@@ -122,9 +118,15 @@ void setup(void)
 
 void loop(void) // main loop
 {
+#ifdef TEST_FIRE_BANK
+  testTurret();
+  if (millis() - lastSensPrint > 400) {
+    printFireBank();
+    lastSensPrint = millis();
+  }
+#else
   firefighter->pollState();
   estimateAngle = firefighter->_fire_bank->estimateBearing();
-  if (firefighter->_fire_bank->isValid()) turret->writeAngle(estimateAngle);
 
   targetBearing = turret->angle_;
   firefighter->setBearing(targetBearing);
@@ -135,6 +137,34 @@ void loop(void) // main loop
     firefighter->testSensors();
     lastSensPrint = millis();
   }
+#endif
+}
+
+void printFireBank() {
+    FireBank *fb = firefighter->_fire_bank;
+    firefighter->print("Angle: ");
+
+    firefighter->print(fb->isValid() ? estimateAngle : -1.0);
+
+    firefighter->print("\t| SL: ");
+    firefighter->print(fb->_sl->getFilteredV());
+    
+    firefighter->print("\t| L: ");
+    firefighter->print(fb->_l->getFilteredV());
+    
+    firefighter->print("\t| R: ");
+    firefighter->print(fb->_r->getFilteredV());
+    
+    firefighter->print("\t| SR: ");
+    firefighter->println(fb->_sr->getFilteredV());
+}
+
+void testTurret() {
+  firefighter->_gyro->readSensor();
+
+  firefighter->_fire_bank->update();
+  estimateAngle = firefighter->_fire_bank->estimateBearing();
+  // if(firefighter->_fire_bank->isValid()) turret->writeAngle(estimateAngle);
 }
 
 void printBluetooth()
@@ -246,71 +276,6 @@ void readTurretSerial()
 
 #ifndef NO_BATTERY_V_OK
 
-#endif
-
-#ifndef NO_HC - SR04
-void HC_SR04_range()
-{
-  unsigned long t1;
-  unsigned long t2;
-  unsigned long pulse_width;
-  float cm;
-  float inches;
-
-  // Hold the trigger pin high for at least 10 us
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-
-  // Wait for pulse on echo pin
-  t1 = micros();
-  while (digitalRead(ECHO_PIN) == 0)
-  {
-    t2 = micros();
-    pulse_width = t2 - t1;
-    if (pulse_width > (MAX_DIST + 1000))
-    {
-      firefighter->println("HC-SR04: NOT found");
-      return;
-    }
-  }
-
-  // Measure how long the echo pin was held high (pulse width)
-  // Note: the micros() counter will overflow after ~70 min
-
-  t1 = micros();
-  while (digitalRead(ECHO_PIN) == 1)
-  {
-    t2 = micros();
-    pulse_width = t2 - t1;
-    if (pulse_width > (MAX_DIST + 1000))
-    {
-      firefighter->println("HC-SR04: Out of range");
-      return;
-    }
-  }
-
-  t2 = micros();
-  pulse_width = t2 - t1;
-
-  // Calculate distance in centimeters and inches. The constants
-  // are found in the datasheet, and calculated from the assumed speed
-  // of sound in air at sea level (~340 m/s).
-  cm = pulse_width / 58.0;
-  inches = pulse_width / 148.0;
-
-  // Print out results
-  if (pulse_width > MAX_DIST)
-  {
-    firefighter->println("HC-SR04: Out of range");
-  }
-  else
-  {
-    firefighter->print("HC-SR04:");
-    firefighter->print(cm);
-    firefighter->println("cm");
-  }
-}
 #endif
 
 void Analog_Range_A4()
