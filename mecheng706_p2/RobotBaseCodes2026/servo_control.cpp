@@ -39,6 +39,11 @@ void Turret::pollState(){
   }
 }
 
+bool Turret::atFire(){
+  //return (middle_left > 3) && (middle_right > 3)
+  return false;
+}
+
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
   if (angle < 0) angle = 0;

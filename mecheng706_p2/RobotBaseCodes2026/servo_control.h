@@ -88,6 +88,7 @@ class Turret : public Motor {
     void lockOn(bool locked_on) {
         locked_on_ = locked_on;
     }
+    bool atFire();
     void pan_scan(unsigned long current_time_ms); // simple pan-scan behavior when not locked on
 };
 
