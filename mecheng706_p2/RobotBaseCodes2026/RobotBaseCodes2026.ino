@@ -26,7 +26,7 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
-#define TEST_FIRE_BANK false
+#define TEST_FIRE_BANK true
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -35,7 +35,8 @@ sh2_SensorValue_t sensorValue;
 
 float rad = 0.0;
 float targetBearing;
-float estimateAngle;
+float angleError;
+float angleControl;
 int count;
 
 // #define NO_BATTERY_V_OK //Uncomment if BATTERY_V_OK if you do not care about battery damage.
@@ -91,7 +92,7 @@ void setup(void)
 
   turret->attach();
   turret->center();
-  turret->writeAngle(90);
+  turret->writeAngle(45);
   //firefighter->println("Turret middle");
 
   delay(100); // settling time but not really needed
@@ -120,8 +121,9 @@ void loop(void) // main loop
 {
 #ifdef TEST_FIRE_BANK
   testTurret();
-  if (millis() - lastSensPrint > 400) {
-    printFireBank();
+  if (millis() - lastSensPrint > 100) {
+    testTurret();
+    //printFireBank();
     lastSensPrint = millis();
   }
 #else
@@ -142,9 +144,15 @@ void loop(void) // main loop
 
 void printFireBank() {
     FireBank *fb = firefighter->_fire_bank;
-    firefighter->print("Angle: ");
+    firefighter->print("est: ");
+    firefighter->print(fb->isValid() ? angleError : -1.0);
 
-    firefighter->print(fb->isValid() ? estimateAngle : -1.0);
+    firefighter->print("\t| turret: ");
+    firefighter->print(turret->angle_);
+
+    firefighter->print("\t| Commanded:");
+    firefighter->print(angleControl);
+
 
     firefighter->print("\t| SL: ");
     firefighter->print(fb->_sl->getFilteredV());
@@ -160,11 +168,21 @@ void printFireBank() {
 }
 
 void testTurret() {
-  firefighter->_gyro->readSensor();
+  // firefighter->_gyro->readSensor();
 
   firefighter->_fire_bank->update();
-  estimateAngle = firefighter->_fire_bank->estimateBearing();
-  // if(firefighter->_fire_bank->isValid()) turret->writeAngle(estimateAngle);
+  angleError = firefighter->_fire_bank->estimateBearing();
+  float old_angle = turret->angle_;
+  if (fabs(angleError)<3.0){
+    return;
+  }
+  angleControl = turret->angle_ + 0.1 * angleError;
+  firefighter->print("Commanded control: ");
+  firefighter->println(angleControl);
+  if(fabs(angleControl - old_angle)<0.02){
+    return;
+  }
+  if(firefighter->_fire_bank->isValid()) turret->writeAngle(angleControl);
 }
 
 void printBluetooth()

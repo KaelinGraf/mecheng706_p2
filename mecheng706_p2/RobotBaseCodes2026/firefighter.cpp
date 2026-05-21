@@ -30,7 +30,7 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   serialCom_ = SerialCom;
 
   // Initialise hardware first, so states can safely access sensors/motors
-  _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
+  // _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
   _motors = new driveMotors();
   _front_left_ir = new LongRangeIR(front_left_ir_pin);
   _front_right_ir = new LongRangeIR(front_right_ir_pin);

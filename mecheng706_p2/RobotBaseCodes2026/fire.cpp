@@ -90,8 +90,8 @@ float FireBank::estimateBearing(float threshold) {
     // Vector sum in robot frame: 
     // X is positive to the right, negative to the left.
     // Y is positive forward.
-    float x = -sin20 * w_sl - sin10 * w_l + sin10 * w_r + sin20 * w_sr;
-    float y =  cos20 * w_sl + cos10 * w_l + cos10 * w_r + cos20 * w_sr;
+    float x = sin20*(w_sr - w_sl) + sin10*(w_r - w_l);
+    float y = cos20*(w_sl + w_sr) + cos10*(w_l + w_r);
 
     // Check if vectors cancelled out entirely to avoid an unstable atan2(0,0)
     if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) {
@@ -103,7 +103,7 @@ float FireBank::estimateBearing(float threshold) {
 
     // atan2(y, x) gives angle from +X axis. We want angle from +Y (forward),
     // measured CCW positive (toward body left), which is atan2(-x, y).
-    return atan2f(-x, y);
+    return atan2f(-x, y) * 57.2958;
 }
 
 void FireBank::reset() {

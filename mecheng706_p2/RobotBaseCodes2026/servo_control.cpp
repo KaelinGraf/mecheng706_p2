@@ -46,8 +46,8 @@ bool Turret::atFire(){
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-  if (angle < 0) angle = 0;
-  if (angle > 180) angle = 180;
+  if (angle < 10) angle = 10;
+  if (angle > 170) angle = 170;
   this->angle_ = angle;
   _motor.write(angle);
 }
