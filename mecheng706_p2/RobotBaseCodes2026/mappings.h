@@ -93,12 +93,13 @@
 // Distance below which an object on the front arc is treated as an obstacle
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
-#define OBSTACLE_TRIGGER_CM_F     30.0f
-#define OBSTACLE_TRIGGER_CM_R     10.0f
+#define OBSTACLE_TRIGGER_CM_F     20.0f
+#define OBSTACLE_TRIGGER_CM_R     9.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
-#define OBSTACLE_CLEAR_CM       20.0f
+#define OBSTACLE_CLEAR_CM_F      20.0f
+#define OBSTACLE_CLEAR_CM_R      10.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM          15.0f

@@ -123,17 +123,17 @@ void Tracking::poll() {
         behavior_start_ms_ = now;
     }
 
-    
-
     // Handle AVOID behavior
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
         unsigned long elapsed = now - behavior_start_ms_;
 
         // Check if obstacle is now clear
         bool clear = !obstacle_ahead &&
-                     ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM)) &&
-                     ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM)) &&
-                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM));
+                     ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F)) &&
+                     ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM_F)) &&
+                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)) &&
+                     ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) &&
+                     ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
         if (clear && (elapsed > AVOID_STRAFE_MS)) {
             if (fire_detected) {
                 ff->println("[TRACK] resuming MOVE_TO_FIRE");

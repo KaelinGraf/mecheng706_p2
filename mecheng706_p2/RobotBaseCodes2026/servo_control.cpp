@@ -74,7 +74,7 @@ void Turret::pan_scan(unsigned long current_time_ms){
     angle = scan_range_deg - angle; // Reverse direction on the second half of the period
   }
   
-  writeAngle(static_cast<int>(angle));
+  writeAngle(static_cast<int>(angle + 45));
 }
 
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){
