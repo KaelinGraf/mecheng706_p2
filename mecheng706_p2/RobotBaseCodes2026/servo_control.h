@@ -6,6 +6,7 @@
 #include "mappings.h"
 #include "utils.h"
 #include "Arduino.h"
+#include "fire.h"
 
 const int chassis_scale = (L_len+l_len);
 
@@ -74,11 +75,13 @@ class driveMotors{
 
 // Turret (SG90) wrapper class providing a simple, safe API.
 class Turret : public Motor {
+  private:
+    FireBank *_fb;
   public:
     int angle_ = 90; // Current angle in degrees (0-180)
     bool locked_on_ = true; // Whether the turret is facing fire
 
-    Turret(uint8_t motor_pin = turret_pin) : Motor(motor_pin) {};
+    Turret(FireBank *fb, uint8_t motor_pin = turret_pin) : Motor(motor_pin), _fb(fb) {};
     void pollState();
     void attach();
     void detach();

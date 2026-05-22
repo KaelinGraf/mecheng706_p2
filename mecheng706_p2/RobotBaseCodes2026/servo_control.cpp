@@ -40,8 +40,7 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  //return (middle_left > 3) && (middle_right > 3)
-  return false;
+  return (_fb->_l > 2) || (_fb->_r > 2);
 }
 
 void Turret::writeAngle(int angle){
@@ -66,7 +65,7 @@ void Turret::pan_scan(unsigned long current_time_ms){
   // Simple pan-scan behavior when not locked on
   // Sweeps between 0 and 180 degrees at a fixed speed
   const unsigned long scan_period_ms = 8000; // Time for a full sweep (back and forth)
-  const int scan_range_deg = 360; // Total range of motion
+  const int scan_range_deg = 180; // Total range of motion
   const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
 
   // Calculate the angle based on the current time

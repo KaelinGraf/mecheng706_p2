@@ -26,7 +26,7 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
-#define TEST_FIRE_BANK true
+//#define TEST_FIRE_BANK false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -58,6 +58,7 @@ float turretAngleToBearing(int angle);
 int pos = 0;
 FireFighter *firefighter = nullptr;
 Turret *turret = nullptr;
+int noFireDetectCount = 0;
 long lastSensPrint;
 
 void setup(void)
@@ -78,24 +79,28 @@ void setup(void)
   // Setup the Serial port and pointer, the pointer allows switching the debug
   // info through the USB port(Serial) or Bluetooth port(Serial1) with ease.
   BluetoothSerial.begin(115200);
+  Serial.println("0");
 
   firefighter = new FireFighter(&bno08x, &sensorValue, &Serial);
+  Serial.println("1");
   firefighter->setBluetoothSerial(&BluetoothSerial); // Enable dual-printing to Bluetooth
+  Serial.println("2");
   //firefighter->println("Serial");
 
   // Now that the FireFighter (and its Ultrasonic instance) exist, enable
   // the external interrupt which the Ultrasonic ISR expects.
   EIMSK |= (1 << INT4);
+  Serial.println("3");
 
   // Turret is independent of FireFighter — create and initialise here.
-  turret = new Turret(turret_pin);
+  turret = new Turret(firefighter->_fire_bank, turret_pin);
 
   turret->attach();
   turret->center();
-  turret->writeAngle(45);
   //firefighter->println("Turret middle");
+  Serial.println("4");
 
-  delay(100); // settling time but not really needed
+  delay(1000); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
@@ -119,27 +124,23 @@ void setup(void)
 
 void loop(void) // main loop
 {
-#ifdef TEST_FIRE_BANK
-  testTurret();
-  if (millis() - lastSensPrint > 100) {
-    testTurret();
-    //printFireBank();
-    lastSensPrint = millis();
-  }
-#else
+// #ifdef TEST_FIRE_BANK
+//   updateTurret();
+//   if (millis() - lastSensPrint > 100) {
+//     updateTurret();
+//     //printFireBank();
+//     lastSensPrint = millis();
+//   }
+// #else
   firefighter->pollState();
-  estimateAngle = firefighter->_fire_bank->estimateBearing();
+  firefighter->setBearing(turret->angle_);
+  if (millis() - lastSensPrint > 100) {
+    firefighter->println("poll");
 
-  targetBearing = turret->angle_;
-  firefighter->setBearing(targetBearing);
-  Serial.print("Target bearing degree: ");
-  Serial.println(targetBearing, 4);
-  if (millis() - lastSensPrint > 1000)
-  {
-    firefighter->testSensors();
+    updateTurret();
     lastSensPrint = millis();
   }
-#endif
+// #endif
 }
 
 void printFireBank() {
@@ -167,21 +168,30 @@ void printFireBank() {
     firefighter->println(fb->_sr->getFilteredV());
 }
 
-void testTurret() {
-  // firefighter->_gyro->readSensor();
-
+void updateTurret() {
   firefighter->_fire_bank->update();
   angleError = firefighter->_fire_bank->estimateBearing();
+
+  if (!firefighter->_fire_bank->isValid()) {
+    noFireDetectCount++;
+    if (noFireDetectCount > 5) {
+      turret->lockOn(false);
+    }
+  } else {
+    noFireDetectCount = 0;
+    turret->lockOn(true);
+  }
+
+  if (!turret->locked_on_) {
+    turret->pan_scan(millis());
+    return;
+  }
+
   float old_angle = turret->angle_;
   if (fabs(angleError)<3.0){
     return;
   }
   angleControl = turret->angle_ + 0.1 * angleError;
-  firefighter->print("Commanded control: ");
-  firefighter->println(angleControl);
-  if(fabs(angleControl - old_angle)<0.02){
-    return;
-  }
   if(firefighter->_fire_bank->isValid()) turret->writeAngle(angleControl);
 }
 

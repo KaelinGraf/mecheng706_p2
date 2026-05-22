@@ -30,7 +30,8 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   serialCom_ = SerialCom;
 
   // Initialise hardware first, so states can safely access sensors/motors
-  // _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
+  _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
+  serialCom_->print("Gyro exit");
   _motors = new driveMotors();
   _front_left_ir = new LongRangeIR(front_left_ir_pin);
   _front_right_ir = new LongRangeIR(front_right_ir_pin);
@@ -100,7 +101,6 @@ void FireFighter::pollState() {
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
-  _fire_bank->update();
   if (current_state_) {
     current_state_->poll();
   }
