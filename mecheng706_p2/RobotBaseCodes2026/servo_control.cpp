@@ -65,7 +65,7 @@ void Turret::pan_scan(unsigned long current_time_ms){
   // Simple pan-scan behavior when not locked on
   // Sweeps between 0 and 180 degrees at a fixed speed
   const unsigned long scan_period_ms = 8000; // Time for a full sweep (back and forth)
-  const int scan_range_deg = 180; // Total range of motion
+  const int scan_range_deg = 300; // Total range of motion
   const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
 
   // Calculate the angle based on the current time
@@ -74,7 +74,7 @@ void Turret::pan_scan(unsigned long current_time_ms){
     angle = scan_range_deg - angle; // Reverse direction on the second half of the period
   }
   
-  writeAngle(static_cast<int>(angle + 45));
+  writeAngle(static_cast<int>(angle + 15));
 }
 
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){

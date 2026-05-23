@@ -60,6 +60,7 @@ FireFighter *firefighter = nullptr;
 Turret *turret = nullptr;
 int noFireDetectCount = 0;
 long lastSensPrint;
+long lastSensTurret;
 
 void setup(void)
 {
@@ -134,10 +135,14 @@ void loop(void) // main loop
 // #else
   firefighter->pollState();
   firefighter->setBearing(turret->angle_);
-  if (millis() - lastSensPrint > 100) {
-    firefighter->println("poll");
+  if (millis() - lastSensTurret > 125) {
 
     updateTurret();
+    lastSensTurret = millis();
+  }
+  if (millis() - lastSensPrint > 1000) {
+
+    firefighter->testSensors();
     lastSensPrint = millis();
   }
 // #endif
@@ -170,7 +175,15 @@ void printFireBank() {
 
 void updateTurret() {
   firefighter->_fire_bank->update();
-  angleError = firefighter->_fire_bank->estimateBearing();
+  angleError = firefighter->_fire_bank->estimateBearing(); // radians?
+  Serial.print("Error ");  
+  Serial.println(angleError);
+  Serial.print("Locked ");  
+  Serial.println(turret->locked_on_);
+  Serial.print("angle ");  
+  Serial.println(turret->angle_);
+  Serial.print("Readings ");  
+  firefighter->_fire_bank->printFireSensors();  
 
   if (!firefighter->_fire_bank->isValid()) {
     noFireDetectCount++;
@@ -183,15 +196,20 @@ void updateTurret() {
   }
 
   if (!turret->locked_on_) {
+    Serial.println("Scan");
     turret->pan_scan(millis());
     return;
   }
 
   float old_angle = turret->angle_;
-  if (fabs(angleError)<3.0){
+  if (fabs(angleError)<10.0){
+    Serial.println("Aimed");  
     return;
   }
   angleControl = turret->angle_ + 0.1 * angleError;
+  Serial.print("Control ");  
+  Serial.println(angleControl);
+
   if(firefighter->_fire_bank->isValid()) turret->writeAngle(angleControl);
 }
 

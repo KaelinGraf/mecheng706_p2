@@ -47,6 +47,17 @@ bool FireBank::allBelow(float threshold) const {
            _sr ->getFilteredV() < threshold;
 }
 
+void FireBank::printFireSensors() {
+    Serial.print(_sl->getFilteredV());
+    Serial.print(" ");
+    Serial.print(_l->getFilteredV());
+    Serial.print(" ");
+    Serial.print(_r->getFilteredV());
+    Serial.print(" ");
+    Serial.print(_sr->getFilteredV());
+    Serial.println(" ");
+}
+
 
 // ---------------------------------------------------------------------------
 // FireBank::estimateBearing

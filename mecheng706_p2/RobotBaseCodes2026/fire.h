@@ -108,6 +108,7 @@ class FireBank {
     // Reset the EWMA filter on each cell.
     void reset();
     inline bool isValid() {return _angleValid;}
+    void printFireSensors();
 };
 
 

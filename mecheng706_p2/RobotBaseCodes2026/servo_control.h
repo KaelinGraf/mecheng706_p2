@@ -79,7 +79,7 @@ class Turret : public Motor {
     FireBank *_fb;
   public:
     int angle_ = 90; // Current angle in degrees (0-180)
-    bool locked_on_ = true; // Whether the turret is facing fire
+    bool locked_on_ = false; // Whether the turret is facing fire
 
     Turret(FireBank *fb, uint8_t motor_pin = turret_pin) : Motor(motor_pin), _fb(fb) {};
     void pollState();

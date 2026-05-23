@@ -69,8 +69,9 @@ void Tracking::poll() {
     // Convert turret angle to robot-frame bearing
     float target_bearing = ff->bearing_;
 
-    float bearing_error = (90 - target_bearing) / 10;
-    
+    //float bearing_error = (90 - target_bearing) / 10; // Ideal
+    float bearing_error = (70 - target_bearing) / 10; // Realsisitc
+
     bool obstacle_ahead = 0;
     bool obstacle_right = 0;
     bool obstacle_left = 0;
@@ -131,9 +132,8 @@ void Tracking::poll() {
         bool clear = !obstacle_ahead &&
                      ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F)) &&
                      ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM_F)) &&
-                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)) &&
-                     ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) &&
-                     ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
+                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)); 
+                     //&& ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
         if (clear && (elapsed > AVOID_STRAFE_MS)) {
             if (fire_detected) {
                 ff->println("[TRACK] resuming MOVE_TO_FIRE");
@@ -152,6 +152,10 @@ void Tracking::poll() {
             ff->print("[TRACK] AVOID timeout");
         } else {
             if(obstacle_left) {
+                ff->print("f: ");
+                ff->print(lf_cm);
+                ff->print(" r: ");
+                ff->println(lr_cm);
                 ff->println("[TRACK] AVOID Left");
                 if (lf_cm <= AVOID_URGENT) {
                     // Reverse and turn
@@ -163,6 +167,10 @@ void Tracking::poll() {
                     motor_vx = AVOID_SPEED;
                 }
             } else if (obstacle_right){
+                ff->print("f: ");
+                ff->print(rf_cm);
+                ff->print(" r: ");
+                ff->println(rr_cm);
                 ff->println("[TRACK] AVOID Right");
                 if (rf_cm <= AVOID_URGENT) {
                     // Reverse and turn
@@ -243,7 +251,7 @@ void Tracking::poll() {
         // If close then slow down
         motor_vx = obstacle_ahead ? (vx*0.6) : vx;
 
-        ff->print("[TRACK] MOVE_TO_FIRE");
+        //ff->println("[TRACK] MTF");
     }
     // PRIORITY 3: Search (FIND_FIRE)
     else if (active_behavior_ == BehaviorNS::SearchBehaviour::FIND_FIRE) {
@@ -262,7 +270,7 @@ void Tracking::poll() {
 
         motor_vtheta = motor_vtheta;
         */
-        ff->print("[TRACK] FIND_FIRE");
+        //ff->println("[TRACK] FF");
     }
 
     // Write motors once at the end
