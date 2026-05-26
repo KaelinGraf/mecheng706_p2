@@ -70,7 +70,7 @@
 // is PWM-capable if we want to soft-start the fan (current limit on the 5V
 // regulator while the fan spins up). HIGH = fan ON.
 // ---------------------------------------------------------------------------
-#define fan_pin  8
+#define fan_pin  A8
 
 // ---------------------------------------------------------------------------
 // Mecanum geometry (cm) - half-length and half-width of wheel base
@@ -86,14 +86,14 @@
 // ---------------------------------------------------------------------------
 
 // SEARCH: forward cruise speed and turn speeds while wandering / wall-following.
-#define SEARCH_FORWARD_SPEED   110.0f
+#define SEARCH_FORWARD_SPEED   60.0f
 #define SEARCH_TURN_SPEED       70.0f
 #define REVERSE_SPEED           50.0f
 
 // Distance below which an object on the front arc is treated as an obstacle
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
-#define OBSTACLE_TRIGGER_CM_F     20.0f
+#define OBSTACLE_TRIGGER_CM_F     15.0f
 #define OBSTACLE_TRIGGER_CM_R     9.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
@@ -103,24 +103,24 @@
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM          15.0f
-#define SEARCH_SPEED             40.0f
+#define SEARCH_SPEED             55.0f
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
-#define APPROACH_FORWARD_SPEED  90.0f
-#define APPROACH_TURN_GAIN      30.0f
+#define APPROACH_FORWARD_SPEED  10.0f
+#define APPROACH_TURN_GAIN      20.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
-#define AVOID_ROTATE_SPEED      40.0f
-#define AVOID_URGENT            10.0f
+#define AVOID_ROTATE_SPEED      30.0f
+#define AVOID_URGENT            8.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more
 // forgiving value is used to allow for sensor noise / cylinder curvature.
-#define EXTINGUISH_RANGE_CM     8.0f
+#define EXTINGUISH_RANGE_CM     12.0f
 
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.

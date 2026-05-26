@@ -140,10 +140,6 @@ void Fan::begin() {
 // the timer running.
 void Fan::on() {
     if (_on) return;
-    for (int duty = 0; duty <= 255; duty += 32) {
-        analogWrite(_pin, duty);
-        delay(30);                              // ~240 ms total ramp
-    }
     digitalWrite(_pin, HIGH);
     _on = true;
     _on_started_ms = millis();

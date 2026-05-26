@@ -135,7 +135,7 @@ void loop(void) // main loop
 // #else
   firefighter->pollState();
   firefighter->setBearing(turret->angle_);
-  if (millis() - lastSensTurret > 125) {
+  if (millis() - lastSensTurret > 100) {
 
     updateTurret();
     lastSensTurret = millis();
@@ -176,6 +176,7 @@ void printFireBank() {
 void updateTurret() {
   firefighter->_fire_bank->update();
   angleError = firefighter->_fire_bank->estimateBearing(); // radians?
+  /*
   Serial.print("Error ");  
   Serial.println(angleError);
   Serial.print("Locked ");  
@@ -184,6 +185,7 @@ void updateTurret() {
   Serial.println(turret->angle_);
   Serial.print("Readings ");  
   firefighter->_fire_bank->printFireSensors();  
+  */
 
   if (!firefighter->_fire_bank->isValid()) {
     noFireDetectCount++;
@@ -206,7 +208,7 @@ void updateTurret() {
     Serial.println("Aimed");  
     return;
   }
-  angleControl = turret->angle_ + 0.1 * angleError;
+  angleControl = turret->angle_ + 0.6 * angleError;
   Serial.print("Control ");  
   Serial.println(angleControl);
 

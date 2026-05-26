@@ -78,8 +78,8 @@ void Tracking::poll() {
 
     // Obstacle detection
     obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_F);
-    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F); // || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
-    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F); // || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
+    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F);// || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
+    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F);// || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = (fabsf(bearing_error) < 1.0f) && (turret->locked_on_);
@@ -111,8 +111,14 @@ void Tracking::poll() {
     float motor_vy = 0.0f;
     float motor_vtheta = 0.0f;
 
-    if ((obstacle_ahead && !close_front) || (obstacle_left || obstacle_right)) {
+    if ((obstacle_ahead || obstacle_left || obstacle_right) && !close_front) {
         // PRIORITY 1: Obstacle ahead triggers AVOID
+        if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+            active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
+            behavior_start_ms_ = now;
+        }
+    }
+    if (close_front && !turret->atFire()){
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
@@ -123,7 +129,10 @@ void Tracking::poll() {
         active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
         behavior_start_ms_ = now;
     }
-
+    if(turret->atFire()){
+        active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
+        behavior_start_ms_ = now;
+    }
     // Handle AVOID behavior
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
         unsigned long elapsed = now - behavior_start_ms_;
@@ -221,6 +230,9 @@ void Tracking::poll() {
             }
         }
     }
+    if(turret->atFire()){
+        active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
+    }
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {      
         // Check if close enough to extinguish
         if (close_front && aimed) {
@@ -250,6 +262,7 @@ void Tracking::poll() {
 
         // If close then slow down
         motor_vx = obstacle_ahead ? (vx*0.6) : vx;
+        motor_vx = close_front ? (0.0) : vx;
 
         //ff->println("[TRACK] MTF");
     }
@@ -280,5 +293,5 @@ void Tracking::poll() {
     // ff->print(motor_vy, 2);
     // ff->print(", vtheta= ");
     // ff->println(motor_vtheta, 2);
-    ff->_motors->writeAllMotors(-motor_vx, motor_vy, motor_vtheta);
+    ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
 }
