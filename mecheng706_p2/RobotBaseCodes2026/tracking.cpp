@@ -78,8 +78,8 @@ void Tracking::poll() {
 
     // Obstacle detection
     obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_F);
-    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F);// || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
-    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F);// || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
+    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F) || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
+    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F) || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = (fabsf(bearing_error) < 1.0f) && (turret->locked_on_);
@@ -118,7 +118,7 @@ void Tracking::poll() {
             behavior_start_ms_ = now;
         }
     }
-    if (close_front && !turret->atFire()){
+    if ( close_front && (!turret->atFire() || ff->recentExtinguish())){
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
@@ -130,6 +130,7 @@ void Tracking::poll() {
         behavior_start_ms_ = now;
     }
     if(turret->atFire()){
+        ff->println("[TRACK] AT_FIRE");
         active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
         behavior_start_ms_ = now;
     }
@@ -283,7 +284,7 @@ void Tracking::poll() {
 
         motor_vtheta = motor_vtheta;
         */
-        //ff->println("[TRACK] FF");
+        ff->println("[TRACK] FF");
     }
 
     // Write motors once at the end

@@ -84,14 +84,18 @@ void Extinguish::poll() {
         ff->print("EXTINGUISH: done (");
         ff->print(fire_out ? "led-out" : "timeout");
         ff->print(") fires=");
-        ff->println(ff->firesExtinguished());
+        ff->print(ff->firesExtinguished());
+        ff->print(" time=");
+        ff->println(millis() - _start_millis);
 
         if (ff->firesExtinguished() >= 2) {
+            ff->println("Complete");
             ff->switchState(State::STOPPED);
         } else {
             // Reset the EWMA on the photo bank so the lingering glow from
             // the just-extinguished fire doesn't immediately re-trigger
             // APPROACH against itself.
+            ff->println("Next Fire");
             ff->_fire_bank->reset();
             ff->switchState(State::SEARCH);
         }

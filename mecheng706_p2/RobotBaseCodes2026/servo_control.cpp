@@ -40,7 +40,7 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  return (_fb->_l > 2) || (_fb->_r > 2);
+  return (_fb->_l->getFilteredV() > 2) && (_fb->_r->getFilteredV() > 2);
 }
 
 void Turret::writeAngle(int angle){

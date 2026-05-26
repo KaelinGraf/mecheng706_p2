@@ -107,7 +107,7 @@
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
 #define APPROACH_FORWARD_SPEED  10.0f
-#define APPROACH_TURN_GAIN      20.0f
+#define APPROACH_TURN_GAIN      15.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
@@ -120,7 +120,11 @@
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more
 // forgiving value is used to allow for sensor noise / cylinder curvature.
-#define EXTINGUISH_RANGE_CM     12.0f
+#define EXTINGUISH_RANGE_CM     8.0f
+
+// do not transition back to extinguish state if we put out a fire less than
+// this ammount of MS ago as it may be the same fire
+#define EXTINGUISH_TIMEOUT_MS     3000
 
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.

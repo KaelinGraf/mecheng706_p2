@@ -17,6 +17,7 @@ private:
     State *states_[State::NUM_STATES];
     HardwareSerial *serialCom_;
     SoftwareSerial *btSerial_ = nullptr;
+    long _lastExtinguisedMillis = 0;
 
     // Counter shared across EXTINGUISH triggers so the FSM knows when the
     // task is over (after the second fire, the brief requires us to stop).
@@ -43,7 +44,11 @@ public:
     // Fire counter accessors (used by Extinguish to drive the SEARCH/STOPPED
     // transition once two fires are out).
     inline int  firesExtinguished() const { return fires_extinguished_; }
-    inline void noteFireExtinguished()    { fires_extinguished_++; }
+    inline void noteFireExtinguished()    { 
+        _lastExtinguisedMillis = millis();
+        fires_extinguished_++; 
+    }
+    inline bool recentExtinguish() const { return millis() - _lastExtinguisedMillis >= EXTINGUISH_TIMEOUT_MS; }
 
     FireFighter(Adafruit_BNO08x *bno08x, sh2_SensorValue_t *sensorValue, HardwareSerial *SerialCom);
     ~FireFighter();

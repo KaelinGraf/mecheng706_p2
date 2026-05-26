@@ -101,7 +101,7 @@ void setup(void)
   //firefighter->println("Turret middle");
   Serial.println("4");
 
-  delay(1000); // settling time but not really needed
+  delay(2000); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
@@ -184,8 +184,9 @@ void updateTurret() {
   Serial.print("angle ");  
   Serial.println(turret->angle_);
   Serial.print("Readings ");  
-  firefighter->_fire_bank->printFireSensors();  
   */
+  firefighter->_fire_bank->printFireSensors();  
+  
 
   if (!firefighter->_fire_bank->isValid()) {
     noFireDetectCount++;
@@ -198,7 +199,7 @@ void updateTurret() {
   }
 
   if (!turret->locked_on_) {
-    Serial.println("Scan");
+    firefighter->println("Scan");
     turret->pan_scan(millis());
     return;
   }
