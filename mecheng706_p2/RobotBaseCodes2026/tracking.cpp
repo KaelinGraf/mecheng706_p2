@@ -75,11 +75,13 @@ void Tracking::poll() {
     bool obstacle_ahead = 0;
     bool obstacle_right = 0;
     bool obstacle_left = 0;
+    bool obstacle_side = 0;
 
     // Obstacle detection
     obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_F);
-    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F) || blocked(lr_cm, OBSTACLE_TRIGGER_CM_R);
-    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F) || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
+    obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F);
+    obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F); 
+    obstacle_side = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = (fabsf(bearing_error) < 1.0f) && (turret->locked_on_);
@@ -111,7 +113,7 @@ void Tracking::poll() {
     float motor_vy = 0.0f;
     float motor_vtheta = 0.0f;
 
-    if ((obstacle_ahead || obstacle_left || obstacle_right) && !close_front) {
+    if ((obstacle_ahead || obstacle_left || obstacle_right || obstacle_side) && !close_front) {
         // PRIORITY 1: Obstacle ahead triggers AVOID
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
@@ -142,8 +144,10 @@ void Tracking::poll() {
         bool clear = !obstacle_ahead &&
                      ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F)) &&
                      ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM_F)) &&
-                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)); 
-                     //&& ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
+                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)) && 
+                     ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) && 
+                     ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
+                     
         if (clear && (elapsed > AVOID_STRAFE_MS)) {
             if (fire_detected) {
                 ff->println("[TRACK] resuming MOVE_TO_FIRE");
@@ -191,8 +195,18 @@ void Tracking::poll() {
                     motor_vtheta = -AVOID_ROTATE_SPEED;
                     motor_vx = AVOID_SPEED;
                 }
-            } else {
-            if (obstacle_ahead && aimed){
+            } else if (obstacle_side) {
+                ff->print(" r: ");
+                ff->println(rr_cm);
+                ff->print(" l: ");
+                ff->println(lr_cm);
+                ff->println("[TRACK] AVOID Side");
+                
+                motor_vtheta = 0.0f;
+                motor_vx = AVOID_SPEED;
+
+            } else { 
+                if (obstacle_ahead && aimed){
                 bool light_thresh = turret->atFire();
                 if (light_thresh) {
                     active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;   
