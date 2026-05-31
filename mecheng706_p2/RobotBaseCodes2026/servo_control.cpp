@@ -45,8 +45,8 @@ bool Turret::atFire(){
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-  if (angle < 10) angle = 10;
-  if (angle > 170) angle = 170;
+  if (angle < SERVO_CENTER - 60) angle = SERVO_CENTER - 60;
+  if (angle > SERVO_CENTER + 60) angle = SERVO_CENTER + 60;
   this->angle_ = angle;
   _motor.write(angle);
 }
@@ -58,13 +58,13 @@ void Turret::writeUS(uint16_t microseconds){
 
 void Turret::center(){
   // Center using neutral duty for small turret
-  writeAngle(90);
+  writeAngle(SERVO_CENTER);
 }
 
 void Turret::pan_scan(unsigned long current_time_ms){
   // Simple pan-scan behavior when not locked on
   // Sweeps between 0 and 180 degrees at a fixed speed
-  const unsigned long scan_period_ms = 8000; // Time for a full sweep (back and forth)
+  const unsigned long scan_period_ms = 6000; // Time for a full sweep (back and forth)
   const int scan_range_deg = 300; // Total range of motion
   const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
 

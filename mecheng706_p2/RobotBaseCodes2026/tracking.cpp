@@ -70,7 +70,7 @@ void Tracking::poll() {
     float target_bearing = ff->bearing_;
 
     //float bearing_error = (90 - target_bearing) / 10; // Ideal
-    float bearing_error = (70 - target_bearing) / 10; // Realsisitc
+    float bearing_error = (SERVO_CENTER - target_bearing) / 10; // Realsisitc
 
     bool obstacle_ahead = 0;
     bool obstacle_right = 0;
@@ -84,7 +84,7 @@ void Tracking::poll() {
     obstacle_side = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
 
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
-    bool aimed = (fabsf(bearing_error) < 1.0f) && (turret->locked_on_);
+    bool aimed = (fabsf(bearing_error) < 3.0f) && (turret->locked_on_);
 
     // Debug output
     // ff->print("[TRACK] beh=");
@@ -112,33 +112,63 @@ void Tracking::poll() {
     float motor_vx = 0.0f;
     float motor_vy = 0.0f;
     float motor_vtheta = 0.0f;
+    float angle = turret->angle_;
+    float center_deadzone = 15.0;
 
-    if ((obstacle_ahead || obstacle_left || obstacle_right || obstacle_side) && !close_front) {
+    int curr_turret =1;
+    if (angle > (SERVO_CENTER + center_deadzone)){
+        curr_turret = 0;
+    }else if(angle<(SERVO_CENTER - center_deadzone)){
+        curr_turret = 2;
+    }
+    bool close_to_fire = (ff->_fire_bank->maxVMid()>0.85);
+    ff->print("Close to fire: ");
+    ff->print(close_to_fire);
+    ff->print(" || Max Val: ");
+    ff->println(ff->_fire_bank->maxVMid());
+
+
+    if (((obstacle_ahead || close_front)&& ((curr_turret==1) ^ close_front))
+        || (obstacle_left && ((curr_turret==0) ^ close_front))
+        || (obstacle_right &&  ((curr_turret==2) ^ close_front))
+        || obstacle_side) {
         // PRIORITY 1: Obstacle ahead triggers AVOID
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
         }
     }
-    if ( close_front && (!turret->atFire() || ff->recentExtinguish())){
-        if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-            active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
-            behavior_start_ms_ = now;
-        }
-    }
-    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
-    {
-        active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
-        behavior_start_ms_ = now;
-    }
     if(turret->atFire()){
         ff->println("[TRACK] AT_FIRE");
         active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
         behavior_start_ms_ = now;
     }
+
+
+
+    // if ((obstacle_ahead || obstacle_left || obstacle_right || obstacle_side) && !close_front) {
+    //     // PRIORITY 1: Obstacle ahead triggers AVOID
+    //     if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+    //         active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
+    //         behavior_start_ms_ = now;
+    //     }
+    // }
+    // if ( close_front && (!turret->atFire() || ff->recentExtinguish())){
+    //     if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+    //         active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
+    //         behavior_start_ms_ = now;
+    //     }
+    // }
+    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
+    {
+        active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+        behavior_start_ms_ = now;
+    }
+    
     // Handle AVOID behavior
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
         unsigned long elapsed = now - behavior_start_ms_;
+        ff->println("WE ARE IN AVOID");
 
         // Check if obstacle is now clear
         bool clear = !obstacle_ahead &&
@@ -206,6 +236,15 @@ void Tracking::poll() {
                 motor_vx = AVOID_SPEED;
 
             } else { 
+                ff->print(" Bearing Error: ");
+                ff->print(bearing_error);
+                ff->print(" Ahead: ");
+                ff->print(obstacle_ahead);
+                ff->print(" Close: ");
+                ff->print(close_front);
+                ff->print(" aimed=");
+                ff->println(aimed);
+
                 if (obstacle_ahead && aimed){
                 bool light_thresh = turret->atFire();
                 if (light_thresh) {
@@ -250,7 +289,7 @@ void Tracking::poll() {
     }
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {      
         // Check if close enough to extinguish
-        if (close_front && aimed) {
+        if (close_front && aimed & !ff->recentExtinguish()) {
             ff->println("[TRACK] fire within extinguish range");
             motor_vx = 0.0f;
             motor_vy = 0.0f;
@@ -258,6 +297,9 @@ void Tracking::poll() {
             ff->_motors->writeAllMotors(motor_vx, motor_vy, motor_vtheta);
 
             // If phototransistors read strong enough
+
+            ff->print("Moving to Extinguish, time: ");
+            ff->println(millis());
             
             ff->switchState(State::EXTINGUISH);
             return;

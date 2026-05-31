@@ -39,6 +39,7 @@
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
+#define SERVO_CENTER 78
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
@@ -107,14 +108,14 @@
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
 #define APPROACH_FORWARD_SPEED  10.0f
-#define APPROACH_TURN_GAIN      15.0f
+#define APPROACH_TURN_GAIN      20.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
 #define AVOID_ROTATE_SPEED      30.0f
-#define AVOID_URGENT            8.0f
+#define AVOID_URGENT            10.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
@@ -129,7 +130,7 @@
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.
 // Tune on the bench: cover all 4, read the noise floor, then add ~3 sigma.
-#define FIRE_DETECT_V           0.1f
+#define FIRE_DETECT_V           0.15f
 
 // Phototransistor threshold for declaring a fire is OUT (LED has gone dark).
 // Lower than detect threshold by a margin to provide hysteresis against

@@ -135,7 +135,7 @@ void loop(void) // main loop
 // #else
   firefighter->pollState();
   firefighter->setBearing(turret->angle_);
-  if (millis() - lastSensTurret > 100) {
+  if (millis() - lastSensTurret > 50) {
 
     updateTurret();
     lastSensTurret = millis();
@@ -176,16 +176,16 @@ void printFireBank() {
 void updateTurret() {
   firefighter->_fire_bank->update();
   angleError = firefighter->_fire_bank->estimateBearing(); // radians?
-  /*
+  
   Serial.print("Error ");  
   Serial.println(angleError);
-  Serial.print("Locked ");  
-  Serial.println(turret->locked_on_);
-  Serial.print("angle ");  
-  Serial.println(turret->angle_);
-  Serial.print("Readings ");  
-  */
-  firefighter->_fire_bank->printFireSensors();  
+  // Serial.print("Locked ");  
+  // Serial.println(turret->locked_on_);
+  // Serial.print("angle ");  
+  // Serial.println(turret->angle_);
+  // Serial.print("Readings ");  
+  
+  printFireSensors();  
   
 
   if (!firefighter->_fire_bank->isValid()) {
@@ -209,11 +209,24 @@ void updateTurret() {
     Serial.println("Aimed");  
     return;
   }
+  float MAX_SLEW = 10.0;
+  //if(fabs(angleError - old_angle)>)
   angleControl = turret->angle_ + 0.6 * angleError;
   Serial.print("Control ");  
   Serial.println(angleControl);
 
   if(firefighter->_fire_bank->isValid()) turret->writeAngle(angleControl);
+}
+
+void printFireSensors() {
+    firefighter->print(firefighter->_fire_bank->_sl->getFilteredV());
+    firefighter->print(" ");
+    firefighter->print(firefighter->_fire_bank->_l->getFilteredV());
+    firefighter->print(" ");
+    firefighter->print(firefighter->_fire_bank->_r->getFilteredV());
+    firefighter->print(" ");
+    firefighter->print(firefighter->_fire_bank->_sr->getFilteredV());
+    firefighter->println(" ");
 }
 
 void printBluetooth()

@@ -91,6 +91,7 @@ class FireBank {
 
     // Strongest single-cell voltage seen on the last update.
     float maxV() const;
+    float maxVMid() const;
 
     // True if the strongest cell exceeds the detect threshold.
     inline bool anyDetection(float threshold = FIRE_DETECT_V) const {

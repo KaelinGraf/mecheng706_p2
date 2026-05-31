@@ -46,9 +46,11 @@ public:
     inline int  firesExtinguished() const { return fires_extinguished_; }
     inline void noteFireExtinguished()    { 
         _lastExtinguisedMillis = millis();
+        print("Extinguished at: ");
+        println(_lastExtinguisedMillis);
         fires_extinguished_++; 
     }
-    inline bool recentExtinguish() const { return millis() - _lastExtinguisedMillis >= EXTINGUISH_TIMEOUT_MS; }
+    inline bool recentExtinguish() const { return millis() - _lastExtinguisedMillis < EXTINGUISH_TIMEOUT_MS; }
 
     FireFighter(Adafruit_BNO08x *bno08x, sh2_SensorValue_t *sensorValue, HardwareSerial *SerialCom);
     ~FireFighter();

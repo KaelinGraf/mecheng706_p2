@@ -39,6 +39,13 @@ float FireBank::maxV() const {
     if (_sr ->getFilteredV() > v) v = _sr ->getFilteredV();
     return v;
 }
+float FireBank::maxVMid() const {
+    float v = _l->getFilteredV();
+    //if (_l->getFilteredV() > v) v = _l->getFilteredV();
+    if (_r->getFilteredV() > v) v = _r ->getFilteredV();
+    //if (_sr ->getFilteredV() > v) v = _sr ->getFilteredV();
+    return v;
+}
 
 bool FireBank::allBelow(float threshold) const {
     return _sl->getFilteredV() < threshold &&

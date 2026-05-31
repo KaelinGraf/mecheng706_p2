@@ -1,0 +1,1437 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.05.29 11:57:00 =~=~=~=~=~=~=~=~=~=~=~=
+Initialising: warm-up done, switching to SEARCH
+Tracking
+0.02 0.05 0.28 0.03 
+Close to fire: 0 || Max Val: 0.28
+[TRACK] turret locked -> MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.28
+0.18 0.13 0.50 0.15 
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.50
+0.27 0.17 0.62 0.22 
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.62
+0.32 0.18 0.71 0.26 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.36 0.19 0.77 0.29 
+Close to fire: 0 || Max Val: 0.77
+Close to fire: 0 || Max Val: 0.77
+Close to fire: 0 || Max Val: 0.77
+Close to fire: 0 || Max Val: 0.77
+Close to fire: 0 || Max Val: 0.77
+0.39 0.21 0.80 0.17 
+Close to fire: 0 || Max Val: 0.80
+Close to fire: 0 || Max Val: 0.80
+Close to fire: 0 || Max Val: 0.80
+Close to fire: 0 || Max Val: 0.80
+Close to fire: 0 || Max Val: 0.80
+0.41 0.21 0.83 0.24 
+Close to fire: 0 || Max Val: 0.83
+Close to fire: 0 || Max Val: 0.83
+Close to fire: 0 || Max Val: 0.83
+Close to fire: 0 || Max Val: 0.83
+Close to fire: 0 || Max Val: 0.83
+0.41 0.22 0.84 0.15 
+Close to fire: 0 || Max Val: 0.84
+Close to fire: 0 || Max Val: 0.84
+Close to fire: 0 || Max Val: 0.84
+Close to fire: 0 || Max Val: 0.84
+Close to fire: 0 || Max Val: 0.84
+0.41 0.21 0.86 0.23 
+Close to fire: 1 || Max Val: 0.86
+Close to fire: 1 || Max Val: 0.86
+Close to fire: 1 || Max Val: 0.86
+Close to fire: 1 || Max Val: 0.86
+0.41 0.21 0.85 0.25 
+Close to fire: 1 || Max Val: 0.85
+Close to fire: 1 || Max Val: 0.85
+Close to fire: 1 || Max Val: 0.85
+Close to fire: 1 || Max Val: 0.85
+0.44 0.21 0.87 0.28 
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+0.45 0.22 0.88 0.17 
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+0.42 0.21 0.88 0.24 
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+0.42 0.21 0.89 0.28 
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+0.43 0.21 0.89 0.17 
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+0.42 0.22 0.89 0.23 
+us med: 23.52
+front left:84.28
+front right:23.91
+rear left:-1.00
+rear right:-1.00
+
+
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+0.42 0.22 0.89 0.27 
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+Close to fire: 1 || Max Val: 0.89
+0.43 0.21 0.90 0.29 
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+0.28 0.18 0.87 0.31 
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+Close to fire: 1 || Max Val: 0.87
+0.35 0.20 0.88 0.19 
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+Close to fire: 1 || Max Val: 0.88
+0.24 0.19 0.90 0.24 
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+0.32 0.22 0.90 0.27 
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+Close to fire: 1 || Max Val: 0.90
+0.23 0.23 0.90 0.20 
+Close to fire: 1 || Max Val: 0.90
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.90
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.90
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.31 0.23 0.94 0.26 
+Close to fire: 1 || Max Val: 0.94
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.94
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.94
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.23 0.22 1.20 0.21 
+Close to fire: 1 || Max Val: 1.20
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 1.20
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 1.20
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.19 0.25 1.38 0.19 
+Close to fire: 1 || Max Val: 1.38
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 1.38
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 1.38
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.28 0.35 1.20 0.24 
+Close to fire: 1 || Max Val: 1.20
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 1.20
+[TRACK] fire within extinguish range
+Moving to Extinguish, time: 4187
+EXTINGUISH: fan ON
+0.35 0.44 1.08 0.23 
+0.30 0.56 0.92 0.23 
+0.28 0.69 0.70 0.23 
+Extinguished at: 4333
+EXTINGUISH: done (led-out) fires=1 time=151
+Next Fire
+EXTINGUISH: fan OFF
+Tracking
+Close to fire: 0 || Max Val: 0.00
+[TRACK] turret locked -> MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.00
+0.34 1.05 0.91 0.36 
+Close to fire: 1 || Max Val: 1.05
+Close to fire: 1 || Max Val: 1.05
+Close to fire: 1 || Max Val: 1.05
+us med: 4.41
+front left:-1.00
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+Close to fire: 1 || Max Val: 1.05
+0.32 1.15 0.91 0.35 
+Close to fire: 1 || Max Val: 1.15
+Close to fire: 1 || Max Val: 1.15
+Close to fire: 1 || Max Val: 1.15
+Close to fire: 1 || Max Val: 1.15
+Close to fire: 1 || Max Val: 1.15
+0.31 1.31 0.64 0.31 
+Close to fire: 1 || Max Val: 1.31
+Close to fire: 1 || Max Val: 1.31
+Close to fire: 1 || Max Val: 1.31
+Close to fire: 1 || Max Val: 1.31
+Close to fire: 1 || Max Val: 1.31
+0.33 1.33 0.76 0.33 
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+0.32 1.36 0.83 0.34 
+Close to fire: 1 || Max Val: 1.36
+Close to fire: 1 || Max Val: 1.36
+Close to fire: 1 || Max Val: 1.36
+Close to fire: 1 || Max Val: 1.36
+Close to fire: 1 || Max Val: 1.36
+0.34 1.32 0.86 0.35 
+Close to fire: 1 || Max Val: 1.32
+Close to fire: 1 || Max Val: 1.32
+Close to fire: 1 || Max Val: 1.32
+Close to fire: 1 || Max Val: 1.32
+Close to fire: 1 || Max Val: 1.32
+0.33 1.29 0.63 0.31 
+Close to fire: 1 || Max Val: 1.29
+Close to fire: 1 || Max Val: 1.29
+Close to fire: 1 || Max Val: 1.29
+Close to fire: 1 || Max Val: 1.29
+Close to fire: 1 || Max Val: 1.29
+0.31 1.33 0.48 0.29 
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+Close to fire: 1 || Max Val: 1.33
+0.33 1.48 0.66 0.32 
+Close to fire: 1 || Max Val: 1.48
+Close to fire: 1 || Max Val: 1.48
+Close to fire: 1 || Max Val: 1.48
+Close to fire: 1 || Max Val: 1.48
+Close to fire: 1 || Max Val: 1.48
+0.35 1.45 0.76 0.34 
+Close to fire: 1 || Max Val: 1.45
+Close to fire: 1 || Max Val: 1.45
+Close to fire: 1 || Max Val: 1.45
+Close to fire: 1 || Max Val: 1.45
+Close to fire: 1 || Max Val: 1.45
+0.36 1.53 0.83 0.35 
+Close to fire: 1 || Max Val: 1.53
+Close to fire: 1 || Max Val: 1.53
+Close to fire: 1 || Max Val: 1.53
+Close to fire: 1 || Max Val: 1.53
+Close to fire: 1 || Max Val: 1.53
+0.36 1.60 0.88 0.36 
+Close to fire: 1 || Max Val: 1.60
+Close to fire: 1 || Max Val: 1.60
+Close to fire: 1 || Max Val: 1.60
+Close to fire: 1 || Max Val: 1.60
+Close to fire: 1 || Max Val: 1.60
+0.36 1.66 0.90 0.36 
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+0.37 1.71 0.92 0.36 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.34 1.63 0.65 0.31 
+Close to fire: 1 || Max Val: 1.63
+Close to fire: 1 || Max Val: 1.63
+Close to fire: 1 || Max Val: 1.63
+Close to fire: 1 || Max Val: 1.63
+Close to fire: 1 || Max Val: 1.63
+0.32 1.57 0.49 0.34 
+Close to fire: 1 || Max Val: 1.57
+Close to fire: 1 || Max Val: 1.57
+Close to fire: 1 || Max Val: 1.57
+Close to fire: 1 || Max Val: 1.57
+Close to fire: 1 || Max Val: 1.57
+0.31 1.58 0.67 0.36 
+Close to fire: 1 || Max Val: 1.58
+Close to fire: 1 || Max Val: 1.58
+Close to fire: 1 || Max Val: 1.58
+Close to fire: 1 || Max Val: 1.58
+Close to fire: 1 || Max Val: 1.58
+0.31 1.66 0.49 0.31 
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+Close to fire: 1 || Max Val: 1.66
+us med: 5.10
+front left:22.25
+front right:-1.00
+rear left:29.51
+rear right:-1.00
+
+
+Close to fire: 1 || Max Val: 1.66
+0.33 1.72 0.68 0.34 
+Close to fire: 1 || Max Val: 1.72
+Close to fire: 1 || Max Val: 1.72
+Close to fire: 1 || Max Val: 1.72
+Close to fire: 1 || Max Val: 1.72
+Close to fire: 1 || Max Val: 1.72
+0.35 1.75 0.79 0.35 
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+0.36 1.79 0.86 0.36 
+Close to fire: 1 || Max Val: 1.79
+Close to fire: 1 || Max Val: 1.79
+Close to fire: 1 || Max Val: 1.79
+Close to fire: 1 || Max Val: 1.79
+Close to fire: 1 || Max Val: 1.79
+0.34 1.80 0.90 0.37 
+Close to fire: 1 || Max Val: 1.80
+Close to fire: 1 || Max Val: 1.80
+Close to fire: 1 || Max Val: 1.80
+Close to fire: 1 || Max Val: 1.80
+Close to fire: 1 || Max Val: 1.80
+0.35 1.77 0.92 0.38 
+Close to fire: 1 || Max Val: 1.77
+Close to fire: 1 || Max Val: 1.77
+Close to fire: 1 || Max Val: 1.77
+Close to fire: 1 || Max Val: 1.77
+Close to fire: 1 || Max Val: 1.77
+0.36 1.69 0.93 0.38 
+Close to fire: 1 || Max Val: 1.69
+Close to fire: 1 || Max Val: 1.69
+Close to fire: 1 || Max Val: 1.69
+Close to fire: 1 || Max Val: 1.69
+Close to fire: 1 || Max Val: 1.69
+0.33 1.64 0.65 0.32 
+Close to fire: 1 || Max Val: 1.64
+Close to fire: 1 || Max Val: 1.64
+Close to fire: 1 || Max Val: 1.64
+Close to fire: 1 || Max Val: 1.64
+Close to fire: 1 || Max Val: 1.64
+0.35 1.51 0.77 0.35 
+Close to fire: 1 || Max Val: 1.51
+Close to fire: 1 || Max Val: 1.51
+Close to fire: 1 || Max Val: 1.51
+Close to fire: 1 || Max Val: 1.51
+Close to fire: 1 || Max Val: 1.51
+0.33 1.56 0.56 0.30 
+Close to fire: 1 || Max Val: 1.56
+Close to fire: 1 || Max Val: 1.56
+Close to fire: 1 || Max Val: 1.56
+Close to fire: 1 || Max Val: 1.56
+Close to fire: 1 || Max Val: 1.56
+0.32 1.61 0.43 0.33 
+Close to fire: 1 || Max Val: 1.61
+Close to fire: 1 || Max Val: 1.61
+Close to fire: 1 || Max Val: 1.61
+Close to fire: 1 || Max Val: 1.61
+Close to fire: 1 || Max Val: 1.61
+0.34 1.59 0.64 0.35 
+Close to fire: 1 || Max Val: 1.59
+Close to fire: 1 || Max Val: 1.59
+Close to fire: 1 || Max Val: 1.59
+Close to fire: 1 || Max Val: 1.59
+Close to fire: 1 || Max Val: 1.59
+0.33 1.67 0.47 0.30 
+Close to fire: 1 || Max Val: 1.67
+Close to fire: 1 || Max Val: 1.67
+Close to fire: 1 || Max Val: 1.67
+Close to fire: 1 || Max Val: 1.67
+Close to fire: 1 || Max Val: 1.67
+0.34 1.71 0.67 0.34 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.32 1.73 0.49 0.29 
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+0.34 1.70 0.67 0.33 
+Close to fire: 1 || Max Val: 1.70
+Close to fire: 1 || Max Val: 1.70
+Close to fire: 1 || Max Val: 1.70
+Close to fire: 1 || Max Val: 1.70
+Close to fire: 1 || Max Val: 1.70
+0.35 1.71 0.78 0.36 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.33 1.71 0.56 0.30 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+us med: 5.17
+front left:134.48
+front right:-1.00
+rear left:24.66
+rear right:-1.00
+
+
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.34 1.73 0.72 0.34 
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+Close to fire: 1 || Max Val: 1.73
+0.35 1.74 0.81 0.36 
+Close to fire: 1 || Max Val: 1.74
+Close to fire: 1 || Max Val: 1.74
+Close to fire: 1 || Max Val: 1.74
+Close to fire: 1 || Max Val: 1.74
+Close to fire: 1 || Max Val: 1.74
+0.36 1.76 0.87 0.38 
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+0.33 1.78 0.61 0.32 
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+0.32 1.78 0.45 0.28 
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+Close to fire: 1 || Max Val: 1.78
+0.34 1.76 0.65 0.32 
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+0.32 1.75 0.48 0.29 
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+0.31 1.76 0.38 0.27 
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+0.33 1.76 0.61 0.31 
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+Close to fire: 1 || Max Val: 1.76
+0.32 1.75 0.46 0.28 
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+0.32 1.75 0.36 0.26 
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+Close to fire: 1 || Max Val: 1.75
+0.31 1.71 0.31 0.25 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.30 1.71 0.27 0.25 
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+Close to fire: 1 || Max Val: 1.71
+0.34 1.43 0.54 0.30 
+Close to fire: 1 || Max Val: 1.43
+Close to fire: 1 || Max Val: 1.43
+Close to fire: 1 || Max Val: 1.43
+Close to fire: 1 || Max Val: 1.43
+Close to fire: 1 || Max Val: 1.43
+[TRACK] fire within extinguish range
+Moving to Extinguish, time: 7345
+EXTINGUISH: fan ON
+0.32 1.19 0.80 0.29 
+0.31 1.11 0.67 0.28 
+0.31 1.10 0.53 0.28 
+us med: 5.17
+front left:144.61
+front right:22.38
+rear left:-1.00
+rear right:-1.00
+
+
+0.30 1.10 0.44 0.28 
+0.30 1.10 0.39 0.27 
+0.30 1.10 0.35 0.27 
+0.30 1.10 0.34 0.27 
+0.30 1.10 0.32 0.27 
+0.30 1.10 0.32 0.27 
+0.30 1.09 0.31 0.27 
+0.29 1.04 0.39 0.27 
+0.30 1.05 0.36 0.27 
+0.30 1.07 0.34 0.27 
+0.30 1.09 0.32 0.27 
+0.29 1.09 0.31 0.27 
+0.30 1.09 0.31 0.26 
+0.29 1.09 0.31 0.27 
+0.29 1.09 0.31 0.26 
+0.29 1.08 0.31 0.26 
+0.29 1.08 0.31 0.26 
+us med: 5.17
+front left:111.12
+front right:-1.00
+rear left:-1.00
+rear right:26.09
+
+
+0.29 1.03 0.39 0.27 
+0.29 1.03 0.38 0.26 
+0.29 1.05 0.35 0.27 
+0.29 1.06 0.33 0.27 
+0.29 1.07 0.32 0.26 
+0.29 1.08 0.32 0.26 
+0.29 1.09 0.30 0.26 
+0.29 1.10 0.30 0.26 
+0.29 1.11 0.29 0.26 
+0.30 1.12 0.29 0.26 
+0.30 1.12 0.29 0.26 
+0.29 1.12 0.29 0.26 
+0.29 1.08 0.31 0.26 
+0.29 1.06 0.33 0.26 
+0.29 1.05 0.34 0.26 
+0.29 1.04 0.34 0.26 
+0.30 1.03 0.35 0.26 
+0.30 1.03 0.35 0.26 
+us med: 5.17
+front left:111.12
+front right:22.38
+rear left:-1.00
+rear right:-1.00
+
+
+0.29 1.03 0.35 0.26 
+0.23 0.78 0.27 0.20 
+0.15 0.51 0.18 0.14 
+Extinguished at: 9696
+EXTINGUISH: done (led-out) fires=2 time=2356
+Complete
+EXTINGUISH: fan OFF
+0.10 0.32 0.11 0.09 
+0.06 0.20 0.07 0.05 
+0.03 0.12 0.04 0.03 
+0.02 0.07 0.02 0.02 
+0.01 0.04 0.01 0.01 
+0.01 0.03 0.01 0.01 
+0.00 0.02 0.01 0.00 
+0.00 0.01 0.00 0.00 
+Scan
+0.00 0.01 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.10
+front left:-1.00
+front right:-1.00
+rear left:21.57
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.10
+front left:82.47
+front right:-1.00
+rear left:24.66
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.17
+front left:86.18
+front right:-1.00
+rear left:24.13
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.17
+front left:94.68
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.12 0.04 0.00 0.00 
+Scan
+0.07 0.03 0.00 0.00 
+Scan
+0.04 0.02 0.00 0.00 
+Scan
+0.03 0.01 0.00 0.00 
+Scan
+0.02 0.01 0.00 0.00 
+Scan
+0.01 0.00 0.00 0.00 
+Scan
+0.01 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.10
+front left:82.47
+front right:-1.00
+rear left:20.02
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 4.97
+front left:156.39
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.03
+front left:65.57
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.17
+front left:125.67
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+us med: 5.17
+front left:56.00
+front right:-1.00
+rear left:32.02
+rear right:28.04
+
+
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.00 0.00 0.00 
+Scan
+0.00 0.01 0.00 0.00 
+Scan
+0.02 0.10 0.01 0.01 
+Scan
+0.07 0.29 0.06 0.06 
+0.12 0.44 0.21 0.12 
+0.16 0.53 0.55 0.16 
+0.19 0.59 0.83 0.20 
+us med: 5.17
+front left:150.27
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.22 0.63 1.01 0.22 
+0.24 0.66 1.13 0.24 
+0.25 0.67 1.20 0.24 
+0.25 0.69 1.25 0.25 
+0.26 0.69 1.27 0.26 
+0.26 0.69 1.32 0.26 
+0.26 0.70 1.33 0.26 
+0.26 0.70 1.33 0.26 
+0.26 0.70 1.33 0.26 
+0.26 0.70 1.33 0.26 
+0.26 0.70 1.33 0.26 
+0.26 0.70 1.35 0.26 
+0.26 0.70 1.35 0.26 
+0.26 0.70 1.36 0.26 
+0.26 0.70 1.36 0.26 
+0.26 0.66 1.54 0.26 
+0.26 0.64 1.65 0.27 
+0.26 0.59 1.86 0.27 
+us med: 5.10
+front left:71.69
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.26 0.66 1.55 0.27 
+0.26 0.70 1.36 0.27 
+0.26 0.72 1.25 0.27 
+0.27 0.74 1.18 0.26 
+0.26 0.74 1.14 0.26 
+0.27 0.75 1.11 0.26 
+0.27 0.75 1.09 0.26 
+0.26 0.76 1.08 0.26 
+0.26 0.76 1.08 0.26 
+0.26 0.76 1.07 0.26 
+0.26 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+0.27 0.76 1.07 0.26 
+us med: 5.17
+front left:107.99
+front right:23.47
+rear left:-1.00
+rear right:-1.00
+
+
+0.26 0.71 1.30 0.26 
+0.27 0.69 1.43 0.26 
+0.27 0.67 1.51 0.26 
+0.27 0.66 1.56 0.26 
+0.26 0.65 1.59 0.27 
+0.26 0.65 1.60 0.27 
+0.27 0.65 1.61 0.27 
+0.27 0.65 1.62 0.26 
+0.26 0.65 1.62 0.27 
+0.26 0.64 1.63 0.27 
+0.26 0.64 1.63 0.26 
+0.26 0.64 1.63 0.26 
+0.26 0.64 1.63 0.26 
+0.26 0.64 1.64 0.26 
+0.26 0.64 1.64 0.26 
+0.27 0.64 1.63 0.27 
+0.26 0.64 1.63 0.26 
+us med: 5.45
+front left:77.48
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.26 0.48 2.35 0.28 
+0.26 0.54 2.10 0.27 
+0.26 0.62 1.72 0.27 
+0.26 0.67 1.48 0.27 
+0.26 0.70 1.34 0.26 
+0.27 0.72 1.25 0.26 
+0.26 0.73 1.20 0.26 
+0.27 0.74 1.16 0.26 
+0.27 0.74 1.14 0.26 
+0.27 0.75 1.12 0.26 
+0.27 0.75 1.10 0.26 
+0.27 0.75 1.10 0.26 
+0.27 0.75 1.09 0.26 
+0.27 0.75 1.09 0.26 
+0.27 0.76 1.09 0.26 
+0.26 0.75 1.11 0.26 
+0.26 0.75 1.10 0.26 
+us med: 5.03
+front left:90.23
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.26 0.68 1.44 0.27 
+0.26 0.70 1.37 0.27 
+0.26 0.72 1.27 0.26 
+0.26 0.73 1.19 0.27 
+0.26 0.74 1.15 0.26 
+0.27 0.75 1.13 0.26 
+0.26 0.75 1.11 0.26 
+0.26 0.75 1.10 0.27 
+0.26 0.76 1.10 0.27 
+0.26 0.76 1.09 0.26 
+0.27 0.76 1.09 0.26 
+0.27 0.75 1.13 0.26 
+0.27 0.74 1.16 0.26 
+0.26 0.74 1.18 0.26 
+0.26 0.74 1.18 0.26 
+0.26 0.74 1.18 0.26 
+0.26 0.74 1.19 0.27 
+us med: 4.97
+front left:59.47
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.28 0.73 1.19 0.27 
+0.28 0.72 1.25 0.26 
+0.27 0.72 1.27 0.26 
+0.27 0.71 1.29 0.26 
+0.27 0.71 1.30 0.26 
+0.27 0.71 1.30 0.26 
+0.27 0.71 1.31 0.26 
+0.26 0.71 1.30 0.26 
+0.26 0.71 1.31 0.26 
+0.27 0.71 1.30 0.26 
+0.27 0.71 1.30 0.26 
+0.27 0.71 1.29 0.26 
+0.26 0.71 1.29 0.26 
+0.26 0.71 1.29 0.26 
+0.26 0.71 1.29 0.26 
+0.26 0.71 1.29 0.26 
+0.26 0.71 1.28 0.26 
+us med: 5.17
+front left:56.83
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.27 0.72 1.28 0.26 
+0.26 0.72 1.27 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.72 1.26 0.26 
+0.26 0.73 1.26 0.26 
+0.27 0.73 1.25 0.26 
+0.27 0.73 1.25 0.26 
+0.27 0.73 1.24 0.27 
+0.27 0.73 1.24 0.26 
+0.27 0.73 1.24 Initialising: warm-up done, switching to SEARCH
+Tracking
+0.07 0.17 0.01 0.01 
+Close to fire: 0 || Max Val: 0.17
+[TRACK] turret locked -> MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.17
+0.17 0.18 0.31 0.01 
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.31
+0.22 0.19 0.47 0.01 
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.47
+0.25 0.19 0.55 0.00 
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.55
+0.27 0.19 0.61 0.00 
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.61
+0.30 0.20 0.65 0.14 
+Close to fire: 0 || Max Val: 0.65
+Close to fire: 0 || Max Val: 0.65
+Close to fire: 0 || Max Val: 0.65
+Close to fire: 0 || Max Val: 0.65
+0.31 0.20 0.67 0.22 
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+0.32 0.20 0.67 0.26 
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.67
+0.32 0.20 0.70 0.29 
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+0.33 0.21 0.69 0.30 
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+0.32 0.21 0.70 0.18 
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+0.32 0.21 0.71 0.12 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.33 0.22 0.72 0.08 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+0.32 0.22 0.71 0.06 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.31 0.22 0.69 0.17 
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.69
+0.30 0.22 0.71 0.24 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.31 0.23 0.70 0.28 
+us med: 26.97
+front left:24.52
+front right:24.06
+rear left:-1.00
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+0.30 0.24 0.70 0.17 
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+0.30 0.24 0.70 0.21 
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.70
+0.31 0.24 0.71 0.26 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.31 0.23 0.72 0.16 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+0.31 0.24 0.71 0.10 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.71
+0.31 0.25 0.72 0.19 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+0.32 0.26 0.72 0.25 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+0.22 0.25 0.73 0.28 
+Close to fire: 0 || Max Val: 0.73
+Close to fire: 0 || Max Val: 0.73
+Close to fire: 0 || Max Val: 0.73
+Close to fire: 0 || Max Val: 0.73
+Close to fire: 0 || Max Val: 0.73
+0.27 0.32 0.75 0.18 
+Close to fire: 0 || Max Val: 0.75
+Close to fire: 0 || Max Val: 0.75
+Close to fire: 0 || Max Val: 0.75
+Close to fire: 0 || Max Val: 0.75
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.30 0.43 0.76 0.23 
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.23 0.53 0.75 0.27 
+Close to fire: 0 || Max Val: 0.75
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.75
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.75
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.19 0.64 0.49 0.21 
+Close to fire: 0 || Max Val: 0.64
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.64
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.18 0.76 0.61 0.26 
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+0.18 0.89 0.69 0.29 
+Close to fire: 1 || Max Val: 0.89
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.89
+WE ARE IN AVOID
+ Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
+[AVOID] -> APPROACH FIRE
+Close to fire: 1 || Max Val: 0.89
+[TRACK] fire within extinguish range
+Moving to Extinguish, time: 4381
+EXTINGUISH: fan ON
+0.24 1.06 0.74 0.31 
+us med: 7.45
+front left:-1.00
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.25 1.25 0.52 0.27 
+0.26 1.45 0.39 0.25 
+0.28 1.66 0.32 0.24 
+0.31 1.89 0.28 0.24 
+0.32 2.01 0.26 0.25 
+0.33 1.96 0.27 0.26 
+0.33 1.64 0.30 0.28 
+0.31 1.28 0.81 0.29 
+0.30 0.95 1.61 0.30 
+0.30 0.80 1.87 0.31 
+0.30 0.76 1.80 0.31 
+0.30 0.71 1.84 0.32 
+0.29 0.53 2.63 0.33 
+0.29 0.47 2.84 0.33 
+0.29 0.42 2.96 0.33 
+0.29 0.40 3.04 0.33 
+0.28 0.39 3.09 0.33 
+us med: 4.62
+front left:54.42
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.29 0.38 3.11 0.33 
+0.29 0.38 3.12 0.33 
+0.29 0.38 3.13 0.33 
+0.28 0.37 3.14 0.33 
+0.29 0.37 3.14 0.33 
+0.28 0.32 3.44 0.33 
+0.28 0.33 3.35 0.33 
+0.28 0.34 3.28 0.33 
+0.29 0.35 3.24 0.33 
+0.28 0.36 3.21 0.33 
+0.28 0.36 3.19 0.33 
+0.28 0.36 3.18 0.32 
+0.28 0.36 3.18 0.33 
+0.28 0.36 3.17 0.33 
+0.28 0.36 3.16 0.33 
+0.29 0.36 3.16 0.32 
+0.29 0.36 3.16 0.33 
+us med: 4.83
+front left:24.52
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.32 0.36 3.11 0.36 
+0.30 0.37 3.13 0.34 
+0.30 0.37 3.15 0.34 
+0.29 0.36 3.16 0.33 
+0.29 0.36 3.16 0.33 
+0.29 0.36 3.16 0.33 
+0.28 0.36 3.16 0.33 
+0.28 0.36 3.16 0.33 
+0.28 0.37 3.16 0.33 
+0.28 0.37 3.16 0.33 
+0.28 0.37 3.16 0.33 
+0.28 0.37 3.15 0.33 
+0.28 0.37 3.15 0.33 
+0.28 0.37 3.15 0.33 
+0.29 0.37 3.15 0.33 
+0.28 0.37 3.14 0.33 
+0.28 0.37 3.15 0.33 
+0.29 0.37 3.15 0.33 
+us med: 4.69
+front left:34.41
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+0.29 0.48 2.71 0.32 
+0.37 1.54 1.80 0.35 
+0.69 2.82 1.26 0.43 
+2.33 2.20 0.86 0.40 
+3.29 1.54 0.59 0.34 
+3.00 1.23 0.40 0.28 
+1.94 1.05 0.28 0.21 
+1.19 0.80 0.19 0.15 
