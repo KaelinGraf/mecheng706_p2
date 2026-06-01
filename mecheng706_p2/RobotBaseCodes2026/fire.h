@@ -105,17 +105,6 @@ class FireBank {
         return _sl->getFilteredV() >= v && _sr->getFilteredV() >= v;
     }
 
-    // Sum of the outer pair: the bearing presence / signal-strength metric.
-    inline float outerSum() const {
-        return _sl->getFilteredV() + _sr->getFilteredV();
-    }
-
-    // True if either outer cell is clipped (too close to range a bearing).
-    inline bool outerSaturated() const {
-        return _sl->getFilteredV() >= PHOTO_SAT_V
-            || _sr->getFilteredV() >= PHOTO_SAT_V;
-    }
-
     // True if ALL cells are below the "out" threshold (used by EXTINGUISH to
     // declare the fire put out and bail early).
     bool allBelow(float threshold = FIRE_OUT_V) const;

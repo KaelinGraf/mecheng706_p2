@@ -27,17 +27,15 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
-//#define TEST_FIRE_BANK false
+#define TEST_FIRE_BANK false
 
 // ===========================================================================
-// SWEEP_TEST: bench characterisation of the new outer (flat) phototransistor
-// pair. While defined, setup()/loop() run the sensor-sweep test (sweep_test.*)
-// INSTEAD of the firefighting FSM - the turret sweeps its full range at each
-// operator-entered distance and logs all four cells over Bluetooth/USB.
-// Comment this line out to restore normal robot operation.
+// SWEEP_TEST: bench characterisation of the outer (flat) phototransistor pair.
+// When defined, setup()/loop() run the sensor-sweep test (sweep_test.*) INSTEAD
+// of the firefighting FSM. Left OFF (commented) for normal robot operation;
+// uncomment to re-run a bench sweep.
 // ===========================================================================
-#define SWEEP_TEST
-
+//#define SWEEP_TEST
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -145,19 +143,20 @@ void setup(void)
 void loop(void) // main loop
 {
 #ifdef SWEEP_TEST
-  // Outer-pair sensor sweep test owns the loop while enabled; the firefighting
-  // FSM below is skipped entirely.
+  // Outer-pair sensor sweep test owns the loop while enabled; everything below
+  // (the firefighting FSM) is skipped.
   sweepTest->loop();
   return;
 #endif
-// #ifdef TEST_FIRE_BANK
-//   updateTurret();
-//   if (millis() - lastSensPrint > 100) {
-//     updateTurret();
-//     //printFireBank();
-//     lastSensPrint = millis();
-//   }
-// #else
+#if TEST_FIRE_BANK == true
+  firefighter->_fire_bank->update();
+  firefighter->updateIrSensors();
+  if (millis() - lastSensTurret > 500) {
+    updateTurret();
+    firefighter->testSensors();
+    lastSensTurret = millis();
+  }
+#else
   firefighter->pollState();
   firefighter->setBearing(turret->angle_);
   if (millis() - lastSensTurret > 50) {
@@ -173,7 +172,7 @@ void loop(void) // main loop
     }
     lastSensPrint = millis();
   }
-// #endif
+#endif
 }
 
 void printFireBank() {
@@ -201,12 +200,14 @@ void printFireBank() {
     firefighter->println(fb->_sr->getFilteredV());
 }
 
+
+
 void updateTurret() {
   // Behaviour 2: while the chassis is doing its 360 spin-scan, SpinScan holds
   // the turret dead-centre and owns the fire bank. Don't pan/aim/lock here.
   if (firefighter->getCurrentState() == State::SPIN_SCAN) return;
 
-  firefighter->_fire_bank->update();
+  // Fire bank is refreshed every loop in FireFighter::pollState().
   angleError = firefighter->_fire_bank->estimateBearing(); // degrees off-axis; 0 = aimed
   
   Serial.print("Error ");  
@@ -241,7 +242,7 @@ void updateTurret() {
   }
 
   float old_angle = turret->angle_;
-  if (fabs(angleError)<10.0){
+  if (fabs(angleError)<4.0){
     Serial.println("Aimed");  
     return;
   }
@@ -255,6 +256,7 @@ void updateTurret() {
 }
 
 void printFireSensors() {
+    firefighter->print("FireBank: ");
     firefighter->print(firefighter->_fire_bank->_sl->getFilteredV());
     firefighter->print(" ");
     firefighter->print(firefighter->_fire_bank->_l->getFilteredV());

@@ -39,7 +39,7 @@
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
-#define SERVO_CENTER 78
+#define SERVO_CENTER 95
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
@@ -108,14 +108,14 @@
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
 #define APPROACH_FORWARD_SPEED  10.0f
-#define APPROACH_TURN_GAIN      20.0f
+#define APPROACH_TURN_GAIN      17.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
 #define AVOID_ROTATE_SPEED      30.0f
-#define AVOID_URGENT            10.0f
+#define AVOID_URGENT            8.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
@@ -130,7 +130,7 @@
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.
 // Tune on the bench: cover all 4, read the noise floor, then add ~3 sigma.
-#define FIRE_DETECT_V           0.15f
+#define FIRE_DETECT_V           0.3f
 
 // Phototransistor threshold for declaring a fire is OUT (LED has gone dark).
 // Lower than detect threshold by a margin to provide hysteresis against
@@ -145,27 +145,9 @@
 // strafe speed below.
 #define AVOID_STRAFE_SPEED      130.0f
 
-// ---------------------------------------------------------------------------
-// Outer-pair (flat) phototransistor BEARING calibration.
-// From the bench sweep characterisation (analysis/sensor_usage_guide, all four
-// cells live, 10-190 cm). estimateBearing() steers on the gain-balanced,
-// normalised outer differential:
-//     theta_err = BEARING_DEG_PER_UNIT * (SL - G*SR) / (SL + G*SR)
-// which nulls (=0) when the turret points at the fire and is ~independent of
-// range and LED brightness. Trust it only when both cells are unsaturated and
-// the outer sum is above the floor. Re-measure G and the scale against the real
-// fire LED; the normalised form is brightness-robust and should carry over.
-// ---------------------------------------------------------------------------
-#define PHOTO_SR_GAIN           2.17f   // SR gain to match SL peak (SL ~2.17x SR)
-#define BEARING_DEG_PER_UNIT    58.0f   // normalised diff -> degrees off-axis
-#define PHOTO_SAT_V             4.80f   // cell at/above this is clipped (range <~50cm)
-#define BEARING_MIN_SUM_V       0.20f   // need SL+SR above this to trust a bearing
-#define BEARING_MAX_DEG         28.0f   // clamp; linear law valid within ~+/-25 deg
-// Boresight: the flat array faces the source at turret rel ~+20 deg (servo ~98),
-// NOT SERVO_CENTER (78). CONFIRM this is a centre-calibration/mounting error
-// (then set SERVO_CENTER ~= 98) and not just bench lamp placement, before
-// changing it. The bearing law above needs no such confirmation; only the
-// pan-scan centre and turretAngleToBearing() do.
+// Outer-pair bearing calibration (G, deg/unit, saturation, floors) lives as
+// locals inside FireBank::estimateBearing() in fire.cpp (the "new firebank PT"
+// implementation), not here.
 
 // ---------------------------------------------------------------------------
 // Behaviour 1: turret lock-on gate (outer phototransistor pair).

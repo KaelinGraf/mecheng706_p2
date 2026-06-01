@@ -69,40 +69,70 @@ void FireBank::printFireSensors() {
 // ---------------------------------------------------------------------------
 // FireBank::estimateBearing
 // ---------------------------------------------------------------------------
-// Outer-pair bearing. Replaces the old four-cell sin/cos vector sum, which no
-// longer matches the hardware now that the outer pair (_sl/_sr) are mounted
-// flat and forward-facing. Returns the fire's angle in DEGREES relative to the
-// turret's current optical axis: 0 = aimed, sign = side (+ = fire toward _sl /
-// outer-left -- VERIFY against the servo direction on the bench).
-//
-// The gain-balanced, normalised differential nulls when the array faces the
-// source and is ~independent of range and LED brightness. Invalid (returns 0)
-// when there is no signal (outer sum below floor) or the cells are saturated
-// (too close to range reliably -- hand off to ultrasonic / "close enough, run
-// fan"). Calibration constants live in mappings.h and came from the bench sweep
-// characterisation (analysis/sensor_usage_guide). The `threshold` arg is no
-// longer used (presence is gated on the outer sum, not maxV()).
 float FireBank::estimateBearing(float threshold) {
-    (void)threshold;
-    const float sl  = _sl->getFilteredV();
-    const float sr  = _sr->getFilteredV();
-    const float sum = sl + sr;
+    float sl = _sl->getFilteredV();
+    float l  = _l->getFilteredV();
+    float r  = _r->getFilteredV();
+    float sr = _sr->getFilteredV();
 
-    // Presence & saturation gate.
-    if (sum < BEARING_MIN_SUM_V || sl >= PHOTO_SAT_V || sr >= PHOTO_SAT_V) {
+    // Early exit if we don't meet the absolute minimum confidence threshold
+    if (maxV() < threshold) {
         _angleValid = false;
         return 0.0f;
     }
 
-    // Gain-balanced, normalised differential: nulls when the array faces the
-    // source; ~independent of range and LED brightness.
-    const float nb = (sl - PHOTO_SR_GAIN * sr) / (sl + PHOTO_SR_GAIN * sr);
-    float deg = BEARING_DEG_PER_UNIT * nb;        // + = fire toward _sl
-    if (deg >  BEARING_MAX_DEG) deg =  BEARING_MAX_DEG;
-    if (deg < -BEARING_MAX_DEG) deg = -BEARING_MAX_DEG;
+    // --- CLOSE RANGE: Inner-pair vector sum ---
+    // Trigger if the max of the two middle sensors is above 1.0V
+    if (l > 0.6f || r > 0.6f) {
+        // 10 degrees: sin(10) = 0.174, cos(10) = 0.985
+        const float sin10 = 0.17365f;
+        const float cos10 = 0.98481f;
+        
+        float x = sin10 * (r - l);
+        float y = cos10 * (l + r);
+        
+        if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) {
+            _angleValid = false;
+            return 0.0f;
+        }
+        
+        _angleValid = true;
+        return atan2f(-x, y) * 57.2958f;
+    }
+    
+    // --- FAR RANGE: Outer-pair differential ---
+    else {
+        // Calibrated constants from the guide
+        const float PHOTO_SR_GAIN = 1.7f;
+        const float BEARING_DEG_PER_UNIT = 58.0f;
+        const float PHOTO_SAT_V = 4.80f;
+        const float BEARING_MIN_SUM_V = 1;
+        const float BEARING_MAX_DEG = 28.0f;
+        
+        float sum = sl + sr;
 
-    _angleValid = true;
-    return deg;
+        if (sum < BEARING_MIN_SUM_V) {
+            _angleValid = false;
+            return 0.0f; 
+        }
+        
+        // Saturation and presence gating
+        if (sl >= PHOTO_SAT_V && sr >= PHOTO_SAT_V) {
+            _angleValid = true;
+            return 0.0f; 
+        }
+        
+        // Gain-balanced, normalised differential equation
+        float nb = (sl - PHOTO_SR_GAIN * sr) / (sl + PHOTO_SR_GAIN * sr);
+        float deg = BEARING_DEG_PER_UNIT * nb;
+        
+        // Clamp to valid bearing envelope
+        if (deg > BEARING_MAX_DEG) deg = BEARING_MAX_DEG;
+        if (deg < -BEARING_MAX_DEG) deg = -BEARING_MAX_DEG;
+        
+        _angleValid = true;
+        return deg;
+    }
 }
 
 void FireBank::reset() {

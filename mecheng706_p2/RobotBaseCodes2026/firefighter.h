@@ -24,10 +24,10 @@ private:
     int fires_extinguished_ = 0;
 
 public:
-    LongRangeIR *_front_left_ir;
-    LongRangeIR *_front_right_ir;
-    ShortRangeIR *_rear_right_ir;
-    ShortRangeIR *_rear_left_ir;
+    ShortRangeIR *_front_left_ir;
+    ShortRangeIR *_front_right_ir;
+    LongRangeIR *_rear_right_ir;
+    LongRangeIR *_rear_left_ir;
     Gyroscope *_gyro;
     Ultrasonic *_ultrasonic;
     driveMotors *_motors;
@@ -64,6 +64,7 @@ public:
 
     inline void setSerialCom(HardwareSerial *serialCom) { serialCom_ = serialCom; };
     inline void setBluetoothSerial(SoftwareSerial *btSerial) { btSerial_ = btSerial; };
+    void updateIrSensors();
 
     template <typename... Args>
     inline void print(Args... args)

@@ -40,12 +40,7 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  // Outer-pair "aimed at fire": the differential is nulled and the outer signal
-  // is strong. Re-based off the old inner-cell (_l/_r > 2 V) test per
-  // analysis/sensor_usage_guide so it agrees with the new outer-pair bearing.
-  return _fb->isValid()
-      && fabsf(_fb->estimateBearing()) < 4.0f   // differential nulled
-      && _fb->outerSum() > 1.0f;                // and strong signal
+  return (_fb->_sl->getFilteredV() > 4.8) && (_fb->_sr->getFilteredV() > 4.8);
 }
 
 void Turret::writeAngle(int angle){

@@ -86,28 +86,6 @@ void Tracking::poll() {
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = (fabsf(bearing_error) < 3.0f) && (turret->locked_on_);
 
-    // Debug output
-    // ff->print("[TRACK] beh=");
-    // ff->print((int)active_behavior_);
-    // ff->print(" fire=");
-    // ff->print(fire_detected);
-    // ff->print(" target=");
-    // ff->print(target_bearing, 3);
-    // ff->print(" err=");
-    // ff->print(bearing_error, 3);
-    // ff->print(" aimed=");
-    // ff->print(aimed);
-    // ff->print(" obs=");
-    // ff->print(obstacle_ahead);
-    // ff->print(" L=");
-    // ff->print(obstacle_left);
-    // ff->print(" R=");
-    // ff->print(obstacle_right);
-    // ff->print(" close=");
-    // ff->print(close_front);
-    // ff->print(" us=");
-    // ff->println(us_cm);
-
     // Motor command variables
     float motor_vx = 0.0f;
     float motor_vy = 0.0f;
@@ -121,14 +99,13 @@ void Tracking::poll() {
     }else if(angle<(SERVO_CENTER - center_deadzone)){
         curr_turret = 2;
     }
-    bool close_to_fire = (ff->_fire_bank->maxVMid()>0.85);
+    bool close_to_fire = (ff->_fire_bank->_sl->getFilteredV() > 4.8 || ff->_fire_bank->_sr->getFilteredV() > 4.8);
     ff->print("Close to fire: ");
     ff->print(close_to_fire);
     ff->print(" || Max Val: ");
     ff->println(ff->_fire_bank->maxVMid());
 
-
-    if (((obstacle_ahead || close_front)&& ((curr_turret==1) ^ close_front))
+    if (((obstacle_ahead || close_front) && ((curr_turret==1) ^ close_front))
         || (obstacle_left && ((curr_turret==0) ^ close_front))
         || (obstacle_right &&  ((curr_turret==2) ^ close_front))
         || obstacle_side) {
@@ -138,27 +115,20 @@ void Tracking::poll() {
             behavior_start_ms_ = now;
         }
     }
-    if(turret->atFire()){
+    // recent fire
+    if (ff->recentExtinguish() && (close_front || obstacle_ahead)){
+        ff->println("[TRACK] RECENT FIRE");
+        if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+            active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
+            behavior_start_ms_ = now;
+        }
+    }
+    if(close_to_fire){
         ff->println("[TRACK] AT_FIRE");
         active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
         behavior_start_ms_ = now;
     }
 
-
-
-    // if ((obstacle_ahead || obstacle_left || obstacle_right || obstacle_side) && !close_front) {
-    //     // PRIORITY 1: Obstacle ahead triggers AVOID
-    //     if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-    //         active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
-    //         behavior_start_ms_ = now;
-    //     }
-    // }
-    // if ( close_front && (!turret->atFire() || ff->recentExtinguish())){
-    //     if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-    //         active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
-    //         behavior_start_ms_ = now;
-    //     }
-    // }
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
     {
         active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
@@ -252,6 +222,7 @@ void Tracking::poll() {
                     ff->println("[AVOID] -> APPROACH FIRE");
                     behavior_start_ms_ = now;  
                 } else {
+                    ff->println("[AVOID] -> FIRE_BEHIND");
                     // fire behind obstacle
                     motor_vtheta = AVOID_ROTATE_SPEED;
                     motor_vx = -AVOID_SPEED;
@@ -261,8 +232,9 @@ void Tracking::poll() {
                 behavior_start_ms_ = now;
             } else {
                 // Obstacle ahead and not aimed, just go left
+                ff->println("[AVOID] -> AHEAD NOT AIMED");
                 motor_vtheta = -AVOID_ROTATE_SPEED;
-                motor_vx = AVOID_SPEED;
+                motor_vx = -AVOID_SPEED;
                 }
             }
         }

@@ -34,13 +34,14 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
   serialCom_->print("Gyro exit");
   _motors = new driveMotors();
-  _front_left_ir = new LongRangeIR(front_left_ir_pin);
-  _front_right_ir = new LongRangeIR(front_right_ir_pin);
-  _rear_left_ir = new ShortRangeIR(rear_left_ir_pin);
-  _rear_right_ir = new ShortRangeIR(rear_right_ir_pin);
+  _front_left_ir = new ShortRangeIR(front_left_ir_pin);
+  _front_right_ir = new ShortRangeIR(front_right_ir_pin);
+  _rear_left_ir = new LongRangeIR(rear_left_ir_pin);
+  _rear_right_ir = new LongRangeIR(rear_right_ir_pin);
   _ultrasonic = new Ultrasonic(ECHO_PIN, TRIG_PIN, MAX_DIST);
   ultrasonicISR = _ultrasonic;
   _motors->attatchAll();
+  _lastExtinguisedMillis = 0;
 
   // Fire-detection bank: four cardinal phototransistors plus the
   // aggregator that produces "any detection" / "bearing to fire" answers.
@@ -100,6 +101,8 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 
 void FireFighter::pollState() {
   _gyro->readSensor();
+  _fire_bank->update();
+  updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
@@ -116,16 +119,16 @@ void FireFighter::testSensors() {
   print("us med: "); println(_ultrasonic->readBlocking());
 
   print("front left:");
-  println(_front_left_ir->readSensor());
+  println(_front_left_ir->getAvg());
 
   print("front right:");
-  println(_front_right_ir->readSensor());
+  println(_front_right_ir->getAvg());
 
   print("rear left:");
-  println(_rear_left_ir->readSensor());
+  println(_rear_left_ir->getAvg());
 
   print("rear right:");
-  println(_rear_right_ir->readSensor());
+  println(_rear_right_ir->getAvg());
   println();
   println();
 }
@@ -175,4 +178,11 @@ bool FireFighter::is_battery_voltage_OK() {
     else
       return true;
   }
+}
+
+void FireFighter::updateIrSensors() {
+  _front_left_ir->readSensor();
+  _front_right_ir->readSensor();
+  _rear_left_ir->readSensor();
+  _rear_right_ir->readSensor();
 }

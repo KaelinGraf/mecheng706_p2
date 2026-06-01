@@ -1,1437 +1,3635 @@
-=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.05.29 11:57:00 =~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2026.06.01 15:35:12 =~=~=~=~=~=~=~=~=~=~=~=
 Initialising: warm-up done, switching to SEARCH
 Tracking
-0.02 0.05 0.28 0.03 
-Close to fire: 0 || Max Val: 0.28
+FireBank: 0.05 0.00 0.00 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.27
+[TRACK] FF
+FireBank: 0.59 0.02 0.27 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.18
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+FireBank: 0.74 0.04 0.07 0.25 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+FireBank: 0.84 0.05 0.03 0.33 
+Close to fire: 0 || Max Val: 0.04
 [TRACK] turret locked -> MOVE_TO_FIRE
-Close to fire: 0 || Max Val: 0.28
-0.18 0.13 0.50 0.15 
-Close to fire: 0 || Max Val: 0.50
-Close to fire: 0 || Max Val: 0.50
-Close to fire: 0 || Max Val: 0.50
-Close to fire: 0 || Max Val: 0.50
-Close to fire: 0 || Max Val: 0.50
-0.27 0.17 0.62 0.22 
-Close to fire: 0 || Max Val: 0.62
-Close to fire: 0 || Max Val: 0.62
-Close to fire: 0 || Max Val: 0.62
-Close to fire: 0 || Max Val: 0.62
-Close to fire: 0 || Max Val: 0.62
-0.32 0.18 0.71 0.26 
+Close to fire: 0 || Max Val: 0.03
+FireBank: 0.80 0.03 0.02 0.38 
+Close to fire: 0 || Max Val: 0.37
+Close to fire: 0 || Max Val: 0.25
+Close to fire: 0 || Max Val: 0.18
+FireBank: 0.62 0.04 0.18 0.34 
+Close to fire: 0 || Max Val: 0.46
+Close to fire: 0 || Max Val: 0.32
+Close to fire: 0 || Max Val: 0.55
+FireBank: 0.91 0.10 0.55 0.25 
 Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.46
+Close to fire: 0 || Max Val: 0.64
+FireBank: 0.93 0.10 0.64 0.16 
+us med: 161.10
+front left:-1.00
+front right:21.57
+rear left:97.07
+rear right:26.02
+
+
 Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.36 0.19 0.77 0.29 
-Close to fire: 0 || Max Val: 0.77
-Close to fire: 0 || Max Val: 0.77
-Close to fire: 0 || Max Val: 0.77
-Close to fire: 0 || Max Val: 0.77
-Close to fire: 0 || Max Val: 0.77
-0.39 0.21 0.80 0.17 
-Close to fire: 0 || Max Val: 0.80
-Close to fire: 0 || Max Val: 0.80
-Close to fire: 0 || Max Val: 0.80
-Close to fire: 0 || Max Val: 0.80
-Close to fire: 0 || Max Val: 0.80
-0.41 0.21 0.83 0.24 
-Close to fire: 0 || Max Val: 0.83
-Close to fire: 0 || Max Val: 0.83
-Close to fire: 0 || Max Val: 0.83
-Close to fire: 0 || Max Val: 0.83
-Close to fire: 0 || Max Val: 0.83
-0.41 0.22 0.84 0.15 
-Close to fire: 0 || Max Val: 0.84
-Close to fire: 0 || Max Val: 0.84
-Close to fire: 0 || Max Val: 0.84
-Close to fire: 0 || Max Val: 0.84
-Close to fire: 0 || Max Val: 0.84
-0.41 0.21 0.86 0.23 
-Close to fire: 1 || Max Val: 0.86
-Close to fire: 1 || Max Val: 0.86
-Close to fire: 1 || Max Val: 0.86
-Close to fire: 1 || Max Val: 0.86
-0.41 0.21 0.85 0.25 
-Close to fire: 1 || Max Val: 0.85
-Close to fire: 1 || Max Val: 0.85
-Close to fire: 1 || Max Val: 0.85
-Close to fire: 1 || Max Val: 0.85
-0.44 0.21 0.87 0.28 
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-0.45 0.22 0.88 0.17 
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-0.42 0.21 0.88 0.24 
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-0.42 0.21 0.89 0.28 
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-0.43 0.21 0.89 0.17 
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-0.42 0.22 0.89 0.23 
-us med: 23.52
-front left:84.28
-front right:23.91
+Close to fire: 0 || Max Val: 0.44
+FireBank: 0.68 0.08 0.44 0.09 
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.42
+Close to fire: 0 || Max Val: 0.61
+FireBank: 0.84 0.09 0.61 0.06 
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.43
+Close to fire: 0 || Max Val: 0.27
+FireBank: 0.42 0.04 0.27 0.03 
+Close to fire: 0 || Max Val: 0.53
+Close to fire: 0 || Max Val: 0.32
+Close to fire: 0 || Max Val: 0.20
+FireBank: 0.30 0.02 0.20 0.03 
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.30
+Close to fire: 0 || Max Val: 0.19
+FireBank: 0.12 0.02 0.19 0.02 
+Close to fire: 0 || Max Val: 0.11
+Close to fire: 0 || Max Val: 0.07
+Close to fire: 0 || Max Val: 0.05
+FireBank: 0.08 0.00 0.05 0.02 
+Close to fire: 0 || Max Val: 0.41
+Close to fire: 0 || Max Val: 0.25
+Close to fire: 0 || Max Val: 0.15
+FireBank: 0.24 0.01 0.15 0.01 
+Close to fire: 0 || Max Val: 0.09
+us med: 160.07
+front left:-1.00
+front right:-1.00
+rear left:45.40
+rear right:40.18
+
+
+Close to fire: 0 || Max Val: 0.05
+FireBank: 0.12 0.00 0.05 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] turret lost lock -> FIND_FIRE
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.06 0.00 0.02 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.04 0.00 0.01 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.03 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.03 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.04 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.04 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.04 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+us med: 176.69
+front left:-1.00
+front right:17.49
 rear left:-1.00
 rear right:-1.00
 
 
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-0.42 0.22 0.89 0.27 
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-Close to fire: 1 || Max Val: 0.89
-0.43 0.21 0.90 0.29 
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-0.28 0.18 0.87 0.31 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.04 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.03 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.03 0.00 0.00 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.04 0.00 0.00 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.03 0.00 0.01 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.04 0.00 0.01 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.05 0.00 0.02 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+us med: 171.59
+front left:-1.00
+front right:-1.00
+rear left:59.47
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.07 0.00 0.03 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.07 0.00 0.04 0.08 
+Scan
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.10 0.00 0.08 0.15 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.14 0.00 0.11 0.23 
+Scan
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.23 0.00 0.12 0.31 
+Scan
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.26 0.00 0.12 0.34 
+Scan
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.49 0.01 0.08 0.41 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+us med: 170.83
+front left:-1.00
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+FireBank: 0.72 0.02 0.05 0.43 
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 9.27 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 9.27 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.81 0.03 0.04 0.44 
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.03
+FireBank: 0.90 0.03 0.03 0.46 
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 12.50 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 12.50 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.88 0.03 0.03 0.45 
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 12.50 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 0.83 0.03 0.04 0.45 
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 8.80 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 8.80 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.78 0.03 0.04 0.45 
+Close to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+f: 10.76 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+f: 10.76 r: 134.48
+[TRACK] AVOID Right
+FireBank: 0.60 0.02 0.07 0.45 
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.06
+FireBank: 0.74 0.02 0.06 0.45 
+us med: 163.45
+front left:-1.00
+front right:-1.00
+rear left:186.84
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.05
+Close to fire: 0 || Max Val: 0.04
+FireBank: 0.88 0.03 0.04 0.47 
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.20
+Close to fire: 0 || Max Val: 0.13
+FireBank: 1.08 0.04 0.13 0.50 
+Close to fire: 0 || Max Val: 0.36
+Close to fire: 0 || Max Val: 0.22
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+f: 10.60 r: 26.74
+[TRACK] AVOID Left
+FireBank: 1.13 0.04 0.15 0.49 
+Close to fire: 0 || Max Val: 0.39
+WE ARE IN AVOID
+f: 13.86 r: 28.53
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+ Bearing Error: 2.40 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 1.10 0.05 0.24 0.49 
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+ Bearing Error: 2.40 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.10
+WE ARE IN AVOID
+ Bearing Error: 2.00 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 1.07 0.04 0.10 0.51 
+Close to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+f: 14.99 r: 67.89
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 1.06 0.04 0.05 0.51 
+Close to fire: 0 || Max Val: 0.06
+Close to fire: 0 || Max Val: 0.07
+Close to fire: 0 || Max Val: 0.35
+FireBank: 1.04 0.05 0.35 0.45 
+us med: 137.10
+front left:-1.00
+front right:-1.00
+rear left:97.07
+rear right:82.47
+
+
+Close to fire: 0 || Max Val: 0.49
+Close to fire: 0 || Max Val: 0.34
+FireBank: 0.88 0.04 0.34 0.44 
+Close to fire: 0 || Max Val: 0.25
+Close to fire: 0 || Max Val: 0.20
+Close to fire: 0 || Max Val: 0.17
+FireBank: 0.64 0.01 0.17 0.43 
+Close to fire: 0 || Max Val: 0.39
+Close to fire: 0 || Max Val: 0.28
+Close to fire: 0 || Max Val: 0.22
+FireBank: 0.71 0.02 0.22 0.43 
+Close to fire: 0 || Max Val: 0.43
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.23
+FireBank: 0.78 0.03 0.23 0.44 
+Close to fire: 0 || Max Val: 0.18
+Close to fire: 0 || Max Val: 0.15
+Close to fire: 0 || Max Val: 0.38
+FireBank: 0.98 0.07 0.38 0.45 
+Close to fire: 0 || Max Val: 0.53
+Close to fire: 0 || Max Val: 0.35
+Close to fire: 0 || Max Val: 0.24
+FireBank: 1.01 0.05 0.24 0.48 
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.29
+FireBank: 1.12 0.08 0.29 0.41 
+Close to fire: 0 || Max Val: 0.48
+Close to fire: 0 || Max Val: 0.35
+us med: 112.00
+front left:20.20
+front right:-1.00
+rear left:-1.00
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.52
+FireBank: 1.07 0.09 0.52 0.38 
+Close to fire: 0 || Max Val: 0.37
+WE ARE IN AVOID
+f: 9.47 r: 47.66
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.53
+WE ARE IN AVOID
+f: 9.47 r: 48.87
+[TRACK] AVOID Left
+FireBank: 0.99 0.09 0.53 0.34 
+Close to fire: 0 || Max Val: 0.35
+WE ARE IN AVOID
+f: 10.45 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+f: 10.45 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.43 0.03 0.24 0.20 
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+f: 12.29 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.10
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 0.25 0.01 0.10 0.11 
+Close to fire: 0 || Max Val: 0.07
+Close to fire: 0 || Max Val: 0.05
+Close to fire: 0 || Max Val: 0.33
+FireBank: 0.68 0.08 0.33 0.16 
+Close to fire: 0 || Max Val: 0.51
+WE ARE IN AVOID
+f: 9.52 r: 121.69
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.63
+WE ARE IN AVOID
+ Bearing Error: -2.50 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 1.17 0.13 0.63 0.19 
+Close to fire: 0 || Max Val: 0.40
+WE ARE IN AVOID
+ Bearing Error: -2.50 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.26
+WE ARE IN AVOID
+f: 14.50 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.48 0.05 0.26 0.14 
+Close to fire: 0 || Max Val: 0.18
+WE ARE IN AVOID
+ Bearing Error: -2.10 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+ Bearing Error: -2.10 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.25 0.02 0.12 0.11 
+Close to fire: 0 || Max Val: 0.08
+WE ARE IN AVOID
+f: 11.27 r: -1.00
+[TRACK] AVOID Right
+us med: 106.41
+front left:-1.00
+front right:11.27
+rear left:97.07
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+f: 10.30 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.15 0.01 0.07 0.10 
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.04
+Close to fire: 0 || Max Val: 0.03
+FireBank: 0.09 0.00 0.03 0.08 
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.21
+Close to fire: 0 || Max Val: 0.14
+FireBank: 0.16 0.02 0.14 0.07 
+Close to fire: 0 || Max Val: 0.09
+Close to fire: 0 || Max Val: 0.06
+Close to fire: 0 || Max Val: 0.05
+FireBank: 0.63 0.00 0.05 0.07 
+Scan
+Close to fire: 0 || Max Val: 0.33
+[TRACK] turret lost lock -> FIND_FIRE
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.21
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.18
+[TRACK] FF
+FireBank: 0.42 0.02 0.18 0.16 
+Scan
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+FireBank: 0.33 0.01 0.17 0.33 
+Scan
+Close to fire: 0 || Max Val: 0.18
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.15
+[TRACK] FF
+FireBank: 0.42 0.01 0.15 0.30 
+Scan
+Close to fire: 0 || Max Val: 0.39
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.27
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.19
+[TRACK] FF
+FireBank: 0.41 0.02 0.19 0.16 
+Scan
+us med: 143.52
+front left:-1.00
+front right:-1.00
+rear left:67.89
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.41
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.26
+[TRACK] FF
+FireBank: 0.51 0.04 0.26 0.15 
+Scan
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+FireBank: 0.18 0.01 0.07 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.09 0.00 0.03 0.08 
+Scan
+Close to fire: 0 || Max Val: 0.31
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.19
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.25 0.02 0.12 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.12 0.00 0.03 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.06 0.00 0.02 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.32
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.19
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.24 0.03 0.12 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+us med: 129.45
+front left:-1.00
+front right:-1.00
+rear left:32.94
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+FireBank: 0.65 0.01 0.05 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.19 0.00 0.01 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.32
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.19
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.27 0.03 0.11 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.10 0.01 0.02 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.25 0.00 0.01 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.10 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.36
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.22
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+FireBank: 0.23 0.03 0.13 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+us med: 158.28
+front left:-1.00
+front right:-1.00
+rear left:73.06
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.37
+[TRACK] FF
+FireBank: 0.71 0.10 0.37 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.22
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.18 0.02 0.08 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.07 0.01 0.02 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.07 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.07 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.23 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.35
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.21
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+FireBank: 0.25 0.04 0.13 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+us med: 160.83
+front left:-1.00
+front right:-1.00
+rear left:56.00
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.36
+[TRACK] FF
+FireBank: 0.53 0.08 0.36 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.22
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.14 0.02 0.08 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.41
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.25
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.15
+[TRACK] FF
+FireBank: 0.23 0.03 0.15 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.09 0.01 0.03 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.06 0.00 0.01 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.07 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.06 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.34
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.21
+[TRACK] FF
+us med: 160.62
+front left:-1.00
+front right:-1.00
+rear left:27.91
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.45
+[TRACK] FF
+FireBank: 0.69 0.07 0.45 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.27
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.19 0.02 0.11 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.29 0.03 0.04 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.15 0.01 0.02 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.14 0.00 0.02 0.07 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.34 0.00 0.03 0.08 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.23 0.00 0.03 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.24 0.00 0.03 0.11 
+Scan
+us med: 113.93
+front left:-1.00
+front right:11.57
+rear left:35.37
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.33
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.22
+[TRACK] FF
+FireBank: 0.47 0.04 0.22 0.19 
+Scan
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+FireBank: 0.43 0.01 0.13 0.20 
+Scan
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+FireBank: 0.43 0.02 0.13 0.21 
+Scan
+Close to fire: 0 || Max Val: 0.40
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.31
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.26
+[TRACK] FF
+FireBank: 0.57 0.03 0.26 0.36 
+Scan
+Close to fire: 0 || Max Val: 0.24
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+FireBank: 0.44 0.01 0.23 0.48 
+Scan
+Close to fire: 0 || Max Val: 0.22
+WE ARE IN AVOID
+f: 10.45 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.45
+WE ARE IN AVOID
+f: 11.76 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.82 0.06 0.45 0.53 
+Close to fire: 0 || Max Val: 0.35
+WE ARE IN AVOID
+f: 10.45 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.29
+WE ARE IN AVOID
+ Bearing Error: 1.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.59 0.03 0.29 0.62 
+Close to fire: 0 || Max Val: 0.26
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.22
+us med: 110.00
+front left:-1.00
+front right:-1.00
+rear left:57.69
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.45
+WE ARE IN AVOID
+f: 10.35 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.89 0.05 0.45 0.71 
+Close to fire: 0 || Max Val: 0.30
+WE ARE IN AVOID
+f: 13.94 r: 24.37
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.20
+WE ARE IN AVOID
+f: 13.94 r: 24.37
+[TRACK] AVOID Left
+FireBank: 1.20 0.05 0.20 0.79 
+Close to fire: 0 || Max Val: 0.22
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.14
+WE ARE IN AVOID
+f: 11.57 r: -1.00
+[TRACK] AVOID Right
+FireBank: 1.52 0.08 0.14 0.83 
+Close to fire: 0 || Max Val: 0.09
+WE ARE IN AVOID
+ Bearing Error: 3.40 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.09
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 1.63 0.09 0.06 0.84 
+Close to fire: 0 || Max Val: 0.09
+Close to fire: 0 || Max Val: 0.09
+Close to fire: 0 || Max Val: 0.33
+FireBank: 1.63 0.09 0.33 0.82 
+Close to fire: 0 || Max Val: 0.51
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.69
+FireBank: 1.51 0.11 0.69 0.84 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.28
+FireBank: 1.51 0.10 0.28 0.85 
+Close to fire: 0 || Max Val: 0.17
+Close to fire: 0 || Max Val: 0.11
+Close to fire: 0 || Max Val: 0.11
+FireBank: 1.43 0.11 0.07 0.80 
+Close to fire: 0 || Max Val: 0.11
+Close to fire: 0 || Max Val: 0.11
+us med: 93.59
+front left:-1.00
+front right:-1.00
+rear left:40.18
+rear right:139.36
+
+
+Close to fire: 0 || Max Val: 0.33
+FireBank: 1.35 0.12 0.33 0.69 
+Close to fire: 0 || Max Val: 0.20
+WE ARE IN AVOID
+f: 13.35 r: 41.48
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+f: 12.65 r: 46.50
+[TRACK] AVOID Left
+FireBank: 0.99 0.13 0.12 0.62 
+Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+f: 12.95 r: 53.65
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+f: 12.95 r: 63.40
+[TRACK] AVOID Left
+FireBank: 0.75 0.13 0.05 0.51 
+Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.13
+Close to fire: 0 || Max Val: 0.12
+FireBank: 0.54 0.12 0.02 0.32 
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.19
+Close to fire: 0 || Max Val: 0.42
+WE ARE IN AVOID
+f: VOID Left
+FireBank: 1.04 0.11 0.42 0.17 
+Close to fire: 0 || Max Val: 0.56
+WE ARE IN AVOID
+f: 11.69 r: 107.99
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.34
+WE ARE IN AVOID
+f: 12.02 r: 39.35
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.21
+WE ARE IN AVOID
+f: 12.02 r: -1.00
+[TRACK] AVOID Right
+FireBank: 0.56 0.14 0.21 0.41 
+Close to fire: 0 || Max Val: 0.14
+WE ARE IN AVOID
+f: 8.73 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+ Bearing Error: 2.20 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.75 0.15 0.08 0.56 
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+f: 8.73 r: -1.00
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 0.49 0.15 0.03 0.52 
+Close to fire: 0 || Max Val: 0.14
+Close to fire: 0 || Max Val: 0.14
+us med: 70.28
+front left:-1.00
+front right:-1.00
+rear left:23.76
+rear right:206.99
+
+
+Close to fire: 0 || Max Val: 0.32
+FireBank: 0.89 0.12 0.32 0.27 
+Close to fire: 0 || Max Val: 0.19
+Close to fire: 0 || Max Val: 0.12
+Close to fire: 0 || Max Val: 0.11
+FireBank: 0.45 0.11 0.08 0.14 
+Close to fire: 0 || Max Val: 0.12
+Close to fire: 0 || Max Val: 0.13
+Close to fire: 0 || Max Val: 0.28
+Close to fire: 0 || Max Val: 0.45
+FireBank: 1.04 0.13 0.45 0.38 
+Close to fire: 0 || Max Val: 0.30
+Close to fire: 0 || Max Val: 0.46
+Close to fire: 0 || Max Val: 0.28
+Close to fire: 0 || Max Val: 0.45
+FireBank: 0.61 0.13 0.45 0.16 
+Close to fire: 0 || Max Val: 0.54
+Close to fire: 0 || Max Val: 0.59
+Close to fire: 0 || Max Val: 0.63
+Close to fire: 0 || Max Val: 0.66
+FireBank: 0.84 0.13 0.66 0.16 
+Close to fire: 0 || Max Val: 0.67
+Close to fire: 0 || Max Val: 0.69
+Close to fire: 0 || Max Val: 0.42
+Close to fire: 0 || Max Val: 0.53
+FireBank: 0.60 0.12 0.53 0.12 
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.65
+Close to fire: 0 || Max Val: 0.68
+Close to fire: 0 || Max Val: 0.69
+FireBank: 1.35 0.07 0.69 0.09 
+Close to fire: 0 || Max Val: 0.69
+0.42
+Close to fire: 0 || Max Val: 0.57 0.04 0.54 0.07 
+us med: 65.66
+front left:12.50
+front right:18.67
+rear left:56.83
+rear right:97.07
+
+
+Close to fire: 0 || Max Val: 0.34
+WE ARE IN AVOID
+f: 8.63 r: 67.89
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 7.74 r: 24.06
+[TRACK] AVOID Left
+FireBank: 0.59 0.02 0.21 0.06 
+Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+ Bearing Error: 2.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.08
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 0.26 0.01 0.08 0.05 
+Close to fire: 0 || Max Val: 0.05
+Close to fire: 0 || Max Val: 0.04
+Close to fire: 0 || Max Val: 0.31
+FireBank: 0.67 0.02 0.31 0.06 
+Close to fire: 0 || Max Val: 0.19
+Close to fire: 0 || Max Val: 0.12
+Close to fire: 0 || Max Val: 0.08
+WE ARE IN AVOID
+f: 14.69 r: 129.93
+[TRACK] AVOID Right
+FireBank: 0.28 0.00 0.08 0.05 
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+f: 14.69 r: 69.11
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+ Bearing Error: 2.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.16 0.00 0.03 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+ Bearing Error: 2.80 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+ Bearing Error: 3.80 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.43 0.01 0.03 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+f: 12.87 r: 50.15
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+FireBank: 0.52 0.01 0.03 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.21 0.00 0.01 0.06 
+Scan
+us med: 87.45
+front left:-1.00
+front right:-1.00
+rear left:88.15
+rear right:114.43
+
+
+Close to fire: 0 || Max Val: 0.30
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.18
+[TRACK] FF
+FireBank: 0.43 0.01 0.18 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+FireBank: 0.19 0.00 0.05 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.14 0.00 0.02 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.14 0.00 0.01 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.10 0.01 0.01 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.30 0.01 0.03 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.14 0.01 0.01 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+FireBank: 0.11 0.02 0.00 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+us med: 84.76
+front left:-1.00
+front right:10.65
+rear left:125.67
+rear right:114.43
+
+
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.63 0.04 0.01 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+FireBank: 0.24 0.06 0.01 0.07 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+FireBank: 0.23 0.09 0.01 0.08 
+Scan
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.21 0.11 0.00 0.09 
+Scan
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.35 0.12 0.01 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.28
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+FireBank: 0.49 0.16 0.11 0.13 
+Scan
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+FireBank: 0.36 0.16 0.03 0.16 
+Scan
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+FireBank: 0.30 0.17 0.01 0.24 
+Scan
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.18
+[TRACK] FF
+us med: 81.52
+front left:19.32
+front right:-1.00
+rear left:-1.00
+rear right:150.27
+
+
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+FireBank: 0.90 0.17 0.02 0.37 
+Close to fire: 0 || Max Val: 0.19
+[TRACK] turret locked -> MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.21
+Close to fire: 0 || Max Val: 0.22
+FireBank: 0.88 0.22 0.03 0.56 
+Close to fire: 0 || Max Val: 0.23
+Close to fire: 0 || Max Val: 0.23
+Close to fire: 0 || Max Val: 0.23
+FireBank: 0.91 0.23 0.03 0.88 
+Close to fire: 0 || Max Val: 0.23
+Close to fire: 0 || Max Val: 0.23
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.22
+FireBank: 1.26 0.22 0.21 0.73 
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.27
+Close to fire: 0 || Max Val: 0.23
+WE ARE IN AVOID
+f: 13.19 r: 47.66
+[TRACK] AVOID Left
+FireBank: 0.73 0.23 0.17 0.68 
+Close to fire: 0 || Max Val: 0.39
+WE ARE IN AVOID
+f: 11.82 r: 47.66
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+f: 11.82 r: 47.66
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+f: 8.19 r: 114.43
+[TRACK] AVOID Right
+FireBank: 0.76 0.24 0.14 0.67 
+Close to fire: 0 || Max Val: 0.40
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.24
+Close to fire: 0 || Max Val: 0.44
+FireBank: 0.98 0.19 0.44 0.32 
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.64
+Close to fire: 0 || Max Val: 0.39
+Close to fire: 0 || Max Val: 0.55
+FireBank: 1.17 0.18 0.55 0.24 
+us med: 74.21
+front left:19.66
+front right:-1.00
+rear left:74.47
+rear right:77.48
+
+
+Close to fire: 0 || Max Val: 0.60
+Close to fire: 0 || Max Val: 0.37
+FireBank: 1.66 0.22 0.37 0.78 
+Close to fire: 0 || Max Val: 0.53
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.50
+WE ARE IN AVOID
+f: 8.73 r: 62.37
+[TRACK] AVOID Left
+FireBank: 1.93 0.22 0.50 1.21 
+Close to fire: 0 || Max Val: 0.32
+WE ARE IN AVOID
+f: 11.76 r: 111.12
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.22
+WE ARE IN AVOID
+f: 8.73 r: 64.47
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.19
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FireBank: 3.61 0.19 0.15 1.83 
+Close to fire: 0 || Max Val: 0.20
+Close to fire: 0 || Max Val: 0.20
+Close to fire: 0 || Max Val: 0.36
+FireBank: 2.89 0.21 0.36 1.61 
+Close to fire: 0 || Max Val: 0.53
+Close to fire: 0 || Max Val: 0.63
+Close to fire: 0 || Max Val: 0.40
+Close to fire: 0 || Max Val: 0.55
+FireBank: 1.61 0.23 0.55 1.63 
+Close to fire: 0 || Max Val: 0.66
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.40
+FireBank: 1.69 0.22 0.40 1.93 
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.34
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.31
+FireBank: 2.14 0.25 0.31 1.77 
+Close to fire: 0 || Max Val: 0.50
+Close to fire: 0 || Max Val: 0.31
+Close to fire: 0 || Max Val: 0.31
+us med: 66.28
+front left:18.06
+front right:-1.00
+rear left:56.00
+rear right:88.15
+
+
+Close to fire: 0 || Max Val: 0.32
+FireBank: 1.65 0.32 0.13 1.57 
+Close to fire: 0 || Max Val: 0.34
+Close to fire: 0 || Max Val: 0.35
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.36
+FireBank: 1.59 0.34 0.36 1.20 
+Close to fire: 0 || Max Val: 0.52
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.49
+Close to fire: 0 || Max Val: 0.32
+FireBank: 0.93 0.32 0.30 0.63 
+Close to fire: 0 || Max Val: 0.48
+Close to fire: 0 || Max Val: 0.32
+Close to fire: 0 || Max Val: 0.48
+Close to fire: 0 || Max Val: 0.32
+FireBank: 0.94 0.32 0.30 0.31 
+Close to fire: 0 || Max Val: 0.33
+Close to fire: 0 || Max Val: 0.35
+Close to fire: 0 || Max Val: 0.37
+Close to fire: 0 || Max Val: 0.39
+FireBank: 1.03 0.39 0.23 0.85 
+Close to fire: 0 || Max Val: 0.42
+Close to fire: 0 || Max Val: 0.39
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.37
+FireBank: 1.04 0.37 0.27 0.64 
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.39
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.38
+FireBank: 0.93 0.38 0.28 0.39 
+Close to fire: 0 || Max Val: 0.45
+Close to fire: 0 || Max Val: 0.38
+Close to fire: 0 || Max Val: 0.46
+Close to fire: 0 || Max Val: 0.39
+FireBank: 0.75 0.39 0.29 0.30 
+us med: 58.14
+front left:11.63
+front right:13.11
+rear left:60.41
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.42
+Close to fire: 0 || Max Val: 0.46
+FireBank: 0.68 0.46 0.12 0.67 
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.51
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.48
+FireBank: 1.08 0.48 0.26 0.70 
+Close to fire: 0 || Max Val: 0.47
+Close to fire: 0 || Max Val: 0.44
+Close to fire: 0 || Max Val: 0.45
+Close to fire: 0 || Max Val: 0.45
+FireBank: 1.12 0.42 0.45 0.29 
+Close to fire: 0 || Max Val: 0.56
+Close to fire: 0 || Max Val: 0.63
+Close to fire: 0 || Max Val: 0.42
+Close to fire: 0 || Max Val: 0.52
+FireBank: 0.84 0.45 0.52 0.29 
+Close to fire: 0 || Max Val: 0.60
+Close to fire: 0 || Max Val: 0.53
+Close to fire: 0 || Max Val: 0.55
+Close to fire: 0 || Max Val: 0.57
+WE ARE IN AVOID
+f: 8.84 r: 139.36
+[TRACK] AVOID Left
+FireBank: 1.31 0.57 0.32 1.44 
+Close to fire: 0 || Max Val: 0.63
+WE ARE IN AVOID
+f: 8.84 r: 34.11
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.68
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.72
+FireBank: 3.35 0.72 0.10 2.07 
+Close to fire: 0 || Max Val: 0.65
+Close to fire: 0 || Max Val: 0.60
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.58
+FireBank: 1.59 0.58 0.48 0.76 
+Close to fire: 0 || Max Val: 0.57
+Close to fire: 0 || Max Val: 0.61
+Close to fire: 0 || Max Val: 0.59
+Close to fire: 0 || Max Val: 0.64
+FireBank: 0.91 0.64 0.31 0.84 
+us med: 49.03
+front left:8.66
+front right:-1.00
+rear left:28.96
+rear right:-1.00
+
+
+Close to fire: 0 || Max Val: 0.66
+Close to fire: 0 || Max Val: 0.77
+Close to fire: 0 || Max Val: 0.82
+FireBank: 2.66 0.82 0.20 1.76 
+Close to fire: 0 || Max Val: 0.76
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.70
+Close to fire: 0 || Max Val: 0.69
+FireBank: 1.62 0.69 0.67 1.10 
+Close to fire: 0 || Max Val: 0.71
+Close to fire: 0 || Max Val: 0.74
+WE ARE IN AVOID
+f: 13.86 r: 36.37
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.76
+WE ARE IN AVOID
+f: 13.86 r: 36.37
+[TRACK] AVOID Left
+FireBank: 1.55 0.76 0.72 1.49 
+Close to fire: 0 || Max Val: 0.82
+WE ARE IN AVOID
+f: 14.12 r: 17.25
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.91
+WE ARE IN AVOID
+ Bearing Error: -1.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 3.18 0.91 0.46 2.20 
+Close to fire: 0 || Max Val: 0.99
+WE ARE IN AVOID
+ Bearing Error: -1.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 1.05
+WE ARE IN AVOID
+ Bearing Error: -1.80 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 4.19 1.05 0.19 2.33 
+Close to fire: 0 || Max Val: 1.08
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 1.10
+Close to fire: 0 || Max Val: 1.03
+FireBank: 3.39 1.03 0.34 2.34 
+Close to fire: 0 || Max Val: 0.97
+WE ARE IN AVOID
+f: 14.69 r: 56.00
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.89
+WE ARE IN AVOID
+ Bearing Error: -2.50 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.80
+WE ARE IN AVOID
+f: 12.72 r: 45.95
+[TRACK] AVOID Right
+FireBank: 3.09 0.80 0.65 3.30 
+Close to fire: 0 || Max Val: 0.83
+WE ARE IN AVOID
+f: 11.33 r: 45.95
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.85
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.87
+FireBank: 4.45 0.87 0.19 4.46 
+us med: 43.52
+front left:-1.00
+front right:-1.00
+rear left:39.76
+rear right:38.95
+
+
+Close to fire: 0 || Max Val: 0.88
+Close to fire: 0 || Max Val: 0.86
+Close to fire: 0 || Max Val: 0.82
+FireBank: 4.42 0.82 0.10 4.72 
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.72
+Close to fire: 0 || Max Val: 0.62
+Close to fire: 0 || Max Val: 0.64
+FireBank: 3.93 0.64 0.34 4.78 
+Close to fire: 0 || Max Val: 0.62
+WE ARE IN AVOID
+f: 14.60 r: 37.80
+[TRACK] AVOID Left
+Close to fire: 1 || Max Val: 0.53
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.51
+[TRACK] AT_FIRE
+FireBank: 3.91 0.51 0.50 4.82 
+Close to fire: 1 || Max Val: 0.67
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.54
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.69
+[TRACK] AT_FIRE
+FireBank: 4.52 0.69 0.33 4.83 
+Close to fire: 1 || Max Val: 0.79
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.85
+[TRACK] AT_FIRE
 Close to fire: 1 || Max Val: 0.87
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.88
+[TRACK] AT_FIRE
+FireBank: 4.80 0.88 0.18 4.83 
+Close to fire: 1 || Max Val: 0.88
+[TRACK] AT_FIRE
 Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-Close to fire: 1 || Max Val: 0.87
-0.35 0.20 0.88 0.19 
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-Close to fire: 1 || Max Val: 0.88
-0.24 0.19 0.90 0.24 
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-0.32 0.22 0.90 0.27 
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-Close to fire: 1 || Max Val: 0.90
-0.23 0.23 0.90 0.20 
-Close to fire: 1 || Max Val: 0.90
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.90
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.90
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.31 0.23 0.94 0.26 
-Close to fire: 1 || Max Val: 0.94
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.94
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.94
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.23 0.22 1.20 0.21 
-Close to fire: 1 || Max Val: 1.20
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 1.20
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 1.20
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.19 0.25 1.38 0.19 
-Close to fire: 1 || Max Val: 1.38
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 1.38
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 1.38
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.28 0.35 1.20 0.24 
-Close to fire: 1 || Max Val: 1.20
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 1.20
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.84
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.80
+[TRACK] AT_FIRE
+FireBank: 3.98 0.80 0.22 4.84 
+Close to fire: 1 || Max Val: 0.69
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.91
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.54
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.13
+[TRACK] AT_FIRE
+FireBank: 2.16 0.23 2.13 4.85 
+Close to fire: 1 || Max Val: 2.56
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.80
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.79
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.84
+[TRACK] AT_FIRE
+FireBank: 1.06 0.12 2.84 4.85 
+us med: 13.31
+front left:-1.00
+front right:-1.00
+rear left:52.92
+rear right:88.15
+
+
+Close to fire: 1 || Max Val: 3.11
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 3.16
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.84
+[TRACK] AT_FIRE
+FireBank: 1.15 0.11 2.84 4.85 
+Close to fire: 1 || Max Val: 2.83
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.86
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.95
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 2.78
+[TRACK] AT_FIRE
+FireBank: 1.30 0.14 2.78 4.86 
+Close to fire: 1 || Max Val: 2.00
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.47
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.01
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 0.92
+[TRACK] AT_FIRE
+FireBank: 3.77 0.92 0.72 4.86 
+Close to fire: 1 || Max Val: 1.07
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.13
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.11
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.07
+[TRACK] AT_FIRE
+FireBank: 4.28 1.07 0.45 4.86 
+Close to fire: 1 || Max Val: 1.03
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.00
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.00
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 1.99
+[TRACK] AT_FIRE
+FireBank: 2.76 0.62 1.99 4.88 
+Close to fire: 1 || Max Val: 2.80
+[TRACK] AT_FIRE
+Close to fire: 1 || Max Val: 3.57
+[TRACK] AT_FIRE
 [TRACK] fire within extinguish range
-Moving to Extinguish, time: 4187
+Moving to Extinguish, time: 17651
 EXTINGUISH: fan ON
-0.35 0.44 1.08 0.23 
-0.30 0.56 0.92 0.23 
-0.28 0.69 0.70 0.23 
-Extinguished at: 4333
-EXTINGUISH: done (led-out) fires=1 time=151
+FireBank: 1.70 0.28 4.09 4.88 
+FireBank: 4.84 2.41 0.40 4.87 
+FireBank: 4.83 2.18 0.60 4.88 
+us med: 5.24
+front left:-1.00
+front right:-1.00
+rear left:43.35
+rear right:64.47
+
+
+FireBank: 3.25 1.11 1.68 4.89 
+FireBank: 2.48 0.67 3.11 4.89 
+FireBank: 2.73 1.11 1.68 4.89 
+FireBank: 3.87 1.61 0.87 4.89 
+FireBank: 3.52 1.54 0.90 4.89 
+FireBank: 3.60 1.56 0.90 4.89 
+FireBank: 3.60 1.56 0.91 4.89 
+FireBank: 3.59 1.56 0.90 4.89 
+us med: 3.66
+front left:-1.00
+front right:-1.00
+rear left:20.04
+rear right:56.83
+
+
+FireBank: 2.75 1.48 0.79 4.89 
+FireBank: 3.58 1.56 0.90 4.89 
+FireBank: 3.59 1.56 0.90 4.89 
+FireBank: 3.59 1.56 0.91 4.89 
+FireBank: 3.63 1.57 0.90 4.89 
+FireBank: 3.62 1.57 0.90 4.89 
+FireBank: 3.67 1.58 0.89 4.89 
+FireBank: 3.67 1.57 0.89 4.88 
+FireBank: 3.67 1.58 0.88 4.89 
+us med: 4.21
+front left:-1.00
+front right:24.39
+rear left:41.93
+rear right:50.81
+
+
+FireBank: 3.64 1.58 0.88 4.89 
+FireBank: 3.76 1.60 0.87 4.88 
+FireBank: 3.74 1.59 0.87 4.89 
+FireBank: 3.76 1.60 0.87 4.89 
+FireBank: 2.90 1.26 1.35 4.89 
+FireBank: 3.04 1.34 1.18 4.89 
+FireBank: 3.00 1.32 1.22 4.89 
+FireBank: 3.01 1.32 1.22 4.89 
+us med: 3.86
+front left:-1.00
+front right:-1.00
+rear left:41.48
+rear right:50.81
+
+
+FireBank: 1.81 0.68 3.63 4.89 
+FireBank: 4.83 3.21 0.53 4.89 
+FireBank: 4.82 2.65 0.73 4.89 
+FireBank: 4.68 1.81 0.77 4.89 
+FireBank: 2.58 0.80 2.86 4.89 
+FireBank: 3.24 1.43 1.08 4.89 
+FireBank: 2.97 1.30 1.29 4.89 
+FireBank: 4.75 1.91 0.74 4.89 
+FireBank: 3.41 1.48 1.01 4.88 
+us med: 3.86
+front left:-1.00
+front right:-1.00
+rear left:97.07
+rear right:55.20
+
+
+FireBank: 3.48 1.52 0.94 4.89 
+FireBank: 3.66 1.55 0.92 4.89 
+FireBank: 3.54 1.52 0.95 4.89 
+FireBank: 3.61 1.55 0.93 4.89 
+FireBank: 3.54 1.52 0.94 4.89 
+FireBank: 3.59 1.54 0.93 4.89 
+FireBank: 3.55 1.53 0.94 4.89 
+FireBank: 3.56 1.53 0.94 4.89 
+FireBank: 3.56 1.53 0.94 4.89 
+us med: 3.31
+front left:-1.00
+front right:-1.00
+rear left:43.35
+rear right:38.18
+
+
+FireBank: 1.48 0.38 4.68 4.90 
+FireBank: 4.72 2.70 0.76 4.89 
+FireBank: 4.81 2.41 0.70 4.88 
+FireBank: 4.70 1.83 0.77 4.89 
+FireBank: 2.56 0.76 3.02 4.90 
+FireBank: 3.19 1.41 1.13 4.89 
+FireBank: 2.95 1.29 1.32 4.88 
+FireBank: 4.54 1.77 0.77 4.89 
+us med: 3.79
+front left:-1.00
+front right:-1.00
+rear left:41.93
+rear right:50.81
+
+
+FireBank: 3.29 1.68 0.77 4.88 
+FireBank: 4.44 1.75 0.79 4.89 
+FireBank: 4.44 1.75 0.79 4.89 
+FireBank: 4.44 1.75 0.79 4.89 
+FireBank: 4.44 1.75 0.80 4.89 
+FireBank: 4.44 1.75 0.80 4.89 
+FireBank: 4.48 1.76 0.79 4.89 
+FireBank: 4.64 1.79 0.79 4.89 
+FireBank: 4.73 1.82 0.79 4.89 
+us med: 3.86
+front left:-1.00
+front right:-1.00
+rear left:82.47
+rear right:56.83
+
+
+FireBank: 4.64 1.85 0.79 4.89 
+FireBank: 4.77 1.88 0.79 4.89 
+FireBank: 4.70 1.57 1.09 4.89 
+FireBank: 4.31 0.89 3.35 4.89 
+FireBank: 4.74 1.59 1.21 4.89 
+FireBank: 4.72 1.50 1.32 4.89 
+FireBank: 4.77 1.89 0.83 4.89 
+FireBank: 4.77 1.88 0.85 4.89 
+us med: 3.79
+front left:-1.00
+front right:-1.00
+rear left:41.48
+rear right:50.15
+
+
+FireBank: 3.52 1.79 0.81 4.89 
+FireBank: 4.76 1.86 0.84 4.89 
+FireBank: 4.77 1.86 0.85 4.89 
+FireBank: 4.77 1.86 0.85 4.89 
+FireBank: 4.77 1.86 0.84 4.89 
+FireBank: 4.77 1.87 0.85 4.89 
+FireBank: 4.73 1.63 1.06 4.89 
+FireBank: 4.73 1.63 1.04 4.89 
+FireBank: 4.73 1.63 1.05 4.89 
+us med: 3.93
+front left:16.83
+front right:-1.00
+rear left:41.48
+rear right:36.37
+
+
+FireBank: 4.63 1.62 1.05 4.89 
+FireBank: 4.38 1.37 1.54 4.89 
+FireBank: 4.65 1.58 1.08 4.89 
+FireBank: 4.51 1.54 1.17 4.89 
+FireBank: 4.09 1.22 2.01 4.89 
+FireBank: 4.64 1.62 1.01 4.89 
+FireBank: 4.77 1.92 0.79 4.89 
+FireBank: 4.77 1.91 0.80 4.89 
+us med: 4.21
+front left:-1.00
+front right:-1.00
+rear left:41.48
+rear right:50.15
+
+
+FireBank: 1.75 0.46 0.53 4.82 
+FireBank: 0.57 0.12 0.21 2.42 
+FireBank: 2.49 0.18 0.01 0.16 
+FireBank: 1.14 0.08 0.01 0.08 
+FireBank: 0.42 0.03 0.01 0.20 
+Extinguished at: 23288
+EXTINGUISH: done (led-out) fires=1 time=5642
 Next Fire
 EXTINGUISH: fan OFF
 Tracking
+FireBank: 0.00 0.00 0.00 0.00 
 Close to fire: 0 || Max Val: 0.00
-[TRACK] turret locked -> MOVE_TO_FIRE
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=1
+[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
 Close to fire: 0 || Max Val: 0.00
-0.34 1.05 0.91 0.36 
-Close to fire: 1 || Max Val: 1.05
-Close to fire: 1 || Max Val: 1.05
-Close to fire: 1 || Max Val: 1.05
-us med: 4.41
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=1
+[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
+FireBank: 0.06 0.00 0.00 0.10 
+Close to fire: 0 || Max Val: 0.01
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=1
+[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
+FireBank: Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=1
+[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
+Close to fire: 0 || Max Val:.10 Ahead: 1 Close: 1 aimed=1
+[AVOID] -> FIRE_BEHIND
+[AVOID] -> APPROACH FIRE
+FireBank: 0.02 0.00 0.00 0.06 
+us med: 4.55
 front left:-1.00
 front right:-1.00
-rear left:-1.00
-rear right:-1.00
+rear left:35.04
+rear right:53.65
 
 
-Close to fire: 1 || Max Val: 1.05
-0.32 1.15 0.91 0.35 
-Close to fire: 1 || Max Val: 1.15
-Close to fire: 1 || Max Val: 1.15
-Close to fire: 1 || Max Val: 1.15
-Close to fire: 1 || Max Val: 1.15
-Close to fire: 1 || Max Val: 1.15
-0.31 1.31 0.64 0.31 
-Close to fire: 1 || Max Val: 1.31
-Close to fire: 1 || Max Val: 1.31
-Close to fire: 1 || Max Val: 1.31
-Close to fire: 1 || Max Val: 1.31
-Close to fire: 1 || Max Val: 1.31
-0.33 1.33 0.76 0.33 
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-0.32 1.36 0.83 0.34 
-Close to fire: 1 || Max Val: 1.36
-Close to fire: 1 || Max Val: 1.36
-Close to fire: 1 || Max Val: 1.36
-Close to fire: 1 || Max Val: 1.36
-Close to fire: 1 || Max Val: 1.36
-0.34 1.32 0.86 0.35 
-Close to fire: 1 || Max Val: 1.32
-Close to fire: 1 || Max Val: 1.32
-Close to fire: 1 || Max Val: 1.32
-Close to fire: 1 || Max Val: 1.32
-Close to fire: 1 || Max Val: 1.32
-0.33 1.29 0.63 0.31 
-Close to fire: 1 || Max Val: 1.29
-Close to fire: 1 || Max Val: 1.29
-Close to fire: 1 || Max Val: 1.29
-Close to fire: 1 || Max Val: 1.29
-Close to fire: 1 || Max Val: 1.29
-0.31 1.33 0.48 0.29 
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-Close to fire: 1 || Max Val: 1.33
-0.33 1.48 0.66 0.32 
-Close to fire: 1 || Max Val: 1.48
-Close to fire: 1 || Max Val: 1.48
-Close to fire: 1 || Max Val: 1.48
-Close to fire: 1 || Max Val: 1.48
-Close to fire: 1 || Max Val: 1.48
-0.35 1.45 0.76 0.34 
-Close to fire: 1 || Max Val: 1.45
-Close to fire: 1 || Max Val: 1.45
-Close to fire: 1 || Max Val: 1.45
-Close to fire: 1 || Max Val: 1.45
-Close to fire: 1 || Max Val: 1.45
-0.36 1.53 0.83 0.35 
-Close to fire: 1 || Max Val: 1.53
-Close to fire: 1 || Max Val: 1.53
-Close to fire: 1 || Max Val: 1.53
-Close to fire: 1 || Max Val: 1.53
-Close to fire: 1 || Max Val: 1.53
-0.36 1.60 0.88 0.36 
-Close to fire: 1 || Max Val: 1.60
-Close to fire: 1 || Max Val: 1.60
-Close to fire: 1 || Max Val: 1.60
-Close to fire: 1 || Max Val: 1.60
-Close to fire: 1 || Max Val: 1.60
-0.36 1.66 0.90 0.36 
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-0.37 1.71 0.92 0.36 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.34 1.63 0.65 0.31 
-Close to fire: 1 || Max Val: 1.63
-Close to fire: 1 || Max Val: 1.63
-Close to fire: 1 || Max Val: 1.63
-Close to fire: 1 || Max Val: 1.63
-Close to fire: 1 || Max Val: 1.63
-0.32 1.57 0.49 0.34 
-Close to fire: 1 || Max Val: 1.57
-Close to fire: 1 || Max Val: 1.57
-Close to fire: 1 || Max Val: 1.57
-Close to fire: 1 || Max Val: 1.57
-Close to fire: 1 || Max Val: 1.57
-0.31 1.58 0.67 0.36 
-Close to fire: 1 || Max Val: 1.58
-Close to fire: 1 || Max Val: 1.58
-Close to fire: 1 || Max Val: 1.58
-Close to fire: 1 || Max Val: 1.58
-Close to fire: 1 || Max Val: 1.58
-0.31 1.66 0.49 0.31 
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-Close to fire: 1 || Max Val: 1.66
-us med: 5.10
-front left:22.25
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 10.87 r: 50.81
+[TRACK] AVOID Right
+FireBank: 0.01 0.00 0.00 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 11.76 r: 45.95
+[TRACK] AVOID Right
+FireBank: 0.02 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.99 r: 94.68
+[TRACK] AVOID Left
+FireBank: 0.30 0.00 0.00 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.65 r: 38.18
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.65 r: 38.18
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.02 r: 105.04
+[TRACK] AVOID Left
+FireBank: 0.07 0.00 0.00 0.01 
+Scan
+us med: 6.76
+front left:12.02
 front right:-1.00
-rear left:29.51
-rear right:-1.00
+rear left:105.04
+rear right:57.69
 
 
-Close to fire: 1 || Max Val: 1.66
-0.33 1.72 0.68 0.34 
-Close to fire: 1 || Max Val: 1.72
-Close to fire: 1 || Max Val: 1.72
-Close to fire: 1 || Max Val: 1.72
-Close to fire: 1 || Max Val: 1.72
-Close to fire: 1 || Max Val: 1.72
-0.35 1.75 0.79 0.35 
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-0.36 1.79 0.86 0.36 
-Close to fire: 1 || Max Val: 1.79
-Close to fire: 1 || Max Val: 1.79
-Close to fire: 1 || Max Val: 1.79
-Close to fire: 1 || Max Val: 1.79
-Close to fire: 1 || Max Val: 1.79
-0.34 1.80 0.90 0.37 
-Close to fire: 1 || Max Val: 1.80
-Close to fire: 1 || Max Val: 1.80
-Close to fire: 1 || Max Val: 1.80
-Close to fire: 1 || Max Val: 1.80
-Close to fire: 1 || Max Val: 1.80
-0.35 1.77 0.92 0.38 
-Close to fire: 1 || Max Val: 1.77
-Close to fire: 1 || Max Val: 1.77
-Close to fire: 1 || Max Val: 1.77
-Close to fire: 1 || Max Val: 1.77
-Close to fire: 1 || Max Val: 1.77
-0.36 1.69 0.93 0.38 
-Close to fire: 1 || Max Val: 1.69
-Close to fire: 1 || Max Val: 1.69
-Close to fire: 1 || Max Val: 1.69
-Close to fire: 1 || Max Val: 1.69
-Close to fire: 1 || Max Val: 1.69
-0.33 1.64 0.65 0.32 
-Close to fire: 1 || Max Val: 1.64
-Close to fire: 1 || Max Val: 1.64
-Close to fire: 1 || Max Val: 1.64
-Close to fire: 1 || Max Val: 1.64
-Close to fire: 1 || Max Val: 1.64
-0.35 1.51 0.77 0.35 
-Close to fire: 1 || Max Val: 1.51
-Close to fire: 1 || Max Val: 1.51
-Close to fire: 1 || Max Val: 1.51
-Close to fire: 1 || Max Val: 1.51
-Close to fire: 1 || Max Val: 1.51
-0.33 1.56 0.56 0.30 
-Close to fire: 1 || Max Val: 1.56
-Close to fire: 1 || Max Val: 1.56
-Close to fire: 1 || Max Val: 1.56
-Close to fire: 1 || Max Val: 1.56
-Close to fire: 1 || Max Val: 1.56
-0.32 1.61 0.43 0.33 
-Close to fire: 1 || Max Val: 1.61
-Close to fire: 1 || Max Val: 1.61
-Close to fire: 1 || Max Val: 1.61
-Close to fire: 1 || Max Val: 1.61
-Close to fire: 1 || Max Val: 1.61
-0.34 1.59 0.64 0.35 
-Close to fire: 1 || Max Val: 1.59
-Close to fire: 1 || Max Val: 1.59
-Close to fire: 1 || Max Val: 1.59
-Close to fire: 1 || Max Val: 1.59
-Close to fire: 1 || Max Val: 1.59
-0.33 1.67 0.47 0.30 
-Close to fire: 1 || Max Val: 1.67
-Close to fire: 1 || Max Val: 1.67
-Close to fire: 1 || Max Val: 1.67
-Close to fire: 1 || Max Val: 1.67
-Close to fire: 1 || Max Val: 1.67
-0.34 1.71 0.67 0.34 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.32 1.73 0.49 0.29 
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-0.34 1.70 0.67 0.33 
-Close to fire: 1 || Max Val: 1.70
-Close to fire: 1 || Max Val: 1.70
-Close to fire: 1 || Max Val: 1.70
-Close to fire: 1 || Max Val: 1.70
-Close to fire: 1 || Max Val: 1.70
-0.35 1.71 0.78 0.36 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.33 1.71 0.56 0.30 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-us med: 5.17
-front left:134.48
-front right:-1.00
-rear left:24.66
-rear right:-1.00
-
-
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.34 1.73 0.72 0.34 
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-Close to fire: 1 || Max Val: 1.73
-0.35 1.74 0.81 0.36 
-Close to fire: 1 || Max Val: 1.74
-Close to fire: 1 || Max Val: 1.74
-Close to fire: 1 || Max Val: 1.74
-Close to fire: 1 || Max Val: 1.74
-Close to fire: 1 || Max Val: 1.74
-0.36 1.76 0.87 0.38 
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-0.33 1.78 0.61 0.32 
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-0.32 1.78 0.45 0.28 
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-Close to fire: 1 || Max Val: 1.78
-0.34 1.76 0.65 0.32 
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-0.32 1.75 0.48 0.29 
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-0.31 1.76 0.38 0.27 
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-0.33 1.76 0.61 0.31 
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-Close to fire: 1 || Max Val: 1.76
-0.32 1.75 0.46 0.28 
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-0.32 1.75 0.36 0.26 
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-Close to fire: 1 || Max Val: 1.75
-0.31 1.71 0.31 0.25 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.30 1.71 0.27 0.25 
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-Close to fire: 1 || Max Val: 1.71
-0.34 1.43 0.54 0.30 
-Close to fire: 1 || Max Val: 1.43
-Close to fire: 1 || Max Val: 1.43
-Close to fire: 1 || Max Val: 1.43
-Close to fire: 1 || Max Val: 1.43
-Close to fire: 1 || Max Val: 1.43
-[TRACK] fire within extinguish range
-Moving to Extinguish, time: 7345
-EXTINGUISH: fan ON
-0.32 1.19 0.80 0.29 
-0.31 1.11 0.67 0.28 
-0.31 1.10 0.53 0.28 
-us med: 5.17
-front left:144.61
-front right:22.38
-rear left:-1.00
-rear right:-1.00
-
-
-0.30 1.10 0.44 0.28 
-0.30 1.10 0.39 0.27 
-0.30 1.10 0.35 0.27 
-0.30 1.10 0.34 0.27 
-0.30 1.10 0.32 0.27 
-0.30 1.10 0.32 0.27 
-0.30 1.09 0.31 0.27 
-0.29 1.04 0.39 0.27 
-0.30 1.05 0.36 0.27 
-0.30 1.07 0.34 0.27 
-0.30 1.09 0.32 0.27 
-0.29 1.09 0.31 0.27 
-0.30 1.09 0.31 0.26 
-0.29 1.09 0.31 0.27 
-0.29 1.09 0.31 0.26 
-0.29 1.08 0.31 0.26 
-0.29 1.08 0.31 0.26 
-us med: 5.17
-front left:111.12
-front right:-1.00
-rear left:-1.00
-rear right:26.09
-
-
-0.29 1.03 0.39 0.27 
-0.29 1.03 0.38 0.26 
-0.29 1.05 0.35 0.27 
-0.29 1.06 0.33 0.27 
-0.29 1.07 0.32 0.26 
-0.29 1.08 0.32 0.26 
-0.29 1.09 0.30 0.26 
-0.29 1.10 0.30 0.26 
-0.29 1.11 0.29 0.26 
-0.30 1.12 0.29 0.26 
-0.30 1.12 0.29 0.26 
-0.29 1.12 0.29 0.26 
-0.29 1.08 0.31 0.26 
-0.29 1.06 0.33 0.26 
-0.29 1.05 0.34 0.26 
-0.29 1.04 0.34 0.26 
-0.30 1.03 0.35 0.26 
-0.30 1.03 0.35 0.26 
-us med: 5.17
-front left:111.12
-front right:22.38
-rear left:-1.00
-rear right:-1.00
-
-
-0.29 1.03 0.35 0.26 
-0.23 0.78 0.27 0.20 
-0.15 0.51 0.18 0.14 
-Extinguished at: 9696
-EXTINGUISH: done (led-out) fires=2 time=2356
-Complete
-EXTINGUISH: fan OFF
-0.10 0.32 0.11 0.09 
-0.06 0.20 0.07 0.05 
-0.03 0.12 0.04 0.03 
-0.02 0.07 0.02 0.02 
-0.01 0.04 0.01 0.01 
-0.01 0.03 0.01 0.01 
-0.00 0.02 0.01 0.00 
-0.00 0.01 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.02 r: 105.04
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.02 r: 107.99
+[TRACK] AVOID Left
+FireBank: 0.03 0.00 0.00 0.01 
 Scan
-0.00 0.01 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.95 r: 97.07
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.95 r: 36.72
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.95 r: 36.72
+[TRACK] AVOID Left
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.43 r: 36.72
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.86 r: 45.40
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.86 r: 45.40
+[TRACK] AVOID Left
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.86 r: 37.07
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 35.69
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.12 r: 28.11
+[TRACK] AVOID Left
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.12 r: 21.87
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 5.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-us med: 5.10
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 5.40 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+us med: 2.55
 front left:-1.00
 front right:-1.00
-rear left:21.57
-rear right:-1.00
+rear left:22.78
+rear right:50.81
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 5.40 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.55 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.36 r: 29.86
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.12 r: 36.72
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.36 r: 36.72
+[TRACK] AVOID Left
+FireBank: 0.13 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.12 r: 45.40
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 4.50 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.05 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 4.50 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 4.20 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.02 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 4.20 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.90 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.90 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.60 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.60 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.30 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 27.31
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.10
-front left:82.47
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 3.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+us med: 4.34
+front left:-1.00
 front right:-1.00
-rear left:24.66
-rear right:-1.00
+rear left:39.35
+rear right:52.92
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 2.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 2.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 2.30 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.00 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 2.30 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 36.03
+[TRACK] AVOID Left
+FireBank: 0.34 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.51 r: 36.03
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 45.95
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 1.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.08 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.36 r: 69.11
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.36 r: 99.59
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.58 r: 49.50
+[TRACK] AVOID Right
+FireBank: 0.02 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.58 r: 48.87
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.58 r: 49.50
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.69 r: 52.92
+[TRACK] AVOID Right
+FireBank: 0.02 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.43 r: 37.07
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.60 r: 48.26
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.17
-front left:86.18
+Close to fire: 0 || Max Val: 0.26
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.15 r: 21.87
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.15
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: 0.10 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+us med: 3.03
+front left:23.37
 front right:-1.00
-rear left:24.13
-rear right:-1.00
+rear left:22.78
+rear right:46.50
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.09
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 12.15 r: 23.19
+[TRACK] AVOID Left
+FireBank: 0.56 0.00 0.09 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.06
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 11.45 r: 23.19
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.03
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 11.51 r: 52.92
+[TRACK] AVOID Right
+FireBank: 0.21 0.00 0.03 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.02
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -0.40 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.01
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -0.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.08 0.00 0.01 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.01
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -0.70 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 105.04
+[TRACK] AVOID Left
+FireBank: 0.04 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -1.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 36.72
+[TRACK] AVOID Left
+FireBank: 0.02 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.86 r: 36.72
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.86 r: 36.72
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -1.60 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -1.60 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -2.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -2.00 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.03 r: 29.63
+[TRACK] AVOID Left
+FireBank: 0.35 0.00 0.00 0.01 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.17
-front left:94.68
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 11.09 r: 56.83
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 14.31 r: 30.58
+[TRACK] AVOID Left
+us med: 2.34
+front left:14.31
+front right:13.19
+rear left:30.58
+rear right:56.83
 
 
-0.12 0.04 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -2.60 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.09 0.00 0.00 0.00 
 Scan
-0.07 0.03 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.19 r: 41.93
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.00
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+ Bearing Error: -3.10 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.04 0.00 0.00 0.01 
 Scan
-0.04 0.02 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+WE ARE IN AVOID
+ Bearing Error: -3.10 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.00
+WE ARE IN AVOID
+ Bearing Error: -3.40 Ahead: 1 Close: 1 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.02 0.00 0.00 0.00 
 Scan
-0.03 0.01 0.00 0.00 
+Close to fire: 0 || Max Val: 0.31
+WE ARE IN AVOID
+f: 9.31 r: 25.16
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.19
+WE ARE IN AVOID
+f: 9.31 r: 25.33
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.11
+WE ARE IN AVOID
+f: 9.31 r: 86.18
+[TRACK] AVOID Left
+FireBank: 0.22 0.03 0.11 0.02 
 Scan
-0.02 0.01 0.00 0.00 
+Close to fire: 0 || Max Val: 0.37
+WE ARE IN AVOID
+f: 14.89 r: 86.18
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.22
+WE ARE IN AVOID
+f: 13.19 r: 47.07
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.45
+WE ARE IN AVOID
+f: 14.89 r: 41.48
+[TRACK] AVOID Left
+FireBank: 0.80 0.12 0.45 0.07 
 Scan
-0.01 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.58
+WE ARE IN AVOID
+f: 10.50 r: 41.04
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.35
+WE ARE IN AVOID
+f: 10.50 r: 22.64
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.53
+WE ARE IN AVOID
+f: 10.50 r: 21.87
+[TRACK] AVOID Left
+FireBank: 0.90 0.14 0.53 0.04 
 Scan
-0.01 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.64
+WE ARE IN AVOID
+f: 12.09 r: 53.65
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.38
+WE ARE IN AVOID
+f: 12.80 r: 47.66
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+FireBank: 0.73 0.11 0.23 0.02 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.27 0.04 0.08 0.01 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.10
-front left:82.47
-front right:-1.00
-rear left:20.02
-rear right:-1.00
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+us med: -1.00
+front left:-1.00
+front right:30.71
+rear left:22.91
+rear right:45.95
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.40 0.02 0.03 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.15 0.01 0.01 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.06 0.01 0.01 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.03 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.19 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 4.97
-front left:156.39
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
+us med: 127.03
+front left:-1.00
+front right:13.86
+rear left:31.84
+rear right:40.18
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.32
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.19
+[TRACK] FF
+FireBank: 0.39 0.07 0.19 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+FireBank: 0.14 0.03 0.07 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.06 0.01 0.03 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.03 0.00 0.01 0.01 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.02 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.03
-front left:65.57
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+us med: -1.00
+front left:19.32
+front right:16.09
+rear left:29.86
+rear right:35.69
 
 
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+FireBank: 0.01 0.00 0.00 0.00 
 Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.17
-front left:125.67
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-us med: 5.17
-front left:56.00
-front right:-1.00
-rear left:32.02
-rear right:28.04
-
-
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.00 0.00 0.00 
-Scan
-0.00 0.01 0.00 0.00 
-Scan
-0.02 0.10 0.01 0.01 
-Scan
-0.07 0.29 0.06 0.06 
-0.12 0.44 0.21 0.12 
-0.16 0.53 0.55 0.16 
-0.19 0.59 0.83 0.20 
-us med: 5.17
-front left:150.27
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.22 0.63 1.01 0.22 
-0.24 0.66 1.13 0.24 
-0.25 0.67 1.20 0.24 
-0.25 0.69 1.25 0.25 
-0.26 0.69 1.27 0.26 
-0.26 0.69 1.32 0.26 
-0.26 0.70 1.33 0.26 
-0.26 0.70 1.33 0.26 
-0.26 0.70 1.33 0.26 
-0.26 0.70 1.33 0.26 
-0.26 0.70 1.33 0.26 
-0.26 0.70 1.35 0.26 
-0.26 0.70 1.35 0.26 
-0.26 0.70 1.36 0.26 
-0.26 0.70 1.36 0.26 
-0.26 0.66 1.54 0.26 
-0.26 0.64 1.65 0.27 
-0.26 0.59 1.86 0.27 
-us med: 5.10
-front left:71.69
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.26 0.66 1.55 0.27 
-0.26 0.70 1.36 0.27 
-0.26 0.72 1.25 0.27 
-0.27 0.74 1.18 0.26 
-0.26 0.74 1.14 0.26 
-0.27 0.75 1.11 0.26 
-0.27 0.75 1.09 0.26 
-0.26 0.76 1.08 0.26 
-0.26 0.76 1.08 0.26 
-0.26 0.76 1.07 0.26 
-0.26 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-0.27 0.76 1.07 0.26 
-us med: 5.17
-front left:107.99
-front right:23.47
-rear left:-1.00
-rear right:-1.00
-
-
-0.26 0.71 1.30 0.26 
-0.27 0.69 1.43 0.26 
-0.27 0.67 1.51 0.26 
-0.27 0.66 1.56 0.26 
-0.26 0.65 1.59 0.27 
-0.26 0.65 1.60 0.27 
-0.27 0.65 1.61 0.27 
-0.27 0.65 1.62 0.26 
-0.26 0.65 1.62 0.27 
-0.26 0.64 1.63 0.27 
-0.26 0.64 1.63 0.26 
-0.26 0.64 1.63 0.26 
-0.26 0.64 1.63 0.26 
-0.26 0.64 1.64 0.26 
-0.26 0.64 1.64 0.26 
-0.27 0.64 1.63 0.27 
-0.26 0.64 1.63 0.26 
-us med: 5.45
-front left:77.48
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.26 0.48 2.35 0.28 
-0.26 0.54 2.10 0.27 
-0.26 0.62 1.72 0.27 
-0.26 0.67 1.48 0.27 
-0.26 0.70 1.34 0.26 
-0.27 0.72 1.25 0.26 
-0.26 0.73 1.20 0.26 
-0.27 0.74 1.16 0.26 
-0.27 0.74 1.14 0.26 
-0.27 0.75 1.12 0.26 
-0.27 0.75 1.10 0.26 
-0.27 0.75 1.10 0.26 
-0.27 0.75 1.09 0.26 
-0.27 0.75 1.09 0.26 
-0.27 0.76 1.09 0.26 
-0.26 0.75 1.11 0.26 
-0.26 0.75 1.10 0.26 
-us med: 5.03
-front left:90.23
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.26 0.68 1.44 0.27 
-0.26 0.70 1.37 0.27 
-0.26 0.72 1.27 0.26 
-0.26 0.73 1.19 0.27 
-0.26 0.74 1.15 0.26 
-0.27 0.75 1.13 0.26 
-0.26 0.75 1.11 0.26 
-0.26 0.75 1.10 0.27 
-0.26 0.76 1.10 0.27 
-0.26 0.76 1.09 0.26 
-0.27 0.76 1.09 0.26 
-0.27 0.75 1.13 0.26 
-0.27 0.74 1.16 0.26 
-0.26 0.74 1.18 0.26 
-0.26 0.74 1.18 0.26 
-0.26 0.74 1.18 0.26 
-0.26 0.74 1.19 0.27 
-us med: 4.97
-front left:59.47
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.28 0.73 1.19 0.27 
-0.28 0.72 1.25 0.26 
-0.27 0.72 1.27 0.26 
-0.27 0.71 1.29 0.26 
-0.27 0.71 1.30 0.26 
-0.27 0.71 1.30 0.26 
-0.27 0.71 1.31 0.26 
-0.26 0.71 1.30 0.26 
-0.26 0.71 1.31 0.26 
-0.27 0.71 1.30 0.26 
-0.27 0.71 1.30 0.26 
-0.27 0.71 1.29 0.26 
-0.26 0.71 1.29 0.26 
-0.26 0.71 1.29 0.26 
-0.26 0.71 1.29 0.26 
-0.26 0.71 1.29 0.26 
-0.26 0.71 1.28 0.26 
-us med: 5.17
-front left:56.83
-front right:-1.00
-rear left:-1.00
-rear right:-1.00
-
-
-0.27 0.72 1.28 0.26 
-0.26 0.72 1.27 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.72 1.26 0.26 
-0.26 0.73 1.26 0.26 
-0.27 0.73 1.25 0.26 
-0.27 0.73 1.25 0.26 
-0.27 0.73 1.24 0.27 
-0.27 0.73 1.24 0.26 
-0.27 0.73 1.24 Initialising: warm-up done, switching to SEARCH
+Initialising: warm-up done, switching to SEARCH
 Tracking
-0.07 0.17 0.01 0.01 
-Close to fire: 0 || Max Val: 0.17
-[TRACK] turret locked -> MOVE_TO_FIRE
-Close to fire: 0 || Max Val: 0.17
-0.17 0.18 0.31 0.01 
-Close to fire: 0 || Max Val: 0.31
-Close to fire: 0 || Max Val: 0.31
-Close to fire: 0 || Max Val: 0.31
-Close to fire: 0 || Max Val: 0.31
-0.22 0.19 0.47 0.01 
-Close to fire: 0 || Max Val: 0.47
-Close to fire: 0 || Max Val: 0.47
-Close to fire: 0 || Max Val: 0.47
-Close to fire: 0 || Max Val: 0.47
-0.25 0.19 0.55 0.00 
-Close to fire: 0 || Max Val: 0.55
-Close to fire: 0 || Max Val: 0.55
-Close to fire: 0 || Max Val: 0.55
-Close to fire: 0 || Max Val: 0.55
-0.27 0.19 0.61 0.00 
-Close to fire: 0 || Max Val: 0.61
-Close to fire: 0 || Max Val: 0.61
-Close to fire: 0 || Max Val: 0.61
-Close to fire: 0 || Max Val: 0.61
-0.30 0.20 0.65 0.14 
-Close to fire: 0 || Max Val: 0.65
-Close to fire: 0 || Max Val: 0.65
-Close to fire: 0 || Max Val: 0.65
-Close to fire: 0 || Max Val: 0.65
-0.31 0.20 0.67 0.22 
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-0.32 0.20 0.67 0.26 
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-Close to fire: 0 || Max Val: 0.67
-0.32 0.20 0.70 0.29 
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-0.33 0.21 0.69 0.30 
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-0.32 0.21 0.70 0.18 
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-0.32 0.21 0.71 0.12 
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.33 0.22 0.72 0.08 
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-0.32 0.22 0.71 0.06 
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.31 0.22 0.69 0.17 
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-Close to fire: 0 || Max Val: 0.69
-0.30 0.22 0.71 0.24 
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.31 0.23 0.70 0.28 
-us med: 26.97
-front left:24.52
-front right:24.06
-rear left:-1.00
-rear right:-1.00
-
-
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-0.30 0.24 0.70 0.17 
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-0.30 0.24 0.70 0.21 
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-Close to fire: 0 || Max Val: 0.70
-0.31 0.24 0.71 0.26 
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.31 0.23 0.72 0.16 
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-0.31 0.24 0.71 0.10 
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-Close to fire: 0 || Max Val: 0.71
-0.31 0.25 0.72 0.19 
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-0.32 0.26 0.72 0.25 
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-Close to fire: 0 || Max Val: 0.72
-0.22 0.25 0.73 0.28 
-Close to fire: 0 || Max Val: 0.73
-Close to fire: 0 || Max Val: 0.73
-Close to fire: 0 || Max Val: 0.73
-Close to fire: 0 || Max Val: 0.73
-Close to fire: 0 || Max Val: 0.73
-0.27 0.32 0.75 0.18 
-Close to fire: 0 || Max Val: 0.75
-Close to fire: 0 || Max Val: 0.75
-Close to fire: 0 || Max Val: 0.75
-Close to fire: 0 || Max Val: 0.75
+FClose to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.65 0.03 0.00 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.02
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.30 0.43 0.76 0.23 
-Close to fire: 0 || Max Val: 0.76
+f: 7.28 r: 18.41
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.34
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.76
+f: 7.28 r: 16.16
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.57
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.76
+f: 8.88 r: 10.33
+[TRACK] AVOID Left
+FireBank: 1.33 0.14 0.57 0.18 
+Close to fire: 0 || Max Val: 0.34
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.23 0.53 0.75 0.27 
-Close to fire: 0 || Max Val: 0.75
+f: 0.21
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.75
+f: 7.85 r: 17.57
+[TRACK] AVOID Rightht
+FireBank: 0.82 0.09 0.53 0.06 
+14.40 r: 16.94
+[TRACK] AClose to fire: 0 || Max Val: 
+OT AIMED
+FireBank: 0.21 0.04 0.02 0.01 
+12.09 r: 19.83
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.04
 WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.75
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.19 0.64 0.49 0.21 
-Close to fire: 0 || Max Val: 0.64
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.64
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.18 0.76 0.61 0.26 
-Close to fire: 0 || Max Val: 0.76
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.76
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 0 || Max Val: 0.76
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-0.18 0.89 0.69 0.29 
-Close to fire: 1 || Max Val: 0.89
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.89
-WE ARE IN AVOID
- Bearing Error: 0.00 Ahead: 1 Close: 0 aimed=1
-[AVOID] -> APPROACH FIRE
-Close to fire: 1 || Max Val: 0.89
-[TRACK] fire within extinguish range
-Moving to Extinguish, time: 4381
-EXTINGUISH: fan ON
-0.24 1.06 0.74 0.31 
-us med: 7.45
+[TRA51.93
 front left:-1.00
 front right:-1.00
-rear left:-1.00
-rear right:-1.00
+rear left:
 
 
-0.25 1.25 0.52 0.27 
-0.26 1.45 0.39 0.25 
-0.28 1.66 0.32 0.24 
-0.31 1.89 0.28 0.24 
-0.32 2.01 0.26 0.25 
-0.33 1.96 0.27 0.26 
-0.33 1.64 0.30 0.28 
-0.31 1.28 0.81 0.29 
-0.30 0.95 1.61 0.30 
-0.30 0.80 1.87 0.31 
-0.30 0.76 1.80 0.31 
-0.30 0.71 1.84 0.32 
-0.29 0.53 2.63 0.33 
-0.29 0.47 2.84 0.33 
-0.29 0.42 2.96 0.33 
-0.29 0.40 3.04 0.33 
-0.28 0.39 3.09 0.33 
-us med: 4.62
-front left:54.42
+Close to fire: 0 || Max Val: C 12.65 r: 12.32
+[TRACK] AVOID Left
+ 0.18
+WE ARE IN AVOID
+ Bearing Error: -5.90 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT   0 || Max Val: 0.11
+WE ARE IN AVOID
+ Bearing Error: -5.90 AClose to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+ Bearing Error: -6.00 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.08 n
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+ Bearing Error: -6.00 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+FireBank: 0.04 0.04 0.Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.04 0.04 0.CClose to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.46
+WE ARE IN AVOID
+f: 6.50 r: 10.19
+[TRACK] AVOID Left
+FireBank: 0.5C r: 10.19
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.20
+WE ARE IN AVOID
+f: 13.60 r: 11.44
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.51
+WE ARE IN AVOID
+f: 13.60 r: 11.44
+[TRACK] AVOID Left
+FireBank: 0.58 0.11 0.51 0.03 
+Scan
+Close to fire: 0 || Max Val:Close to fire: 0 || Max Val: 0.13
+WE ARE IN AVOID
+f: 9.52 r: 19.83
+[TRACK] AVOID Left
+FireBank: 0.16 0.04 0.13Close to fire: 0 || Max Val: 0.10
+WE ARE IN AVOID
+f: 9.52 r: 15.44
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+f: 12.15 r: 12.48
+[TRACK] AVOID Left
+us med: 55.17
+front left:12.15
+front right:14.79
+rear left:12.48
+rear right:20.25
+
+
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+FireBank: 0.23 0.04 0.04 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Fi0x Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+FireBank: 0.03 0.01 0.00 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.38
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.24
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+FireBank: 0.13 0.03 0.08 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.47
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.28
+[TRACK] FF
+Close to fire: 0 || Max Val:çClose to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val:CClose to fire: 0 || Max Val: 0.45
+[TRACK] FF
+FireBank: 0.59 0.09 0.45 0.12 
+Scan
+Close to fire: 0 || Max Val: 0.27
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.17
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.13 0.04 0.11 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.47
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.29
+WE ARE IN AVOID
+f: 8.73 r: 54.42
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.61
+WE ARE IN AVOID
+f: 8.35 r: 10.56
+[TRACK] AVOID Left
+FireBank: 0.78 0.03 0.61 0.07 
+Close to fire: 0 || Max Val:.73
+rear left:11.14
+rear right:37.80
+
+
+Close to fire: 0 || Max Val: 0.46
+WE ARE IN AVOID
+f: 8.35 r: 12.36
+[TRACK] AVOID Left
+FireBank: 0.65 0.06 0.46 0.11 
+Close to fire: 0 || Max Val: 0.28
+WE ARE IN AVOID
+f: 7.97 r: 37.80
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.17
+WE ARE IN AVOID
+f: 9.56 r: 42.40
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.45
+WE ARE IN AVOID
+f: 9.56 r: 42.40
+[TRACK] AVOID Right
+FireBank: 0.69 0.11 0.45 0.06 
+Close to fire: 0 || Max Val: 0.27
+WE ARE IN AVOID
+f: 10.10 r: 37.43
+[TRACK] AVCesuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.11
+FireBank: 0.18 0.03 0.11 0.02 
+Close to fire: 0 || Max Val: 0.43
+Close to fire: 0 || Max Val: 0.68
+Close to fire: 0 || Max Val: 0.41
+Close to fire: 0 || Max Val: 0.60
+FireBank: 0.38 0.13 0.60 0.25 
+Close to fire: 0 || Max Val: 0.75
+CClose to fire: 0 || Max Val: 0.17
+FireBank: 0.18 0.04 0.17 0.08 
+Close to fire: 0 || Max Val: 0.49
+Close to fire: 0 || Max Val: 0.30
+WE ARE IN AVOID
+f: 11.15 r: 13.88
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.57
+WE ARE IN AVOID
+f: 10.71 r: 17.25
+[TRACK] AVOID Right
+FireBank: 0.66 0.10 0.57 0.24 
+Close to fire: 0 || Max Val: 0.34
+WE ARE IN AVOID
+f: 10.71 r: 22.51
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.22
+WE ARE IN AVOID
+f: 7.28 r: 22.51
+[TRACK] AVOID Right
+NClose to fire: 0 || Max Val: 0.34
+Close to fire: 0 || Max Val: 0.21
+Close to fire: 0 || Max Val:C6 0.09 0.03 
+us med: 52.21
+front left:-1.00
 front right:-1.00
-rear left:-1.00
-rear right:-1.00
+rear left:16.30
+rear right:32.11
 
 
-0.29 0.38 3.11 0.33 
-0.29 0.38 3.12 0.33 
-0.29 0.38 3.13 0.33 
-0.28 0.37 3.14 0.33 
-0.29 0.37 3.14 0.33 
-0.28 0.32 3.44 0.33 
-0.28 0.33 3.35 0.33 
-0.28 0.34 3.28 0.33 
-0.29 0.35 3.24 0.33 
-0.28 0.36 3.21 0.33 
-0.28 0.36 3.19 0.33 
-0.28 0.36 3.18 0.32 
-0.28 0.36 3.18 0.33 
-0.28 0.36 3.17 0.33 
-0.28 0.36 3.16 0.33 
-0.29 0.36 3.16 0.32 
-0.29 0.36 3.16 0.33 
-us med: 4.83
-front left:24.52
+Close to fire: 0 || Max Val: 0.06
+Close to fire: 0 || Max Val: 0.03
+FireBank: 0.18 0.03 0.03 0.03 
+Close to fire: 0 || Max Val: 0.04
+Close to fire: 0 || Max Val: 0.04
+Close to fire: 0 || Max Val: 0.38
+Close to fire: 0 || Max Val: 0.24
+FireBank: 0.42 0.06 0.24 0.12 
+Scan
+Close to fire: 0 || Max Val:Í || Max Val: 0.33
+WE ARE IN AVOID
+ r: 28.96
+ l: 8.69
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.20
+WE ARE IN AVOID
+f: 7.51 r: 17.41
+[TRACK] AVOID Right
+FireBank: 0.31 0.05 0.20 0.12 
+Scan
+Close to fire: 0 || Max Val: 0.14
+WE ARE IN AVOID
+f: 7.62Initialising: warm-up done, switching to SEARCH
+Tracking
+FireBank: 0.00 0.03 0.00 0.00 
+Scan
+Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+ r: 19.28
+ l: 8.25
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.44
+WE ARE IN AVOID
+ Bearing Error: -3.90 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.01 0.05 0.44 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.26
+WE ARE IN AVOID
+f: 5.58 r: 10.47
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.16
+WE ARE IN AVOID
+f: 5.58 r: 10.47
+[TRACK] AVOID Left
+ù13 
+Scan
+Close to fire: 0 || Max Val: 0.31
+WE ARE IN AVOID
+ BearWClose to fire: 0 || Max Val: 0.19
+WE ARE IN AVOID
+f: 8.92 r: 14.62
+[TRACK] AVOID Left
+FireBank: 0.24 0.05 0.19 0.07 
+Scan
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Cank: 0.09 0.02 0.07 0.03 
+Scan
+Close to fire: 0 || Max Val:Cf: 10.25 r: 20.04
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 10.92 r: 20.47
+[TRACK] AVOID Left
+FireBank: 0.03 0.02 0.03 0.01 
+Scan
+CClose to fire: 0 || Max Val: 0.25
+WE ARE IN AVOID
+f: Cx Val: 0.15
+WE ARE IN AVOID
+f: 7.85 r: 11.58
+[TRACK] AVOID Left
+FireBank: 0.20 0.03 0.15 0.01 
+Scan
+tClose to fire: 0 || Max Val: 0.31
+WE ARE IN AVOID
+ Bearþ4
+front left:18.21
+front righîClose to fire: 0 || Max Val: 0.19
+WE ARE IN AVOID
+f: 13.19 r: 13.44
+[TRACK] AVOID Right
+Cr: 13.40
+[TRACK] AVOID Right
+0 || Max Val: 0.08
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 13.27 r: 13.08
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.05
+WE ARE IN AVOID
+f: C
+FireBank: 0.13 0.1Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+f: 12.15 r: 12.32
+[TRACK] AVOID Left
+FireBank: 0.06 0.01 0.02 0.02 
+Scan
+.lose to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+f: 7.97 r: 12.36
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+f: 7.97 r: 12.36
+[TRACK] AVOIC8.92 r: 12.36
+[TRACK] AVC.32
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+f: 8.92 r: 17.49
+[TRACK] AVOID Left
+FireBank: 0.03 0.01 0.00 0.00 
+Scan
+Close t1Close to fire: 0 || Max Val: 0.25
+WE ARE IN AVOID
+ Bearing Error: -5.60 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val:r0.02 
+Scan
+Close to fire: 0 || Max Val: 0.54
+WE ARE IN AVOID
+[TRACK] returning toC12.43 r: 18.68
+[TRACK] AVOID Left
+Scan
+us med: 54.76
+front left:-1.00
 front right:-1.00
-rear left:-1.00
-rear right:-1.00
+rear left:18.50
+rear right:13.83
 
 
-0.32 0.36 3.11 0.36 
-0.30 0.37 3.13 0.34 
-0.30 0.37 3.15 0.34 
-0.29 0.36 3.16 0.33 
-0.29 0.36 3.16 0.33 
-0.29 0.36 3.16 0.33 
-0.28 0.36 3.16 0.33 
-0.28 0.36 3.16 0.33 
-0.28 0.37 3.16 0.33 
-0.28 0.37 3.16 0.33 
-0.28 0.37 3.16 0.33 
-0.28 0.37 3.15 0.33 
-0.28 0.37 3.15 0.33 
-0.28 0.37 3.15 0.33 
-0.29 0.37 3.15 0.33 
-0.28 0.37 3.14 0.33 
-0.28 0.37 3.15 0.33 
-0.29 0.37 3.15 0.33 
-us med: 4.69
-front left:34.41
+Close to fire: 0 || Max Val: 0.36
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Close to fire: 0 || Max Val: 0.22
+[TRACK] FF
+FireBank: 0.25 0.08 0.22 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.05 0.02 0.04 0.00 
+Scan
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.38
+[TRACK] FF
+FireBank: 0.54 0.09 0.38 0.09 
+Scan
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.49
+WE ARE IN AVOID
+f: FClose to fire: 0 || Max Val: 0.29
+WE ARE IN AVOID
+f: 10.15 r: 12.99
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.18
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Close to fire: 0 || Max Val: 0.11
+[TRACK] FF
+FireBank: 0.17 0.03 0.11 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+CClose to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.06 0.02 0.04 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.42
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.25
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+FireBank: 0.14 0.03 0.10 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.46
+WE ARE IN AVOID
+f: 12.02 r: 13.83
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.28
+WE ARE IN AVOID
+ Bearing Error: -2.30 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+us med: 52.28
+front left:-1.00
 front right:-1.00
-rear left:-1.00
-rear right:-1.00
+rear left:13.59
+rear right:34.11
 
 
-0.29 0.48 2.71 0.32 
-0.37 1.54 1.80 0.35 
-0.69 2.82 1.26 0.43 
-2.33 2.20 0.86 0.40 
-3.29 1.54 0.59 0.34 
-3.00 1.23 0.40 0.28 
-1.94 1.05 0.28 0.21 
-1.19 0.80 0.19 0.15 
+Close to fire: 0 || Max Val: 0.17
+WE ARE IN AVOID
+f: 13.27 r: 13.59
+[TRACK] AVOID Left
+FireBank: 0.67 0.03 0.17 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.19 0.01 0.04 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.44
+[TRACK] FF
+FireBank: 0.63 0.10 0.44 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.26
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.16
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+FireBank: 0.11 0.01 0.06 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.40
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.24
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+FireBank: 0.15 0.03 0.09 0.04 
+Scan
+Close to fire: 0 || Max Val: 0.48
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.29
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.20
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.13
+[TRACK] FF
+FireBank: 0.17 0.02 0.13 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.39
+[TRACK] FF
+FireBank: 0.62 0.09 0.39 0.15 
+Scan
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.15
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.09
+[TRACK] FF
+us med: 51.86
+front left:-1.00
+front right:-1.00
+rear left:15.08
+rear right:60.41
+
+
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+FireBank: 0.09 0.04 0.06 0.04 
+Scan
+CClose to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.02 0.01 0.04 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.05
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.64 0.00 0.04 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val:FClose to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val:CClose to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.03 0.01 0.04 0.00 
+Scan
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+CClose to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.37
+[TRACK] FF
+FireBank: 0.01 0.08 0.37 0.09 
+Scan
+Close to fire: 0 || Max Val: 0.66
+WE ARE IN AVOID
+f: 5.65 r: 29.41
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.40
+WE ARE IN AVOID
+f: 6.82 r: 35.37
+[TRACK] AVOID Right
+FireBank: 1.03 0.04 0.40 0.08 
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+f: 14.12 r: 40.60
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+f: 14.12 r: 40.60
+[TRACK] AVOID Right
+FireBank: 0.38 0.03 0.15 0.04 
+us med: 53.10
+front left:1Close to fire: 0 || Max Val: 0.09
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+Close to fire: 0 || Max Val: 0.05
+FireBank: 0.14 0.01 0.05 0.03 
+Close to fire: 0 || Max Val: 0.38
+Close to fire: 0 || Max Val: 0.23
+Close to fire: 0 || Max Val: 0.48
+Close to fire: 0 || Max Val: 0.30
+FireBank: 0.18 0.05 0.30 0.08 
+Close to fire: 0 || Max Val:Ne to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+ Bearing Error: 0.90 Ahead: 0 Close: 0 aimed=1
+[AVOID] -> AHEAD NOT AIMED
+Close to fire: 0 || Max Val: 0.07
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+FiCClose to fire: 0 || Max Val: 0.37
+Close to fire: 0 || Max Val: 0.24
+Close to fire: 0 || Max Val: 0.47
+FireBank: 0.24 0.09 0.47 0.12 
+Close to fire: 0 || Max Val: 0.29
+CClose to fire: 0 || Max Val: 0.07
+FireBank: 0.05 0.01 0.07 0.05 
+Scan
+Close to fire: 0 || Max Val: 0.41
+[TRACK] turret lost lock -> FIND_FIRE
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.25
+WE ARE IN AVOID
+f: 13.60 r: 14.19
+[TRACK] AVOID Left
+FireBank: 0.44 0.01 0.25 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+f: 13.60 r: 9.47
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.09
+WE ARE IN AVOID
+f: 10.60 r: 10.30
+[TRACK] AV00.06
+WE ARE IN AVOID
+f: 10.60 r: 10.30
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 10.30 r: 15.89
+[TRACK] AVOID Left
+us med: 52.41
+front left:10.30
+front right:10.10
+rear left:15.89
+rear right:19.73
+
+
+Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+f: 11.33 r: 19.73
+[TRACK] AVOID Right
+FireBank: 0.07 0.02 0.02 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+f: 9.35 r: 19.14
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+f: 11.33 r: 35.04
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+F1al: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+f: 10.87 r: 34.41
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+ Bearing Error: 6.00 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.04 0.01 0.01 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.36
+WE ARE IN AVOID
+[TRAC0.22
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.15
+[TRACK] FF
+FireBank: 0.57 0.00 0.15 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.09
+WE ARE IN AVOID
+f: 10.87 r: 48.87
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+f: 11.15 r: 55.20
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.41
+WE ARE IN AVOID
+f: 13.68 r: 55.20
+[TRACK] AVOID Right
+FireBank: 1.04 0.02 0.41 0.02 
+Close to fire: 0 || Max Val: 0.26
+WE ARE IN AVOID
+f: C IN AVOID
+f: 13.43 r: 14.85
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+f: 13.43 r: 18.06
+[TRACK] AVOID Left
+FireBank: 0.23 0.01 0.12 0.02 
+Close to fire: 0 || Max Val: 0.10
+WE ARE IN AVOID
+f: 11.04 r: 27.12
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+f: 8.92 r: 31.58
+[TRACK] AVOID Right
+Close to fire: 0 || Max Val: 0.06
+WE ARE IN AVOID
+f: 11.04 r: 24.21
+[TRACK] AVOID Right
+FireBank: 0.06 0.04 0.06 0.01 
+Close to fire: 0 || Max Val: 0.39
+WE ARE IN AVOID
+[TRACK] resuming MOVE_TO_FIRE
+us med: 51.45
+front left:-1.00
+front right:25.50
+rear left:20.04
+rear right:24.21
+
+
+Close to fire: 0 || Max Val: 0.25
+FireBank: 0.40 0.01 0.25 0.02 
+Close to fire: 0 || Max Val: 0.15
+CClose to fire: 0 || Max Val: 0.07
+Close to fire: 0 || Max Val: 0.37
+FireBank: 0.65 0.01 0.37 0.06 
+CClose to fire: 0 || Max Val: 0.15
+Close to fire: 0 || MaüInitialising: warm-up done, switching to SEARCH
+Tracking
+FireBank: 0.07 0.00 0.03 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.02
+WE ARE IN AVOID
+ r: 28.42
+ l: 6.03
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.33
+WE ARE IN AVOID
+f: 7.05 r: 9.19
+[TRACK] AVOID Left
+FireBank: 0.75 0.00 0.33 0.09 
+Scan
+Close to fire: 0 || Max Val: 0.20
+WE ARE IN AVOID
+f: 7.05 r: 7.24
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val:Cl: 0.09
+WE ARE IN AVOID
+f: 5.34 r: 8.34
+[TRACK] AVOID Left
+FireBank: 0.20 0.00 0.09 0.06 
+Scan
+Close to fire: 0 || Max Val: 0.32
+WE ARE IN AVOID
+f: 14.69C[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+ r: 18.32
+ l: 8.16
+[TRACK] AVOID Side
+FireBank: 0.27 0.06 0.12 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.35
+WE ARE IN AVOID
+ r: 17.33
+ l: 8.21
+[TRACK] Close to fire: 0 || Max Val: 0.23
+WE ARE IN AVOID
+[TRÎClose to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+FireBank: 0.12 0.07 0.05 0.02 
+Scan
+ : 0 || Max Val: 0.20
+WE ARE IN AVOID
+ r: 21.50
+ l: 8.19
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+ Bearing Error: -5.80 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.24 0.06 0.12 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.40
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Close to fire: 0 || Max Val: 0.28
+[TRACK] FF
+us med: 51.52
+front left:-1.00
+front right:-1.00
+rear leC
+WE ARE IN AVOID
+f: 5.88 r: 10.25
+[TRACK] AVOID Left
+FireBank: 0.30 0.06 0.18 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.11
+WE ARE IN AVOID
+f: 8.29 r: 10.36
+[TRACK] AVOClose to fire: 0 || Max ValInitialising: warm-up done, switching to SEARCH
+Tracking
+FireBank: 0.03 0.00 0.02 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.01
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.42
+WE ARE IN AVOID
+f: FClose to fire: 0 || Max Val: 0.25
+WE ARE IN AVOID
+f: 7.10 r: 17.25
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.15
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+Close to fire: 0 || Max Val: 0.10
+[TRACK] FF
+FireBank: 0.17 0.01 0.10 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.08
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+[TRACK] FF
+FireBank: 0.03 0.02 0.03 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.36
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.23
+[TRACK] FF
+Close to fire: 0 || Max Val:FClose to fire: 0 || Max Val: 0.10
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.06
+[TRACK] FF
+Close to fire: 0 || Max Val:C.02 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.38
+[TRACK] FF
+CClose to fire: 0 || Max Val: 0.14
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.12
+[TRACK] FF
+FireBank: 0.12 0.03 0.12 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] RECENT FIRE
+WE ARE IN AVOID
+f: 11.89 r: 32.94
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.04
+WE ARE IN AVOID
+ Bearing Error: -6.00 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT C to FIND_FIRE
+FireBank: 0.04 0.04 0.02 0.02 
+Scan
+us med: 53.17
+front left:-1.00
+front right:-1.00
+rear left:25.50
+rear rigClose to fire: 0 || Max Val: 0.03
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 14.60 r: 19.83
+[TRACK] AVOID Left
+FireBank: 0.03 0.03 0.03 0.01 
+Scan
+Close to fire: 0 || Max Val: 0.42
+WE ARE IN AVOID
+f: CK] RECENT FIRE
+WE ARE IN AVOID
+ BearingClose to fire: 0 || Max Val: 0.17
+WEC ARE IN AVOID
+ Bearing Error: -6.00 Ahead: 0 Close: 0 aimed=0
+[AVOID] -> AHEAD NOT AIMED
+FireBank: 0.02 0.03 0.10 0.04 
+Scan
+CloseInitialising: warm-up done, switching to SEARCH
+Tracking
+FireBank: 0.01 0.00 0.00 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.00
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.01
+WE ARE IN AVOID
+f: 3Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 7.13 r: -1.00
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.03
+WE ARE IN AVOID
+f: 7.13 r: -1.00
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val: 0.33
+WE ARE IN AVOID
+f: 11.21 r: 17.49
+[TRACK] AVOID Right
+FireBank: 0.67 0.05 0.33 0.10 
+Scan
+Close to fire: 0 || Max Val: 0.53
+WE ARE IN AVOID
+ r: 18.86
+ l: 7.08
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.34
+WE ARE IN AVOID
+ r: 22.12
+ l: 7.08
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.24
+WE ARE IN AVOID
+ r: 22.12
+ l: 7.42
+[TRACK] AVOID Side
+FireBank: 0.35 0.04 0.24 0.03 
+Scan
+Close to fire: 0 || Max Val: 0.14
+WE ARE IN AVOID
+ r: 57.69
+ l: 7.42
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.10
+WE ARE IN AVOID
+ r: 57.69
+ l: 7.18
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.08
+WE ARE IN AVOID
+[TRACK] returning to FIND_FIRE
+FireBank: 0.61 0.03 0.08 0.02 
+Scan
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.07
+[TRACK] FF
+Close to fire: 0 || Max Val: 0.04
+[TRACK] FF
+FireBank: 0.16 0.01 0.04 0.01 
+Scan
+C37.80
+ l: 8.32
+[TRACK] AVOID Side
+Close to fire: 0 || Max Val: 0.12
+WE ARE IN AVOID
+ r: 37.80
+ l: 8.32
+[TRACK] AVOID Side
+FireBank: 0.72 0.11 0.12 0.00 
+Scan
+Close to fire: 0 || Max Val: 0.38
+WE ARE IN AVOID
+f: 7.59 r: 9.68
+[TRACK] AVOID Close to fire: 0 || Max Val: 0.23
+WE ARE IN AVOID
+f: 14.50 r: 9.68
+[TRACK] AVOID Left
+FireBank: 0.57 0.08 0.23 0.01 
+4Close to fire: 0 || Max Val: 0.49
+WE ARE IN AVOID
+f: 14.50 r: 9.68
+[TRACK] AVOID Left
+Close to fire: 0 || Max Val:

@@ -73,17 +73,12 @@ float Sensor::readSensorFiltered(int nSamples, int delayMs) {
 
 
 float ShortRangeIR::readSensor(){
-  float new_reading = applyCalibration(readVoltage(_read_pin));
-  mapping_reading_ = new_reading;
-  return new_reading;
+  float val = applyCalibration(readVoltage(_read_pin));
+  _prev_measurements->push(val);
+  return val;
 }
 
 float ShortRangeIR::getAvg(){
-  float val = this->readSensor();
-  if (val != -1.0){
-    _prev_measurements->push(val);
-  }
-
   float median = _prev_measurements->median();
   mapping_reading_ = median;
   return median;
@@ -107,16 +102,11 @@ float ShortRangeIR::applyCalibration(float adc_voltage){
 }
 
 float LongRangeIR::readSensor(){
-  float new_reading = applyCalibration(readVoltage(_read_pin));
-  mapping_reading_ = new_reading;
-  return new_reading;
+  float val = applyCalibration(readVoltage(_read_pin));
+  _prev_measurements->push(val);
+  return val;
 }
 float LongRangeIR::getAvg(){
-  float val = this->readSensor();
-  if (val != -1.0){
-    _prev_measurements->push(val);
-  }
-
   float median = _prev_measurements->median();
   mapping_reading_ = median;
   return median;
@@ -138,35 +128,6 @@ float LongRangeIR::applyCalibration(float adc_voltage){
 
   float val =  (1/((adc_voltage - c) / m));
   return val;
-}
-
-float LongRangeIR::readSensorKalman() {
-  float raw_dist = this->readSensor();
-  if (raw_dist < 0.0) return _kalman_estimate;
-
-  if (_kalman_estimate < 0.0) {
-    _kalman_estimate = raw_dist;
-    return _kalman_estimate;
-  }
-
-  float a_priori_est = _kalman_estimate;
-  float a_priori_var = _last_y_var + process_noise_;
-
-  float kalman_gain = a_priori_var / (a_priori_var + sensor_noise_);
-  float a_post_est = a_priori_est + kalman_gain * (raw_dist - a_priori_est);
-  float a_post_var = (1.0 - kalman_gain) * a_priori_var;
-
-  _kalman_estimate = a_post_est;
-  _last_y_var = a_post_var;
-
-  return _kalman_estimate;
-}
-
-void LongRangeIR::resetKalman() {
-  _prev_reading = -1.0;
-  _kalman_estimate = -1.0;
-  _last_y_var = 0.1;
-  _last_millis = millis();
 }
 
 void Ultrasonic::initUltrasonic(){
