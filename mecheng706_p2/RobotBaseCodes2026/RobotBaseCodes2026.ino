@@ -22,11 +22,22 @@
 #include "pid.h"
 #include "servo_control.h"
 #include "firefighter.h"
+#include "sweep_test.h"
 
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
 //#define TEST_FIRE_BANK false
+
+// ===========================================================================
+// SWEEP_TEST: bench characterisation of the new outer (flat) phototransistor
+// pair. While defined, setup()/loop() run the sensor-sweep test (sweep_test.*)
+// INSTEAD of the firefighting FSM - the turret sweeps its full range at each
+// operator-entered distance and logs all four cells over Bluetooth/USB.
+// Comment this line out to restore normal robot operation.
+// ===========================================================================
+#define SWEEP_TEST
+
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -58,6 +69,7 @@ float turretAngleToBearing(int angle);
 int pos = 0;
 FireFighter *firefighter = nullptr;
 Turret *turret = nullptr;
+SweepTest *sweepTest = nullptr;
 int noFireDetectCount = 0;
 long lastSensPrint;
 long lastSensTurret;
@@ -106,6 +118,13 @@ void setup(void)
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
 
+#ifdef SWEEP_TEST
+  // Bench test mode: drive the outer-pair sweep instead of the FSM. Reads
+  // operator input from either USB Serial or the Bluetooth link.
+  sweepTest = new SweepTest(firefighter, turret, &Serial, &BluetoothSerial);
+  sweepTest->begin();
+#endif
+
   /*
   // CSV header for sensor logging
   firefighter->print("time");
@@ -125,6 +144,12 @@ void setup(void)
 
 void loop(void) // main loop
 {
+#ifdef SWEEP_TEST
+  // Outer-pair sensor sweep test owns the loop while enabled; the firefighting
+  // FSM below is skipped entirely.
+  sweepTest->loop();
+  return;
+#endif
 // #ifdef TEST_FIRE_BANK
 //   updateTurret();
 //   if (millis() - lastSensPrint > 100) {
