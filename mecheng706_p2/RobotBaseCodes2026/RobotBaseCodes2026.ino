@@ -127,8 +127,10 @@ void loop(void) // main loop
 {
 #if TEST_FIRE_BANK == true
   firefighter->_fire_bank->update();
-  if (millis() - lastSensTurret > 50) {
+  firefighter->updateIrSensors();
+  if (millis() - lastSensTurret > 500) {
     updateTurret();
+    firefighter->testSensors();
     lastSensTurret = millis();
   }
 #else
@@ -171,6 +173,8 @@ void printFireBank() {
     firefighter->print("\t| SR: ");
     firefighter->println(fb->_sr->getFilteredV());
 }
+
+
 
 void updateTurret() {
   angleError = firefighter->_fire_bank->estimateBearing(); // radians?

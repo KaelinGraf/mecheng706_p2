@@ -48,38 +48,26 @@ class ShortRangeIR: public Sensor{
     float applyCalibration(float adc_voltage) override;
     float getAvg();
     inline void resetBuffer(){this->_prev_measurements->reset();};
-
 };
 
 
 class LongRangeIR: public Sensor{
   private:
     uint32_t _last_millis;
-    float _prev_reading;
-    float _kalman_estimate;
     float _min_voltage = 0.4;
     float _max_voltage = 3.0;
-    float _last_y_var = 0.1;
-    float process_noise_ = 0.001;
-    float sensor_noise_ = 0.2;
     RingBuffer<float,3>* _prev_measurements;
 
   public:
     LongRangeIR(uint8_t read_pin) : Sensor(read_pin){
       pinMode(read_pin, INPUT);
       _last_millis = millis();
-      _prev_reading = -1.0;
-      _kalman_estimate = -1.0;
       _prev_measurements = new RingBuffer<float, 3>();
     }
     float readSensor() override;
-    float readSensorKalman();
-    void resetKalman();
     float applyCalibration(float adc_voltage) override;
-    inline float getKalmanEst() {return _kalman_estimate; };
     float getAvg();
     inline void resetBuffer(){this->_prev_measurements->reset();};
-
 };
 
 class Ultrasonic: public Sensor{

@@ -86,28 +86,6 @@ void Tracking::poll() {
     bool close_front = blocked(us_cm, EXTINGUISH_RANGE_CM);
     bool aimed = (fabsf(bearing_error) < 3.0f) && (turret->locked_on_);
 
-    // Debug output
-    // ff->print("[TRACK] beh=");
-    // ff->print((int)active_behavior_);
-    // ff->print(" fire=");
-    // ff->print(fire_detected);
-    // ff->print(" target=");
-    // ff->print(target_bearing, 3);
-    // ff->print(" err=");
-    // ff->print(bearing_error, 3);
-    // ff->print(" aimed=");
-    // ff->print(aimed);
-    // ff->print(" obs=");
-    // ff->print(obstacle_ahead);
-    // ff->print(" L=");
-    // ff->print(obstacle_left);
-    // ff->print(" R=");
-    // ff->print(obstacle_right);
-    // ff->print(" close=");
-    // ff->print(close_front);
-    // ff->print(" us=");
-    // ff->println(us_cm);
-
     // Motor command variables
     float motor_vx = 0.0f;
     float motor_vy = 0.0f;

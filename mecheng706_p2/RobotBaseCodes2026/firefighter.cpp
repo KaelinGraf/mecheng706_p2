@@ -100,6 +100,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 void FireFighter::pollState() {
   _gyro->readSensor();
   _fire_bank->update();
+  updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
@@ -116,16 +117,16 @@ void FireFighter::testSensors() {
   print("us med: "); println(_ultrasonic->readBlocking());
 
   print("front left:");
-  println(_front_left_ir->readSensor());
+  println(_front_left_ir->getAvg());
 
   print("front right:");
-  println(_front_right_ir->readSensor());
+  println(_front_right_ir->getAvg());
 
   print("rear left:");
-  println(_rear_left_ir->readSensor());
+  println(_rear_left_ir->getAvg());
 
   print("rear right:");
-  println(_rear_right_ir->readSensor());
+  println(_rear_right_ir->getAvg());
   println();
   println();
 }
@@ -175,4 +176,11 @@ bool FireFighter::is_battery_voltage_OK() {
     else
       return true;
   }
+}
+
+void FireFighter::updateIrSensors() {
+  _front_left_ir->readSensor();
+  _front_right_ir->readSensor();
+  _rear_left_ir->readSensor();
+  _rear_right_ir->readSensor();
 }

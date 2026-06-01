@@ -64,6 +64,7 @@ public:
 
     inline void setSerialCom(HardwareSerial *serialCom) { serialCom_ = serialCom; };
     inline void setBluetoothSerial(SoftwareSerial *btSerial) { btSerial_ = btSerial; };
+    void updateIrSensors();
 
     template <typename... Args>
     inline void print(Args... args)
