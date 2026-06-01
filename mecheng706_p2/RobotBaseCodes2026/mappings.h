@@ -39,7 +39,7 @@
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
-#define SERVO_CENTER 78
+#define SERVO_CENTER 95
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
@@ -130,7 +130,7 @@
 // Phototransistor threshold (volts) above which we count a cell as "seeing"
 // fire. Calibrated against ambient room light + LED at ~2 m line-of-sight.
 // Tune on the bench: cover all 4, read the noise floor, then add ~3 sigma.
-#define FIRE_DETECT_V           0.15f
+#define FIRE_DETECT_V           0.3f
 
 // Phototransistor threshold for declaring a fire is OUT (LED has gone dark).
 // Lower than detect threshold by a margin to provide hysteresis against

@@ -26,7 +26,7 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
-//#define TEST_FIRE_BANK false
+#define TEST_FIRE_BANK false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -125,14 +125,13 @@ void setup(void)
 
 void loop(void) // main loop
 {
-// #ifdef TEST_FIRE_BANK
-//   updateTurret();
-//   if (millis() - lastSensPrint > 100) {
-//     updateTurret();
-//     //printFireBank();
-//     lastSensPrint = millis();
-//   }
-// #else
+#if TEST_FIRE_BANK == true
+  firefighter->_fire_bank->update();
+  if (millis() - lastSensTurret > 50) {
+    updateTurret();
+    lastSensTurret = millis();
+  }
+#else
   firefighter->pollState();
   firefighter->setBearing(turret->angle_);
   if (millis() - lastSensTurret > 50) {
@@ -140,12 +139,12 @@ void loop(void) // main loop
     updateTurret();
     lastSensTurret = millis();
   }
-  if (millis() - lastSensPrint > 1000) {
+  if (millis() - lastSensPrint > 500) {
 
     firefighter->testSensors();
     lastSensPrint = millis();
   }
-// #endif
+#endif
 }
 
 void printFireBank() {
@@ -174,7 +173,6 @@ void printFireBank() {
 }
 
 void updateTurret() {
-  firefighter->_fire_bank->update();
   angleError = firefighter->_fire_bank->estimateBearing(); // radians?
   
   Serial.print("Error ");  
@@ -205,7 +203,7 @@ void updateTurret() {
   }
 
   float old_angle = turret->angle_;
-  if (fabs(angleError)<10.0){
+  if (fabs(angleError)<4.0){
     Serial.println("Aimed");  
     return;
   }
@@ -219,6 +217,7 @@ void updateTurret() {
 }
 
 void printFireSensors() {
+    firefighter->print("FireBank: ");
     firefighter->print(firefighter->_fire_bank->_sl->getFilteredV());
     firefighter->print(" ");
     firefighter->print(firefighter->_fire_bank->_l->getFilteredV());

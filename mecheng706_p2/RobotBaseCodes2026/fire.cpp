@@ -69,59 +69,70 @@ void FireBank::printFireSensors() {
 // ---------------------------------------------------------------------------
 // FireBank::estimateBearing
 // ---------------------------------------------------------------------------
-// Treat the four forward-facing cells as unit vectors.
-// Left/Right inner are angled at 10 degrees, outer are angled at 20 degrees.
-// Vectors are weighted by their filtered voltage above an ambient floor, 
-// returning the angle of their vector sum.
 float FireBank::estimateBearing(float threshold) {
     float sl = _sl->getFilteredV();
     float l  = _l->getFilteredV();
     float r  = _r->getFilteredV();
     float sr = _sr->getFilteredV();
 
-    // Early exit if we don't meet the confidence threshold across any sensor
+    // Early exit if we don't meet the absolute minimum confidence threshold
     if (maxV() < threshold) {
         _angleValid = false;
         return 0.0f;
     }
 
-    // Find the ambient floor (minimum reading)
-    float ambient = sl;
-    if (l < ambient) ambient = l;
-    if (r < ambient) ambient = r;
-    if (sr < ambient) ambient = sr;
-
-    // Calculate weights (voltage above ambient)
-    float w_sl = sl - ambient;
-    float w_l  = l - ambient;
-    float w_r  = r - ambient;
-    float w_sr = sr - ambient;
-
-    // Define vector components based on physical angles
-    // 20 degrees: sin(20) = 0.342, cos(20) = 0.940
-    // 10 degrees: sin(10) = 0.174, cos(10) = 0.985
-    const float sin20 = 0.34202f;
-    const float cos20 = 0.93969f;
-    const float sin10 = 0.17365f;
-    const float cos10 = 0.98481f;
-
-    // Vector sum in robot frame: 
-    // X is positive to the right, negative to the left.
-    // Y is positive forward.
-    float x = sin20*(w_sr - w_sl) + sin10*(w_r - w_l);
-    float y = cos20*(w_sl + w_sr) + cos10*(w_l + w_r);
-
-    // Check if vectors cancelled out entirely to avoid an unstable atan2(0,0)
-    if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) {
-        _angleValid = false;
-        return 0.0f;
+    // --- CLOSE RANGE: Inner-pair vector sum ---
+    // Trigger if the max of the two middle sensors is above 1.0V
+    if (l > 0.6f || r > 0.6f) {
+        // 10 degrees: sin(10) = 0.174, cos(10) = 0.985
+        const float sin10 = 0.17365f;
+        const float cos10 = 0.98481f;
+        
+        float x = sin10 * (r - l);
+        float y = cos10 * (l + r);
+        
+        if (fabs(x) < 1e-6f && fabs(y) < 1e-6f) {
+            _angleValid = false;
+            return 0.0f;
+        }
+        
+        _angleValid = true;
+        return atan2f(-x, y) * 57.2958f;
     }
+    
+    // --- FAR RANGE: Outer-pair differential ---
+    else {
+        // Calibrated constants from the guide
+        const float PHOTO_SR_GAIN = 1.7f;
+        const float BEARING_DEG_PER_UNIT = 58.0f;
+        const float PHOTO_SAT_V = 4.80f;
+        const float BEARING_MIN_SUM_V = 1;
+        const float BEARING_MAX_DEG = 28.0f;
+        
+        float sum = sl + sr;
 
-    _angleValid = true;
-
-    // atan2(y, x) gives angle from +X axis. We want angle from +Y (forward),
-    // measured CCW positive (toward body left), which is atan2(-x, y).
-    return atan2f(-x, y) * 57.2958;
+        if (sum < BEARING_MIN_SUM_V) {
+            _angleValid = false;
+            return 0.0f; 
+        }
+        
+        // Saturation and presence gating
+        if (sl >= PHOTO_SAT_V && sr >= PHOTO_SAT_V) {
+            _angleValid = true;
+            return 0.0f; 
+        }
+        
+        // Gain-balanced, normalised differential equation
+        float nb = (sl - PHOTO_SR_GAIN * sr) / (sl + PHOTO_SR_GAIN * sr);
+        float deg = BEARING_DEG_PER_UNIT * nb;
+        
+        // Clamp to valid bearing envelope
+        if (deg > BEARING_MAX_DEG) deg = BEARING_MAX_DEG;
+        if (deg < -BEARING_MAX_DEG) deg = -BEARING_MAX_DEG;
+        
+        _angleValid = true;
+        return deg;
+    }
 }
 
 void FireBank::reset() {

@@ -98,6 +98,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 
 void FireFighter::pollState() {
   _gyro->readSensor();
+  _fire_bank->update();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
