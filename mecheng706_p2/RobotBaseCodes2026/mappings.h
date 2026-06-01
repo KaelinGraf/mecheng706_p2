@@ -145,4 +145,27 @@
 // strafe speed below.
 #define AVOID_STRAFE_SPEED      130.0f
 
+// ---------------------------------------------------------------------------
+// Behaviour 1: turret lock-on gate (outer phototransistor pair).
+// The two OUTER cells (_sl, _sr) are mounted flat / forward-facing with larger
+// pull-down resistors, so they are the long-range detectors. The turret only
+// declares lock-on when BOTH exceed FIRE_LOCK_OUTER_V; once locked it holds
+// until BOTH fall below FIRE_UNLOCK_OUTER_V (hysteresis) for LOCK_LOSS_DEBOUNCE
+// consecutive turret updates. TUNE ON BENCH against the new resistor values.
+// ---------------------------------------------------------------------------
+#define FIRE_LOCK_OUTER_V       0.30f
+#define FIRE_UNLOCK_OUTER_V     0.20f
+#define LOCK_LOSS_DEBOUNCE      5
+
+// ---------------------------------------------------------------------------
+// Behaviour 2: 360-degree spin-scan localisation. On startup and after the
+// first fire is extinguished, the chassis rotates in place (turret centred)
+// until the outer pair detects the fire (FIRE_LOCK_OUTER_V), then hands off to
+// SEARCH for the existing turret lock/track + approach. SPIN_SCAN_SPEED is the
+// in-place rotation effort (vtheta, on the [-300, +300] scale). Keep it slow
+// enough that the outer-cell EWMA crosses the gate while the fire is still
+// inside the +/-25 deg phototransistor cone.
+// ---------------------------------------------------------------------------
+#define SPIN_SCAN_SPEED         60.0f
+
 #endif // MAPPINGS_H

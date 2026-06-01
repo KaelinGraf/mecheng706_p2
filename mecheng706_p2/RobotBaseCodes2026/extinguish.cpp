@@ -97,7 +97,9 @@ void Extinguish::poll() {
             // APPROACH against itself.
             ff->println("Next Fire");
             ff->_fire_bank->reset();
-            ff->switchState(State::SEARCH);
+            // Behaviour 2: re-localise the next fire with a 360 spin-scan
+            // before resuming the normal drive + turret pan-scan search.
+            ff->switchState(State::SPIN_SCAN);
         }
     }
 }

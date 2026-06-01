@@ -21,6 +21,7 @@ public:
         SEARCH,        // wander/explore looking for fire
         EXTINGUISH,    // run fan up to 10s to put out the fire
         STOPPED,
+        SPIN_SCAN,     // 360-deg in-place spin to localise fire, then -> SEARCH
 
         // leave last, gives access to length of states
         NUM_STATES,

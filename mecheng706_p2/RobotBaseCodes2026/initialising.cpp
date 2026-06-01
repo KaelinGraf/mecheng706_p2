@@ -54,7 +54,7 @@ void Initialising::poll() {
     count_++;
 
     if (millis() - last_millis_ >= WARMUP_MS) {
-        firefighter_->println("Initialising: warm-up done, switching to SEARCH");
-        firefighter_->switchState(State::SEARCH);
+        firefighter_->println("Initialising: warm-up done, switching to SPIN_SCAN");
+        firefighter_->switchState(State::SPIN_SCAN);
     }
 }
