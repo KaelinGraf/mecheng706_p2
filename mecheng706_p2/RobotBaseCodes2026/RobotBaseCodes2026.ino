@@ -166,8 +166,11 @@ void loop(void) // main loop
     lastSensTurret = millis();
   }
   if (millis() - lastSensPrint > 1000) {
-
-    firefighter->testSensors();
+    // Skip the blocking ultrasonic/IR dump during the spin-scan so the spin
+    // stays smooth (SpinScan needs a fast, uninterrupted loop).
+    if (firefighter->getCurrentState() != State::SPIN_SCAN) {
+      firefighter->testSensors();
+    }
     lastSensPrint = millis();
   }
 // #endif
@@ -199,6 +202,10 @@ void printFireBank() {
 }
 
 void updateTurret() {
+  // Behaviour 2: while the chassis is doing its 360 spin-scan, SpinScan holds
+  // the turret dead-centre and owns the fire bank. Don't pan/aim/lock here.
+  if (firefighter->getCurrentState() == State::SPIN_SCAN) return;
+
   firefighter->_fire_bank->update();
   angleError = firefighter->_fire_bank->estimateBearing(); // radians?
   
@@ -213,9 +220,13 @@ void updateTurret() {
   printFireSensors();  
   
 
-  if (!firefighter->_fire_bank->isValid()) {
+  // Behaviour 1: lock on only when BOTH outer (long-range) cells exceed the
+  // gate. Hysteresis: once locked, hold until both fall below the lower unlock
+  // threshold for LOCK_LOSS_DEBOUNCE consecutive updates.
+  float lock_v = turret->locked_on_ ? FIRE_UNLOCK_OUTER_V : FIRE_LOCK_OUTER_V;
+  if (!firefighter->_fire_bank->bothOuterAbove(lock_v)) {
     noFireDetectCount++;
-    if (noFireDetectCount > 5) {
+    if (noFireDetectCount > LOCK_LOSS_DEBOUNCE) {
       turret->lockOn(false);
     }
   } else {

@@ -5,6 +5,7 @@
 #include "search.h"
 #include "extinguish.h"
 #include "stopped.h"
+#include "spin_scan.h"
 
 // Ultrasonic ISR plumbing - the ISR needs a free-function entry point but
 // must dispatch into the active Ultrasonic instance.
@@ -60,6 +61,7 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   states_[State::SEARCH]       = new Search(this);
   states_[State::EXTINGUISH]   = new Extinguish(this);
   states_[State::STOPPED]      = new Stopped(this);
+  states_[State::SPIN_SCAN]    = new SpinScan(this);
 
   // Begin initial state AFTER all hardware and states are ready
   current_state_ = states_[State::INITIALISING];

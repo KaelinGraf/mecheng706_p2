@@ -98,6 +98,13 @@ class FireBank {
         return maxV() >= threshold;
     }
 
+    // True if BOTH outer cells (_sl, _sr) exceed v. The outer pair are the
+    // flat, forward-facing, long-range detectors; this is the turret lock gate
+    // (Behaviour 1) and the spin-scan "fire found" gate (Behaviour 2).
+    inline bool bothOuterAbove(float v) const {
+        return _sl->getFilteredV() >= v && _sr->getFilteredV() >= v;
+    }
+
     // True if ALL cells are below the "out" threshold (used by EXTINGUISH to
     // declare the fire put out and bail early).
     bool allBelow(float threshold = FIRE_OUT_V) const;
