@@ -21,15 +21,21 @@
 // range one degree at a time. Because the source is fixed, the turret's
 // angle-from-centre IS the light's incidence angle on the flat outer cells, so
 // a single sweep traces each outer cell's angular response. Repeating the
-// sweep at successive operator-entered distances stacks those curves into a
-// distance family for MATLAB.
+// sweep at successive distances stacks those curves into a distance family for
+// MATLAB.
 //
-// Protocol (one full cycle per loop() call, blocking on operator input):
-//   1. Prompt for the source distance (cm); read it from USB and/or Bluetooth.
+// The distance schedule is AUTOMATIC and purely timed - no serial input is
+// required (the Bluetooth link's 115200 SoftwareSerial RX is unreliable). The
+// test walks a fixed list of distances; before each one it pauses with a
+// printed countdown so the operator can physically move the lamp to that
+// distance, then sweeps.
+//
+// Protocol (one distance per loop() call, blocking):
+//   1. Print "position the light at D cm" and wait out a timed countdown.
 //   2. Sweep the turret SWEEP_MIN -> SWEEP_MAX in 1 deg steps. At each step
 //      settle the servo, converge the EWMA, and emit one CSV row of all four
 //      cell voltages, tagged with the distance and turret angle.
-//   3. Return to centre and prompt for the next distance.
+//   3. Recentre and advance to the next distance; stop after the last one.
 //
 // Output is machine-parsable: every data row begins with the literal token
 // "DATA," so the MATLAB importer can ignore banners / prompts in the PuTTY log.
@@ -43,9 +49,9 @@
 // ---------------------------------------------------------------------------
 class SweepTest {
   public:
-    // in0/in1 are the serial streams the operator might type into (e.g. USB
-    // Serial and the Bluetooth SoftwareSerial). Either may be nullptr; both are
-    // polled so it doesn't matter which port PuTTY is attached to.
+    // in0/in1 are the serial streams (USB Serial + Bluetooth SoftwareSerial).
+    // They are no longer used to drive the test - kept only so any stray bytes
+    // on a flaky link can be drained and ignored. Either may be nullptr.
     SweepTest(FireFighter* ff, Turret* turret, Stream* in0, Stream* in1 = nullptr)
       : _ff(ff), _turret(turret), _in0(in0), _in1(in1) {}
 
@@ -53,22 +59,18 @@ class SweepTest {
     // setup() after the FireFighter and Turret have been constructed.
     void begin();
 
-    // Run exactly one prompt -> sweep -> recentre cycle. Blocks while waiting
-    // for the operator's distance entry, so simply call it from loop().
+    // Advance the automatic schedule by one distance: pause for repositioning,
+    // run a full sweep, recentre. Call from loop(); it self-terminates after
+    // the last distance.
     void loop();
 
   private:
     FireFighter* _ff;
     Turret*      _turret;
-    Stream*      _in0;
+    Stream*      _in0;        // retained only to drain/ignore stray input bytes
     Stream*      _in1;
-
-    // Blocking read of a numeric value terminated by Enter, from either input
-    // stream. Re-reads on blank lines; returns the parsed distance in cm.
-    float readDistanceBlocking();
-
-    // Non-blocking: next pending byte from either input, or -1 if none.
-    int readByteAny();
+    int          _dist_idx = 0;     // index into the automatic distance schedule
+    bool         _finished = false; // set once the whole schedule has run
 
     // One full sweep across the range, emitting tagged CSV rows.
     void runSweep(float dist_cm);
@@ -76,6 +78,10 @@ class SweepTest {
     // Command the servo to angle_deg, then settle + converge the EWMAs so the
     // logged getFilteredV() reflects the steady-state reading at this angle.
     void settleAt(int angle_deg);
+
+    // Timed pause (printed countdown) so the operator can move the lamp to
+    // dist_cm before the next sweep. No serial input required.
+    void pauseForRepositioning(float dist_cm);
 };
 
 #endif // SWEEP_TEST_H
