@@ -53,16 +53,8 @@ void Extinguish::end() {
     firefighter_->_fan->off();
     firefighter_->println("EXTINGUISH: fan OFF and moving back");
 
-    firefighter_->_motors->writeAllMotors(-15, 0, 0);
-    delay(200);
-
-    firefighter_->println("EXTINGUISH: stopped, spinning start");
-    firefighter_->_motors->writeAllMotors(0, 0, 100);
-    delay(1000);
-
-    firefighter_->_motors->writeAllMotors(0, 0, 0);
-    delay(50);
-    firefighter_->println("EXTINGUISH: spinning end");
+    firefighter_->_motors->writeAllMotors(50, 0, 0);
+    delay(300);
 }
 
 void Extinguish::poll() {

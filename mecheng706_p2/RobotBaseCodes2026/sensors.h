@@ -110,6 +110,7 @@ class Gyroscope: public Sensor{
     HardwareSerial* _serial_com;
     RingBuffer<float,4>* _prev_measurements;
     float _deadband = 0.01;
+    float _yaw_offset = 0.0;
 
 
 
@@ -129,9 +130,9 @@ class Gyroscope: public Sensor{
       _bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED,10000);
       
     };
-    float readSensor(bool apply_filter = false);
+    float readSensor(bool apply_filter = true);
     inline float applyCalibration(float adc_voltage) override {return adc_voltage;};
-    void resetAngle() { _rad = 0.0; _prev_micros = micros(); }
+    void resetAngle() { _yaw_offset += _rad; _rad = 0.0; }
     float getAngle() { return _rad; }
 
 

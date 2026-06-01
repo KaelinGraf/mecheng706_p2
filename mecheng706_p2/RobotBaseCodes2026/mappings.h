@@ -104,7 +104,7 @@
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM          15.0f
-#define SEARCH_SPEED             55.0f
+#define SEARCH_SPEED             90.0f
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
 #define APPROACH_FORWARD_SPEED  10.0f
@@ -157,7 +157,7 @@
 // until BOTH fall below FIRE_UNLOCK_OUTER_V (hysteresis) for LOCK_LOSS_DEBOUNCE
 // consecutive turret updates. TUNE ON BENCH against the new resistor values.
 // ---------------------------------------------------------------------------
-#define FIRE_LOCK_OUTER_V       0.30f
+#define FIRE_LOCK_OUTER_V       0.8f
 #define FIRE_UNLOCK_OUTER_V     0.20f
 #define LOCK_LOSS_DEBOUNCE      5
 

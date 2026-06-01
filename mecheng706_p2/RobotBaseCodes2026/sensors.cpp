@@ -266,25 +266,35 @@ float Ultrasonic::getAvg(){
 
 
 
-float Gyroscope::readSensor(bool apply_filter=false){
+float Gyroscope::readSensor(bool apply_filter){
+  // Re-enable the correct report if the sensor resets
   if (_bno08x->wasReset()) {
-    _bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED);
+    _bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000);
   }
 
   if (_bno08x->getSensorEvent(_sensorValue)) {
-    if (_sensorValue->sensorId == SH2_GYROSCOPE_CALIBRATED) {
-      float gyroZ =_sensorValue->un.gyroscope.z;  // Current Measured Angular Velocity Around The Z Axis
+    // Check for the Game Rotation Vector report
+    if (_sensorValue->sensorId == SH2_GAME_ROTATION_VECTOR) {
+      
+      // 1. Extract quaternion components
+      float qr = _sensorValue->un.gameRotationVector.real;
+      float qi = _sensorValue->un.gameRotationVector.i;
+      float qj = _sensorValue->un.gameRotationVector.j;
+      float qk = _sensorValue->un.gameRotationVector.k;
 
-      uint32_t now = micros();
-      float dt = (now - _prev_micros) / 1000000.0f;
-      _prev_micros = now;
-      _rad += gyroZ * dt;
+      // 2. Convert quaternion to Yaw (Z-axis rotation) in radians
+      float raw_yaw = atan2(2.0f * (qr * qk + qi * qj), 1.0f - 2.0f * (qj * qj + qk * qk));
+      
+      // 3. Apply the offset so resetAngle() still works
+      _rad = raw_yaw - _yaw_offset;
 
-      _prev_measurements->push(gyroZ);
-      return (apply_filter)? _prev_measurements->average():gyroZ;
+      // Optional: Normalize _rad to be exactly within [-PI, PI]
+      while (_rad > PI) _rad -= 2.0f * PI;
+      while (_rad < -PI) _rad += 2.0f * PI;
 
+      _prev_measurements->push(_rad);
+      return (apply_filter)? _prev_measurements->average() : _rad;
     }
-
   }
   return -1001.0;
 };

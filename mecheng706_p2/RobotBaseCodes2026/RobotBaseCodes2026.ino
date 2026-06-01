@@ -27,7 +27,6 @@
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
 #define BLUETOOTH_TX 18
-#define TEST_FIRE_BANK false
 
 // ===========================================================================
 // SWEEP_TEST: bench characterisation of the outer (flat) phototransistor pair.
@@ -35,7 +34,8 @@
 // of the firefighting FSM. Left OFF (commented) for normal robot operation;
 // uncomment to re-run a bench sweep.
 // ===========================================================================
-//#define SWEEP_TEST
+#define TEST_FIRE_BANK false
+#define SWEEP_TEST  false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -142,13 +142,12 @@ void setup(void)
 
 void loop(void) // main loop
 {
-#ifdef SWEEP_TEST
+#if SWEEP_TEST == true
   // Outer-pair sensor sweep test owns the loop while enabled; everything below
   // (the firefighting FSM) is skipped.
   sweepTest->loop();
   return;
-#endif
-#if TEST_FIRE_BANK == true
+#elif TEST_FIRE_BANK == true
   firefighter->_fire_bank->update();
   firefighter->updateIrSensors();
   if (millis() - lastSensTurret > 500) {
