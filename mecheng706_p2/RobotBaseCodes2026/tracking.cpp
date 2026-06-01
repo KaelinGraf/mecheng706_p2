@@ -121,7 +121,7 @@ void Tracking::poll() {
     }else if(angle<(SERVO_CENTER - center_deadzone)){
         curr_turret = 2;
     }
-    bool close_to_fire = (ff->_fire_bank->maxVMid()>0.85);
+    bool close_to_fire = (ff->_fire_bank->_sl->getFilteredV() > 4.8 || ff->_fire_bank->_sr->getFilteredV() > 4.8);
     ff->print("Close to fire: ");
     ff->print(close_to_fire);
     ff->print(" || Max Val: ");
@@ -145,7 +145,7 @@ void Tracking::poll() {
             behavior_start_ms_ = now;
         }
     }
-    if(turret->atFire()){
+    if(close_to_fire){
         ff->println("[TRACK] AT_FIRE");
         active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
         behavior_start_ms_ = now;
@@ -256,7 +256,7 @@ void Tracking::poll() {
                 // Obstacle ahead and not aimed, just go left
                 ff->println("[AVOID] -> AHEAD NOT AIMED");
                 motor_vtheta = -AVOID_ROTATE_SPEED;
-                motor_vx = AVOID_SPEED;
+                motor_vx = -AVOID_SPEED;
                 }
             }
         }

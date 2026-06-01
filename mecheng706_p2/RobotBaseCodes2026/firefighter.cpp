@@ -33,13 +33,14 @@ FireFighter::FireFighter(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue
   _gyro = new Gyroscope(bno08x, sensorValue, SerialCom);
   serialCom_->print("Gyro exit");
   _motors = new driveMotors();
-  _front_left_ir = new LongRangeIR(front_left_ir_pin);
-  _front_right_ir = new LongRangeIR(front_right_ir_pin);
-  _rear_left_ir = new ShortRangeIR(rear_left_ir_pin);
-  _rear_right_ir = new ShortRangeIR(rear_right_ir_pin);
+  _front_left_ir = new ShortRangeIR(front_left_ir_pin);
+  _front_right_ir = new ShortRangeIR(front_right_ir_pin);
+  _rear_left_ir = new LongRangeIR(rear_left_ir_pin);
+  _rear_right_ir = new LongRangeIR(rear_right_ir_pin);
   _ultrasonic = new Ultrasonic(ECHO_PIN, TRIG_PIN, MAX_DIST);
   ultrasonicISR = _ultrasonic;
   _motors->attatchAll();
+  _lastExtinguisedMillis = 0;
 
   // Fire-detection bank: four cardinal phototransistors plus the
   // aggregator that produces "any detection" / "bearing to fire" answers.

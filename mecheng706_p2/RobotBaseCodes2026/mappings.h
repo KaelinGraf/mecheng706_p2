@@ -108,14 +108,14 @@
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
 #define APPROACH_FORWARD_SPEED  10.0f
-#define APPROACH_TURN_GAIN      20.0f
+#define APPROACH_TURN_GAIN      17.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
 #define AVOID_ROTATE_SPEED      30.0f
-#define AVOID_URGENT            10.0f
+#define AVOID_URGENT            8.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
