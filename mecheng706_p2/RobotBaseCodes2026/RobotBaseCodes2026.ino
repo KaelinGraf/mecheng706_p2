@@ -207,7 +207,7 @@ void updateTurret() {
   if (firefighter->getCurrentState() == State::SPIN_SCAN) return;
 
   firefighter->_fire_bank->update();
-  angleError = firefighter->_fire_bank->estimateBearing(); // radians?
+  angleError = firefighter->_fire_bank->estimateBearing(); // degrees off-axis; 0 = aimed
   
   Serial.print("Error ");  
   Serial.println(angleError);

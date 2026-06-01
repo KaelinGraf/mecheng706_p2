@@ -146,6 +146,28 @@
 #define AVOID_STRAFE_SPEED      130.0f
 
 // ---------------------------------------------------------------------------
+// Outer-pair (flat) phototransistor BEARING calibration.
+// From the bench sweep characterisation (analysis/sensor_usage_guide, all four
+// cells live, 10-190 cm). estimateBearing() steers on the gain-balanced,
+// normalised outer differential:
+//     theta_err = BEARING_DEG_PER_UNIT * (SL - G*SR) / (SL + G*SR)
+// which nulls (=0) when the turret points at the fire and is ~independent of
+// range and LED brightness. Trust it only when both cells are unsaturated and
+// the outer sum is above the floor. Re-measure G and the scale against the real
+// fire LED; the normalised form is brightness-robust and should carry over.
+// ---------------------------------------------------------------------------
+#define PHOTO_SR_GAIN           2.17f   // SR gain to match SL peak (SL ~2.17x SR)
+#define BEARING_DEG_PER_UNIT    58.0f   // normalised diff -> degrees off-axis
+#define PHOTO_SAT_V             4.80f   // cell at/above this is clipped (range <~50cm)
+#define BEARING_MIN_SUM_V       0.20f   // need SL+SR above this to trust a bearing
+#define BEARING_MAX_DEG         28.0f   // clamp; linear law valid within ~+/-25 deg
+// Boresight: the flat array faces the source at turret rel ~+20 deg (servo ~98),
+// NOT SERVO_CENTER (78). CONFIRM this is a centre-calibration/mounting error
+// (then set SERVO_CENTER ~= 98) and not just bench lamp placement, before
+// changing it. The bearing law above needs no such confirmation; only the
+// pan-scan centre and turretAngleToBearing() do.
+
+// ---------------------------------------------------------------------------
 // Behaviour 1: turret lock-on gate (outer phototransistor pair).
 // The two OUTER cells (_sl, _sr) are mounted flat / forward-facing with larger
 // pull-down resistors, so they are the long-range detectors. The turret only
