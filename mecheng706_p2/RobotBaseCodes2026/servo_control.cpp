@@ -78,6 +78,11 @@ void Turret::pan_scan(unsigned long current_time_ms){
 }
 
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){
+  last_commands.vx=vx;
+  last_commands.vy=vy;
+  last_commands.vtheta=vtheta;
+
+
   _left_front_motor.writeMotor(vx,vy,vtheta);
   _left_rear_motor.writeMotor(vx,vy,vtheta);
   _right_front_motor.writeMotor(vx,vy,vtheta);

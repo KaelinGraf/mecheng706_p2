@@ -101,6 +101,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 
 void FireFighter::pollState() {
   _gyro->readSensor();
+  _ultrasonic->service();   // pump the non-blocking ultrasonic (schedule pings + cache echoes)
   _fire_bank->update();
   updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
@@ -116,7 +117,7 @@ void FireFighter::setBearing(float bearing) {
 }
 
 void FireFighter::testSensors() {
-  print("us med: "); println(_ultrasonic->readBlocking());
+  print("us med: "); println(_ultrasonic->getAvg());
 
   print("front left:");
   println(_front_left_ir->getAvg());

@@ -131,8 +131,10 @@ float LongRangeIR::applyCalibration(float adc_voltage){
 }
 
 void Ultrasonic::initUltrasonic(){
+  // Prime the first ping; service() takes over scheduling from here.
   runUltrasonic();
-  int first = readSensor();
+  _in_flight = true;
+  _last_trigger_ms = millis();
 }
 
 void Ultrasonic::runUltrasonic(){
@@ -147,49 +149,55 @@ Ultrasonic::Ultrasonic(uint8_t echo_pin, uint8_t trigger_pin, int max_dist)
   pinMode(echo_pin, INPUT);
   _prev_measurements = new RingBuffer<float, 3>();
 };
+// Non-blocking query: ALWAYS returns the last good cached value. Never triggers,
+// never blocks. Call service() once per loop to keep the cache fresh.
 float Ultrasonic::readSensor() {
-  unsigned long t1;
-  unsigned long t2;
-  unsigned long pulse_width;
-  float cm;
-  float inches;
-
-  t2 = getReturnTime();
-  t1 = getSentTime();
-
-  if (t2 < t1){
-    Serial.println("UltraSonic Out of sync, return last cm");
-    t1 = getLastSent();
-  }
-
-  pulse_width = t2 - t1;
-
-  // Calculate distance in centimeters and inches. The constants
-  // are found in the datasheet, and calculated from the assumed speed
-  //of sound in air at sea level (~340 m/s).
-  cm = pulse_width / 58.0;
-  inches = pulse_width / 148.0;
-
-  // Print out results
-  if (DIAGNOSTICS){
-    if (pulse_width > _max_dist) {
-      Serial.println("HC-SR04: Out of range");
-    } else {
-      Serial.print("Non Blocking ");
-      Serial.print("HC-SR04:");
-      Serial.print(cm);
-      Serial.println("cm");
-    }
-  }
-  runUltrasonic();
-  if (cm <10.0 || cm > 200.0){
-    mapping_reading_ = -1.0;
-    return -1.0;
-  }
-
-  mapping_reading_ = cm;
-  return cm;
+  mapping_reading_ = _cached_cm;
+  return _cached_cm;
 };
+
+// Pump once per loop. Folds a completed echo into the cache, abandons a stalled
+// ping, and schedules the next one. Triggering is decoupled from reading so that
+// readSensor()/getAvg() can be called any number of times with no side effects.
+void Ultrasonic::service() {
+  unsigned long now = millis();
+
+  // 1) Consume a completed echo. The ISR sets sent_time on the rising edge and
+  //    return_time on the falling edge, so return_time > sent_time means the
+  //    current ping finished. Snapshot both atomically (4-byte reads vs the ISR).
+  unsigned long t_sent, t_ret;
+  noInterrupts();
+  t_sent = sent_time;
+  t_ret  = return_time;
+  interrupts();
+
+  if (_in_flight && t_ret > t_sent && t_ret != _last_consumed_return) {
+    _last_consumed_return = t_ret;
+    _in_flight = false;                   // ping RESOLVED (regardless of in/out of band)
+    _last_resolved_ms = now;
+    float cm = (t_ret - t_sent) / 58.0f;
+    if (cm >= 10.0f && cm <= 200.0f) {    // valid band: refresh cache + history
+      _cached_cm = cm;
+      if (_prev_measurements) _prev_measurements->push(cm);
+    }
+    // Out-of-band returns keep the previous cached value (don't poison it).
+  }
+
+  // 2) Watchdog: a ping that NEVER echoes (out of range / absorbed / missed edge)
+  //    must not stall the sensor forever. Abandon it so a fresh ping can fire.
+  if (_in_flight && (now - _last_trigger_ms > ECHO_TIMEOUT_MS)) {
+    _in_flight = false;
+    _last_resolved_ms = now;
+  }
+
+  // 3) Re-ping once the previous one has RESOLVED (echo or timeout) + a short quiet
+  //    gap, so the previous ping's reverb can't contaminate the next measurement.
+  if (!_in_flight && (now - _last_resolved_ms >= QUIET_GAP_MS)) {
+    runUltrasonic();
+    _in_flight = true;
+    _last_trigger_ms = now;
+  }
+}
 
 float Ultrasonic::readBlocking() {
   unsigned long t1;
@@ -254,11 +262,7 @@ float Ultrasonic::readBlocking() {
 }
 
 float Ultrasonic::getAvg(){
-  float val = this->readSensor();
-  if (val != -1.0 && val <= 250.0){
-    _prev_measurements->push(val);
-  }
-
+  // service() maintains the history on each fresh ping, so just read the median.
   float median = _prev_measurements->median();
   mapping_reading_ = median;
   return mapping_reading_;

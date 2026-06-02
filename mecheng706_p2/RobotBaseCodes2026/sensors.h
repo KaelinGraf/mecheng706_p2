@@ -75,9 +75,18 @@ class Ultrasonic: public Sensor{
     uint8_t _echo_pin = ECHO_PIN;
     uint8_t _trigger_pin = TRIG_PIN;
     unsigned int _max_dist = MAX_DIST;
-    unsigned long sent_time = 0;
-    unsigned long return_time = 0;
-    unsigned long _last_sent = 0;
+    // Timestamps written by the echo ISR -> must be volatile.
+    volatile unsigned long sent_time = 0;
+    volatile unsigned long return_time = 0;
+    volatile unsigned long _last_sent = 0;
+    // Non-blocking measurement state.
+    float _cached_cm = -1.0f;              // last good reading; readSensor() returns this
+    bool  _in_flight = false;              // a ping is out, awaiting its echo
+    unsigned long _last_trigger_ms = 0;
+    unsigned long _last_resolved_ms = 0;   // when the last ping finished (echo OR timeout)
+    unsigned long _last_consumed_return = 0;
+    static const unsigned long QUIET_GAP_MS    = 10;  // gap AFTER a ping resolves; lets reverb die (tune)
+    static const unsigned long ECHO_TIMEOUT_MS = 30;  // watchdog: no echo by now => abandon, re-ping
     RingBuffer<float,3>* _prev_measurements;
 
   public:
@@ -86,6 +95,7 @@ class Ultrasonic: public Sensor{
     float readSensor() override;
     inline float applyCalibration(float adc_voltage) override {return adc_voltage;};
     float readBlocking();
+    void service();      // pump once per loop: schedule pings + consume echoes (non-blocking)
     void initUltrasonic();
     void runUltrasonic();
     void setSentTime(unsigned long t1){sent_time = t1;};

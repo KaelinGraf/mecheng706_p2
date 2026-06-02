@@ -49,7 +49,7 @@ void Tracking::poll() {
     unsigned long now = millis();
 
     // Read all sensors
-    float us_cm = ff->_ultrasonic->readBlocking();
+    float us_cm = ff->_ultrasonic->readSensor();
     float lf_cm = ff->_front_left_ir->getAvg();
     float rf_cm = ff->_front_right_ir->getAvg();
     float lr_cm = ff->_rear_left_ir->getAvg();

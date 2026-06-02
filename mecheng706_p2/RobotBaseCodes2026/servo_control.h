@@ -60,6 +60,13 @@ class driveMotors{
     Motor _right_front_motor;
     Motor _right_rear_motor;
 
+    struct last_motor_commands{
+      float vx;
+      float vy;
+      float vtheta;
+    } last_commands;
+
+
   public:
     driveMotors():_left_front_motor(left_front_multis, left_front_pin),_left_rear_motor(left_rear_multis, left_rear_pin),_right_front_motor(right_front_multis, right_front_pin),_right_rear_motor(right_rear_multis, right_rear_pin){
 
@@ -69,6 +76,8 @@ class driveMotors{
     void attatchAll();
 
 };
+
+
 
 
 
