@@ -235,6 +235,10 @@ void Tracking::poll() {
                     // fire behind obstacle
                     motor_vtheta = AVOID_ROTATE_SPEED*1.5;
                     motor_vx = -AVOID_SPEED;
+                    
+                    // being overwritten and stuck
+                    ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+                    return;
                 }
 
             } else {
