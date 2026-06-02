@@ -99,7 +99,7 @@
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
-#define OBSTACLE_CLEAR_CM_F      20.0f
+#define OBSTACLE_CLEAR_CM_F      22.0f
 #define OBSTACLE_CLEAR_CM_R      10.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.

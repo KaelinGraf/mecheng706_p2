@@ -15,6 +15,12 @@ static const unsigned long NUDGE_LEN_MS = 350;
 static const float NUDGE_TURN = 60.0f;
 static const float BEARING_PIVOT_THRESH = 5.0f;
 static const float RAD_PER_DEG = 0.017453292519943295f;
+
+static float wrap_angle_error(float angle) {
+    while (angle > PI) angle -= TWO_PI;
+    while (angle < -PI) angle += TWO_PI;
+    return angle;
+}
 }
 
 Tracking::Tracking(FireFighter *firefighter)
@@ -22,6 +28,7 @@ Tracking::Tracking(FireFighter *firefighter)
       active_behavior_(BehaviorNS::SearchBehaviour::FIND_FIRE),
       bearing_(0.0f),
       resume_bearing_(0.0f),
+            resume_to_move_(false),
       strafe_sign_(1),
       behavior_start_ms_(0),
       last_seen_ms_(0),
@@ -34,6 +41,7 @@ void Tracking::begin() {
     firefighter_->println("Tracking");
     bearing_ = 0.0f;
     resume_bearing_ = 0.0f;
+    resume_to_move_ = false;
     active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
     behavior_start_ms_ = millis();
     last_nudge_ms_ = behavior_start_ms_;
@@ -99,7 +107,7 @@ void Tracking::poll() {
     }else if(angle<(SERVO_CENTER - center_deadzone)){
         curr_turret = 2;
     }
-    bool close_to_fire = (ff->_fire_bank->_sl->getFilteredV() > 4.8 || ff->_fire_bank->_sr->getFilteredV() > 4.8);
+    bool close_to_fire = turret->atFire();
     ff->print("Close to fire: ");
     ff->print(close_to_fire);
     ff->print(" || Max Val: ");
@@ -111,6 +119,10 @@ void Tracking::poll() {
         || obstacle_side) {
         // PRIORITY 1: Obstacle ahead triggers AVOID
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+            resume_bearing_ = ff->_gyro->getAngle();
+            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE 
+            || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
+            ff->println(resume_to_move_);
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
         }
@@ -119,6 +131,9 @@ void Tracking::poll() {
     if (ff->recentExtinguish() && (close_front || obstacle_ahead)){
         ff->println("[TRACK] RECENT FIRE");
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
+            resume_bearing_ = ff->_gyro->getAngle();
+            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE 
+            || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
         }
@@ -131,7 +146,7 @@ void Tracking::poll() {
 
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
     {
-        active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+        active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
         behavior_start_ms_ = now;
     }
     
@@ -149,17 +164,11 @@ void Tracking::poll() {
                      ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
                      
         if (clear && (elapsed > AVOID_STRAFE_MS)) {
-            if (fire_detected) {
-                ff->println("[TRACK] resuming MOVE_TO_FIRE");
-                active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
-                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
-                return;
-            } else {
-                ff->println("[TRACK] returning to FIND_FIRE");
-                active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
-                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
-                return;
-            }
+            ff->println("[TRACK] leaving AVOID -> RETURN_TO_HEADING");
+            active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
+            behavior_start_ms_ = now;
+            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+            return;
         } else if (elapsed > AVOID_TIMEOUT_MS) {
             // Timeout: rotate in place
             motor_vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
@@ -173,7 +182,7 @@ void Tracking::poll() {
                 ff->println("[TRACK] AVOID Left");
                 if (lf_cm <= AVOID_URGENT) {
                     // Reverse and turn
-                    motor_vtheta = AVOID_ROTATE_SPEED;
+                    motor_vtheta = AVOID_ROTATE_SPEED*1.5;
                     motor_vx = -AVOID_SPEED;
                 } else {
                     // Go forward and around
@@ -188,7 +197,7 @@ void Tracking::poll() {
                 ff->println("[TRACK] AVOID Right");
                 if (rf_cm <= AVOID_URGENT) {
                     // Reverse and turn
-                    motor_vtheta = -AVOID_ROTATE_SPEED;
+                    motor_vtheta = -AVOID_ROTATE_SPEED*1.5;
                     motor_vx = -AVOID_SPEED;
                 } else {
                     // Go forward and around
@@ -224,12 +233,10 @@ void Tracking::poll() {
                 } else {
                     ff->println("[AVOID] -> FIRE_BEHIND");
                     // fire behind obstacle
-                    motor_vtheta = AVOID_ROTATE_SPEED;
+                    motor_vtheta = AVOID_ROTATE_SPEED*1.5;
                     motor_vx = -AVOID_SPEED;
                 }
-                active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;   
-                ff->println("[AVOID] -> APPROACH FIRE");
-                behavior_start_ms_ = now;
+
             } else {
                 // Obstacle ahead and not aimed, just go left
                 ff->println("[AVOID] -> AHEAD NOT AIMED");
@@ -238,6 +245,28 @@ void Tracking::poll() {
                 }
             }
         }
+    }
+    if (active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING) {
+        float heading_error = wrap_angle_error(resume_bearing_ - ff->_gyro->getAngle());
+
+        if (fabsf(heading_error) > 0.12f) {
+            ff->print("[TRACK] RETURN_TO_HEADING: ");
+            ff->print(heading_error);
+            motor_vx = AVOID_SPEED;
+            motor_vtheta = 2*((heading_error > 0.0f) ? -AVOID_ROTATE_SPEED : AVOID_ROTATE_SPEED);
+            ff->print("[vTheta: ");
+            ff->println(motor_vtheta);
+        } else {
+            ff->println("[TRACK] heading restored");
+            active_behavior_ = resume_to_move_
+                ? BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
+                : BehaviorNS::SearchBehaviour::FIND_FIRE;
+            behavior_start_ms_ = now;
+            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+            return;
+        }
+        ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+        return;
     }
     
     // PRIORITY 2: Use turret lock to switch between FIND_FIRE and MOVE_TO_FIRE
@@ -256,12 +285,9 @@ void Tracking::poll() {
             }
         }
     }
-    if(turret->atFire()){
-        active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
-    }
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {      
         // Check if close enough to extinguish
-        if (close_front && aimed & !ff->recentExtinguish()) {
+        if (close_front && aimed && !ff->recentExtinguish() && turret->atFire()) {
             ff->println("[TRACK] fire within extinguish range");
             motor_vx = 0.0f;
             motor_vy = 0.0f;
@@ -300,6 +326,12 @@ void Tracking::poll() {
         motor_vtheta = 0.0f;
 
         motor_vx = SEARCH_SPEED;
+
+        if (now - behavior_start_ms_ > 5000) {  // If 5 seconds have passed
+            //sweep
+            ff->println("Reset, spin scan");
+            ff->switchState(State::SPIN_SCAN);
+        }
 
         /*
         // Wall follow with rear IR sensors
