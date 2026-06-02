@@ -157,6 +157,8 @@ void loop(void) // main loop
   }
 #else
   firefighter->pollState();
+  if (firefighter->getCurrentState() == State::STOPPED) return;
+  
   firefighter->setBearing(turret->angle_);
   if ((millis() - lastSensTurret > 50) && !(firefighter->getCurrentState() == State::STOPPED)) {
 
