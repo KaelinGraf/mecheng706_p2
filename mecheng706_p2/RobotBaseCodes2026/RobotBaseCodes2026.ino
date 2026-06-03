@@ -34,7 +34,7 @@
 // of the firefighting FSM. Left OFF (commented) for normal robot operation;
 // uncomment to re-run a bench sweep.
 // ===========================================================================
-#define TEST_FIRE_BANK false
+#define TEST_FIRE_BANK true
 #define SWEEP_TEST  false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
@@ -61,7 +61,6 @@ void bluetoothSerialOutputMonitor(int32_t Value1, int32_t Value2,
                                   int32_t Value3);
 void serialOutput(int32_t Value1, int32_t Value2, int32_t Value3);
 void setupWireless();
-void readTurretSerial();
 float turretAngleToBearing(int angle);
 
 int pos = 0;
@@ -333,91 +332,3 @@ float turretAngleToBearing(int angle)
   const float degreesToRadians = 0.017453292519943295f;
   return (static_cast<float>(angle) - 90.0f) * degreesToRadians;
 }
-
-void readTurretSerial()
-{
-  static char buffer[8];
-  static uint8_t bufferIndex = 0;
-  static unsigned long lastInputMillis = 0;
-
-  auto finalizeCommand = [&]() {
-    if (bufferIndex == 0)
-    {
-      return;
-    }
-
-    buffer[bufferIndex] = '\0';
-    Serial.print("Turret input: ");
-    Serial.println(buffer);
-
-    int angle = atoi(buffer);
-    turret->writeAngle(angle);
-    Serial.print("Turret angle set to: ");
-    Serial.println(turret->angle_);
-    bufferIndex = 0;
-  };
-
-  while (Serial.available() > 0)
-  {
-    char incoming = static_cast<char>(Serial.read());
-    lastInputMillis = millis();
-
-    if (incoming == '\r' || incoming == '\n')
-    {
-      finalizeCommand();
-    }
-    else if ((incoming >= '0' && incoming <= '9') || (incoming == '-' && bufferIndex == 0))
-    {
-      if (bufferIndex < sizeof(buffer) - 1)
-      {
-        buffer[bufferIndex++] = incoming;
-        if (bufferIndex == 3)
-        {
-          finalizeCommand();
-        }
-      }
-    }
-    else
-    {
-      Serial.print("Ignored turret input char: ");
-      Serial.println(incoming);
-      bufferIndex = 0;
-    }
-  }
-
-  if (bufferIndex > 0 && (millis() - lastInputMillis) > 100)
-  {
-    finalizeCommand();
-  }
-}
-
-#ifndef NO_BATTERY_V_OK
-
-#endif
-
-void Analog_Range_A4()
-{
-  firefighter->print("Analog Range A4:");
-  firefighter->println(analogRead(A4));
-}
-
-#ifndef NO_READ_GYRO
-void GYRO_reading()
-{
-  if (bno08x.wasReset())
-  {
-    bno08x.enableReport(SH2_GYROSCOPE_UNCALIBRATED);
-  }
-
-  if (bno08x.getSensorEvent(&sensorValue))
-  {
-    if (sensorValue.sensorId == SH2_GYROSCOPE_UNCALIBRATED)
-    {
-      float gyroZ = sensorValue.un.gyroscope.z; // Current Measured Angular Velocity Around The Z Axis
-      firefighter->print("Gyroscope I2C: ");
-      firefighter->println(gyroZ);
-    }
-  }
-  return;
-}
-#endif

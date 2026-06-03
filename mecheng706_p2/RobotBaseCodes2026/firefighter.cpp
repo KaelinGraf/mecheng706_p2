@@ -116,6 +116,8 @@ void FireFighter::setBearing(float bearing) {
 }
 
 void FireFighter::testSensors() {
+  print("Heading: "); println(_gyro->getHeading());
+
   print("us med: "); println(_ultrasonic->readBlocking());
 
   print("front left:");

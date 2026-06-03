@@ -141,10 +141,4 @@ class Gyroscope: public Sensor{
 };
 
 
-struct gyroData{
-
-
-};
-
-
 #endif
