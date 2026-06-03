@@ -31,6 +31,11 @@ class SpinScan : public State {
     float prev_angle_;
     float total_swept_angle_;
     unsigned long last_status_print_ms_;
+    // Gyro fallback
+    unsigned long scan_start_ms_;
+    float fallback_max_intensity_;   // peak seen in first 5 s
+    bool  fallback_armed_;           // true once the 5 s window closes
+    bool  fallback_triggered_;       // true once we've seen the peak drop and return
     
   public:
     SpinScan(FireFighter* firefighter) : State(State::SPIN_SCAN, firefighter) {};

@@ -138,6 +138,7 @@ class Gyroscope: public Sensor{
       while (a < -PI) a += TWO_PI;
       return a;
     }
+    void setHeading(float new_head) { _heading = new_head; }
 };
 
 

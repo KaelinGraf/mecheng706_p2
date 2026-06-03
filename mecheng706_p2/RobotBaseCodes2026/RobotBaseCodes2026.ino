@@ -34,7 +34,7 @@
 // of the firefighting FSM. Left OFF (commented) for normal robot operation;
 // uncomment to re-run a bench sweep.
 // ===========================================================================
-#define TEST_FIRE_BANK true
+#define TEST_FIRE_BANK false
 #define SWEEP_TEST  false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 

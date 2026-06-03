@@ -285,5 +285,9 @@ float Gyroscope::readSensor(){
     _heading += wrapPi(yaw - _last_yaw);                     // unwrap into a continuous angle
     _last_yaw = yaw;
   }
+  // In readSensor(), before the unwrap line, print raw yaw:
+  Serial.print("raw_yaw=%.4f last_yaw=%.4f delta=%.4f heading=%.4f\n");
+  Serial.println(_last_yaw, _heading);
+
   return _heading;
 }

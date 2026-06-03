@@ -100,7 +100,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 }
 
 void FireFighter::pollState() {
-  _gyro->readSensor();
+  _gyro->setHeading(_gyro->readSensor());
   _fire_bank->update();
   updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
