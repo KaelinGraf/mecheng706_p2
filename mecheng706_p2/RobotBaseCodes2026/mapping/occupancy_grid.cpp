@@ -20,11 +20,35 @@ void OccupancyGrid::update(const Pose2D& robotPose){
 }
 
 void OccupancyGrid::voxelTraversal(const Pose2D& sensorPose, const Pose2D& targetPose){
-    //amanatides & Woo 3D voxel traversal adapted to 2D grid
+    //amanatides & woo voxel traversal algo with log-odds update
     idx_xy startCell = worldToIndex(sensorPose.x, sensorPose.y);
     idx_xy _endCell = worldToIndex(targetPose.x, targetPose.y); //note, this purposely can be out of bounds, we just early-exit traversal
-    
-    
+    int8_t stepX = (targetPose.x > sensorPose.x) ? 1 : -1; //step sign notation
+    int8_t stepY = (targetPose.y > sensorPose.y) ? 1 : -1; 
+    int X = startCell.x;
+    int Y = startCell.y;
+    float c = fabs(cosf(sensorPose.th));
+    float s = fabs(sinf(sensorPose.th));
+    float tMaxX = ((stepX > 0) ? (X + 1 + org_cx) * CELL_CM - sensorPose.x : (sensorPose.x - (X + org_cx) * CELL_CM))/c; //location of first x boundary
+    float tMaxY = ((stepY > 0) ? (Y + 1 + org_cy) * CELL_CM - sensorPose.y : (sensorPose.y - (Y + org_cy) * CELL_CM))/s; //location of first y boundary
+    float tDeltaX = CELL_CM/c; //distance between x boundaries
+    float tDeltaY = CELL_CM/s; //distance between y boundaries
+
+    while (X >= 0 && X < WIN_N && Y >= 0 && Y < WIN_N) { //while in bounds
+        if (X == _endCell.x && Y == _endCell.y) { //can only happen if end cell is within bounds, if we reached it, mark as occupied and stop traversal
+          at(X, Y) = clip<int8_t>(at(X, Y)+LOC_OCC, -LOC_CLAMP, LOC_CLAMP); //clamp log-odds to prevent overflow
+          break;
+        }; //reached end cell, stop traversal
+        at(X, Y) = clip<int8_t>(at(X, Y)-LOC_FREE, -LOC_CLAMP, LOC_CLAMP); //clamp log-odds to prevent overflow
+
+        if (tMaxX < tMaxY) { //next step is x boundary
+            tMaxX += tDeltaX;
+            X += stepX;
+        } else { //next step is y boundary
+            tMaxY += tDeltaY;
+            Y += stepY;
+        }
+    }
 }
 
 // shift so new[ax] = old[ax+dx]; clear the exposed columns
@@ -72,7 +96,7 @@ void OccupancyGrid::recenter(const Pose2D& p) {
     if (dx) shiftX(dx);
     if (dy) shiftY(dy);
   }
-  org_cx += dx;                            // <-- the half your sketch was missing
+  org_cx += dx;                           
   org_cy += dy;
 }
 

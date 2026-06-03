@@ -3,6 +3,9 @@
 
 #include <string.h>   // memmove, memset
 
+
+#include "utils.h"
+
 #include "robot_model.hpp"
 #include "firefighter.h"
 #include "pose.hpp"
@@ -10,6 +13,10 @@
 
 #define WIN_N 30
 #define CELL_CM 5.0f
+#define LOC_OCC 4
+#define LOC_FREE 1
+#define LOC_CLAMP 12
+#define LOC_THRESH 5
 
 struct ray {
     float n_x, n_y, c;
