@@ -270,35 +270,25 @@ float Ultrasonic::getAvg(){
 
 
 
-float Gyroscope::readSensor(bool apply_filter){
-  // Re-enable the correct report if the sensor resets
+float Gyroscope::readSensor(){
+  // The BNO can spontaneously reset; re-enable the report and drop the unwrap
+  // anchor so the reset's yaw discontinuity isn't integrated into the heading.
   if (_bno08x->wasReset()) {
     _bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000);
+    _have_yaw = false;
   }
 
-  if (_bno08x->getSensorEvent(_sensorValue)) {
-    // Check for the Game Rotation Vector report
-    if (_sensorValue->sensorId == SH2_GAME_ROTATION_VECTOR) {
-      
-      // 1. Extract quaternion components
-      float qr = _sensorValue->un.gameRotationVector.real;
-      float qi = _sensorValue->un.gameRotationVector.i;
-      float qj = _sensorValue->un.gameRotationVector.j;
-      float qk = _sensorValue->un.gameRotationVector.k;
-
-      // 2. Convert quaternion to Yaw (Z-axis rotation) in radians
-      float raw_yaw = atan2(2.0f * (qr * qk + qi * qj), 1.0f - 2.0f * (qj * qj + qk * qk));
-      
-      // 3. Apply the offset so resetAngle() still works
-      _rad = raw_yaw - _yaw_offset;
-
-      // Optional: Normalize _rad to be exactly within [-PI, PI]
-      while (_rad > PI) _rad -= 2.0f * PI;
-      while (_rad < -PI) _rad += 2.0f * PI;
-
-      _prev_measurements->push(_rad);
-      return (apply_filter)? _prev_measurements->average() : _rad;
-    }
+  if (_bno08x->getSensorEvent(_sensorValue) &&
+      _sensorValue->sensorId == SH2_GAME_ROTATION_VECTOR) {
+    const auto& q = _sensorValue->un.gameRotationVector;   // i, j, k, real
+    // Yaw (about Z) from the already-fused quaternion. The BNO MotionEngine
+    // filters this on-chip, so no extra smoothing (and averaging a wrapped angle
+    // would be wrong across +/-pi anyway).
+    float yaw = atan2f(2.0f * (q.real * q.k + q.i * q.j),
+                       1.0f - 2.0f * (q.j * q.j + q.k * q.k));
+    if (!_have_yaw) { _last_yaw = yaw; _have_yaw = true; }  // first reading: no delta
+    _heading += wrapPi(yaw - _last_yaw);                     // unwrap into a continuous angle
+    _last_yaw = yaw;
   }
-  return -1001.0;
-};
+  return _heading;
+}

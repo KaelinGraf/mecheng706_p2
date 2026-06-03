@@ -399,23 +399,3 @@ void Analog_Range_A4()
   firefighter->println(analogRead(A4));
 }
 
-#ifndef NO_READ_GYRO
-void GYRO_reading()
-{
-  if (bno08x.wasReset())
-  {
-    bno08x.enableReport(SH2_GYROSCOPE_UNCALIBRATED);
-  }
-
-  if (bno08x.getSensorEvent(&sensorValue))
-  {
-    if (sensorValue.sensorId == SH2_GYROSCOPE_UNCALIBRATED)
-    {
-      float gyroZ = sensorValue.un.gyroscope.z; // Current Measured Angular Velocity Around The Z Axis
-      firefighter->print("Gyroscope I2C: ");
-      firefighter->println(gyroZ);
-    }
-  }
-  return;
-}
-#endif

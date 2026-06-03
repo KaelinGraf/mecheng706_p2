@@ -13,9 +13,10 @@ public:
     void update_localisation(const Pose2D& robotPose, Pose2D turretPose, const float angleError);
     Pose2D solvePose();//solves for fire pose in world frame, returns as Pose2D with x,y as position and th as confidence (0-1)
     float solveDeterminant(); //solves for determinant of system 
-    private:
+private:
     float m00, m01, m11, c0, c1; //coefficients of the linear system Ax=b, where A=[[m00,m01],[m10,m11]], x=[fireX, fireY], b=[c0,c1]
-
+    long _last_solve_time = 0;
+    Pose2D _last_solved_pose;
 };
 
 #endif // FIRE_LOCALISER_H

@@ -27,7 +27,7 @@ Pose2D DeadReckoner::getPose() const {
     return currentPose;
 }
 
-Pose2D DeadReckoner::updatePose(float heading, float vx, float vy, float dt) {
+Pose2D DeadReckoner::updatePose(float heading, float vx, float vy, long dt) {
     // Update the robot's pose based on its velocity and heading
     //vx, vy are in the robot's local frame, so we need to convert them to world frame using the current heading
     float vx_world = KX * vx * cos(heading) - KY * vy * sin(heading);

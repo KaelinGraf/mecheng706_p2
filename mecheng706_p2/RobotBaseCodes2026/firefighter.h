@@ -10,6 +10,16 @@
 #include "servo_control.h"
 #include "pid.h"
 
+
+struct Tap{
+    //Tap becomes the package of information passed to world model each tick
+    float heading; //game vector gyro heading
+    float vx, vy; //last commanded velocities
+    float turret_angle, angle_error = 0; //angle error is recorded angle discrepancy between turret and fire this tick 
+    bool fire_locked; //is turret locking to a fire
+    float range[5]; //Sensor readings in order: ULTRASONIC, IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_REAR_LEFT, IR_REAR_RIGHT
+};
+
 class FireFighter
 {
 private:
@@ -40,6 +50,7 @@ public:
     Phototransistor *_photo_sr;
     FireBank        *_fire_bank;
     Fan             *_fan;
+
 
     // Fire counter accessors (used by Extinguish to drive the SEARCH/STOPPED
     // transition once two fires are out).

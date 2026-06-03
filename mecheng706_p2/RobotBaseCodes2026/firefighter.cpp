@@ -107,6 +107,7 @@ void FireFighter::pollState() {
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
   // can synchronously query "is there a fire?" without paying the ADC cost
   // itself. Cheap (~4 analogReads) compared with one ultrasonic ping.
+  //Tap _tap = {_gyro->getHeading()};   // continuous heading for the dead-reckoner (NOT the resettable getAngle)
   if (current_state_) {
     current_state_->poll();
   }

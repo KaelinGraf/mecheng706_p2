@@ -4,13 +4,25 @@ static const int8_t UNKNOWN = 0;   // log-odds 0
 
 
 
-void OccupancyGrid::update(const Pose2D& robotPose){
+void OccupancyGrid::update(const Pose2D& robotPose, float* sensorReadings) {
+  /*
+  Updates occupancy grid.
+  Recenters grid around robot pose, then:
+  Per sensor: 
+  - Get sensor pose in world frame by chaining robot pose with sensor pose in robot frame (from robot model)
+  - Get sensor reading for that sensor from tap (passed in through world model update function from firefighter class)
+  - Performs voxel traversal and log odds marking
+
+  args:
+  - robotPose: current pose of the robot in world frame, from dead reckoner
+  - sensorReadings: array of current sensor readings for all sensors, from latest Tap (passed in from world model update function from firefighter class)
+  */
     this->recenter(robotPose);
     Pose2D sensorPoses[5];
     _robot->getAllSensorPosesInWorld(robotPose, sensorPoses);
     for (int i = 0; i < 5; ++i) {
         Pose2D sensorPose = sensorPoses[i];
-        float _sensor_reading = _ff->getSensorReading(static_cast<RobotModel::SensorType>(i)); //TODO get sensor reading from firefighter class
+        float _sensor_reading = sensorReadings[i]; 
         if (_sensor_reading <= 0) continue; // Skip if no valid reading
         Pose2D _sensor_target = {_sensor_reading,0,0};//TODO get sensor reading from firefighter class
         Pose2D sensor_target_world = sensorPose.chain(_sensor_target); //calculates target in world coordinates by chaining the sensor pose with the reading (which is in the sensor's local frame)

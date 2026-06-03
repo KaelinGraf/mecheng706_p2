@@ -11,7 +11,8 @@ struct RobotModel {
         {0.0f, 0.0f, 0.0f}, // rear left ir sensor
         {0.0f, 0.0f, 0.0f} // rear right ir sensor
     };
-    inline static enum SensorType { ULTRASONIC, IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_REAR_LEFT, IR_REAR_RIGHT}; // Enum to identify sensor types
+    inline static const Pose2D TurretPose = {0.0f,0.0f,0.0f}; //turret translation relative to robot base
+    enum SensorType {ULTRASONIC, IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_REAR_LEFT, IR_REAR_RIGHT}; // Enum to identify sensor types
     
     Pose2D getSensorPose(SensorType type) const { // Function to get the pose of a specific sensor
         return SensorPose[type];

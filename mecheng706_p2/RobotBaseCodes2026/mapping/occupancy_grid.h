@@ -24,10 +24,13 @@ struct ray {
 
 class OccupancyGrid {
 public:
-    OccupancyGrid(RobotModel* robot, Firefighter* firefighter):_robot(robot), _ff(firefighter) {memset(L, 0, sizeof(L));};
+    OccupancyGrid(RobotModel* robot):_robot(robot) {memset(L, 0, sizeof(L));};
     ~OccupancyGrid(){};
+     struct idx_xy {
+        int x, y;
+    };
 
-    void update(const Pose2D& robotPose); //takes in the robot's current pose and updates the occupancy grid based on sensor readings, from deadreckoner
+    void update(const Pose2D& robotPose, float* sensorReadings); //takes in the robot's current pose and updates the occupancy grid based on sensor readings, from deadreckoner
     void voxelTraversal(const Pose2D& sensorPose, const Pose2D& targetPose);
 
 
@@ -41,14 +44,11 @@ public:
     bool worldInGrid(float wx, float wy, int& cx, int& cy) const;
     idx_xy worldToIndex(float wx, float wy) const;
     void reset(const Pose2D& robotPose);
-    struct idx_xy {
-        int x, y;
-    };
+   
 
 
 private:
     RobotModel* _robot;
-    Firefighter* _ff;
     int8_t L[WIN_N * WIN_N] = {0}; // 1D array representing the occupancy grid
     int org_cx = -WIN_N/2, org_cy = -WIN_N/2; // origin of the grid in world coordinates (in cells)
 
