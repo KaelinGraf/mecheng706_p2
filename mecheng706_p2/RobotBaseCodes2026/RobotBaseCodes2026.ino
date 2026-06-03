@@ -116,7 +116,7 @@ void setup(void)
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
 
-#ifdef SWEEP_TEST
+#if SWEEP_TEST
   // Bench test mode: drive the outer-pair sweep instead of the FSM. Reads
   // operator input from either USB Serial or the Bluetooth link.
   sweepTest = new SweepTest(firefighter, turret, &Serial, &BluetoothSerial);
@@ -142,25 +142,32 @@ void setup(void)
 
 void loop(void) // main loop
 {
-#if SWEEP_TEST == true
+#if SWEEP_TEST
   // Outer-pair sensor sweep test owns the loop while enabled; everything below
   // (the firefighting FSM) is skipped.
   sweepTest->loop();
   return;
-#elif TEST_FIRE_BANK == true
+#elif TEST_FIRE_BANK
   firefighter->_fire_bank->update();
   firefighter->updateIrSensors();
-  if (millis() - lastSensTurret > 500) {
+
+  if ((millis() - lastSensTurret > 50)) {
+
     updateTurret();
-    firefighter->testSensors();
     lastSensTurret = millis();
+  }
+
+  if (millis() - lastSensPrint > 500) {
+    firefighter->testSensors();
+    printFireSensors();  
+    lastSensPrint = millis();
   }
 #else
   firefighter->pollState();
   if (firefighter->getCurrentState() == State::STOPPED) return;
   
   firefighter->setBearing(turret->angle_);
-  if ((millis() - lastSensTurret > 50) && !(firefighter->getCurrentState() == State::STOPPED)) {
+  if ((millis() - lastSensTurret > 30)) {
 
     updateTurret();
     lastSensTurret = millis();
@@ -171,6 +178,7 @@ void loop(void) // main loop
     if (firefighter->getCurrentState() != State::SPIN_SCAN) {
       firefighter->testSensors();
     }
+    printFireSensors();  
     lastSensPrint = millis();
   }
 #endif
@@ -210,23 +218,26 @@ void updateTurret() {
 
   // Fire bank is refreshed every loop in FireFighter::pollState().
   angleError = firefighter->_fire_bank->estimateBearing(); // degrees off-axis; 0 = aimed
-  
-  Serial.print("Error ");  
-  Serial.println(angleError);
+
+  static unsigned long last_error_print_ms = 0;
+  static unsigned long last_scan_print_ms = 0;
+  unsigned long now = millis();
+  if (now - last_error_print_ms >= 250UL) {
+    Serial.print("Error ");
+    Serial.println(angleError);
+    last_error_print_ms = now;
+  }
   // Serial.print("Locked ");  
   // Serial.println(turret->locked_on_);
   // Serial.print("angle ");  
   // Serial.println(turret->angle_);
   // Serial.print("Readings ");  
-  
-  printFireSensors();  
-  
 
   // Behaviour 1: lock on only when BOTH outer (long-range) cells exceed the
   // gate. Hysteresis: once locked, hold until both fall below the lower unlock
   // threshold for LOCK_LOSS_DEBOUNCE consecutive updates.
   float lock_v = turret->locked_on_ ? FIRE_UNLOCK_OUTER_V : FIRE_LOCK_OUTER_V;
-  if (!firefighter->_fire_bank->bothOuterAbove(lock_v)) {
+  if (!firefighter->_fire_bank->isValid()) {
     noFireDetectCount++;
     if (noFireDetectCount > LOCK_LOSS_DEBOUNCE) {
       turret->lockOn(false);
@@ -237,8 +248,11 @@ void updateTurret() {
   }
 
   if (!turret->locked_on_) {
-    firefighter->println("Scan");
-    turret->pan_scan(millis());
+    if (now - last_scan_print_ms >= 500UL) {
+      firefighter->println("Scan");
+      last_scan_print_ms = now;
+    }
+    turret->pan_scan(now);
     return;
   }
 
@@ -248,7 +262,7 @@ void updateTurret() {
     return;
   }
   float MAX_SLEW = 10.0;
-  //if(fabs(angleError - old_angle)>)
+  //if(fabs(angleError - old_angle)> )
   angleControl = turret->angle_ + 0.6 * angleError;
   Serial.print("Control ");  
   Serial.println(angleControl);

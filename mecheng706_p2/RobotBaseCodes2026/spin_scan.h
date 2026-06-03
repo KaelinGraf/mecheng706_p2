@@ -30,6 +30,7 @@ class SpinScan : public State {
     bool returning_to_best_;
     float prev_angle_;
     float total_swept_angle_;
+    unsigned long last_status_print_ms_;
     
   public:
     SpinScan(FireFighter* firefighter) : State(State::SPIN_SCAN, firefighter) {};

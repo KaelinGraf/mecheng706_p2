@@ -40,13 +40,13 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  return ((_fb->_sl->getFilteredV() > 4.8) && (_fb->_sr->getFilteredV() > 4.8) && (_fb->maxVMid() > 2.0));
+  return ((_fb->_sl->getFilteredV() > 4.8) && (_fb->_sr->getFilteredV() > 4.8) && (_fb->maxVMid() > 0.8));
 }
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-  if (angle < SERVO_CENTER - 60) angle = SERVO_CENTER - 60;
-  if (angle > SERVO_CENTER + 60) angle = SERVO_CENTER + 60;
+  if (angle < (SERVO_CENTER - 50)) angle = SERVO_CENTER - 50;
+  if (angle > (SERVO_CENTER + 50)) angle = SERVO_CENTER + 50;
   this->angle_ = angle;
   _motor.write(angle);
 }
@@ -64,7 +64,7 @@ void Turret::center(){
 void Turret::pan_scan(unsigned long current_time_ms){
   // Simple pan-scan behavior when not locked on
   // Sweeps between 0 and 180 degrees at a fixed speed
-  const unsigned long scan_period_ms = 6000; // Time for a full sweep (back and forth)
+  const unsigned long scan_period_ms = 2000; // Time for a full sweep (back and forth)
   const int scan_range_deg = 300; // Total range of motion
   const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
 

@@ -24,6 +24,7 @@ void SpinScan::begin() {
     returning_to_best_ = false;
     prev_angle_ = ff->_gyro->getAngle();
     total_swept_angle_ = 0.0f;
+    last_status_print_ms_ = millis();
 }
 
 void SpinScan::end() {
@@ -37,6 +38,15 @@ void SpinScan::poll() {
     ff->_fire_bank->update();
 
     float current_angle = ff->_gyro->getAngle();
+    unsigned long now = millis();
+
+    if (now - last_status_print_ms_ >= 1000UL) {
+        ff->print("SPIN_SCAN: angle=");
+        ff->print(current_angle);
+        ff->print(" max=");
+        ff->println(max_intensity_);
+        last_status_print_ms_ = now;
+    }
 
     // PHASE 1: Do a full sweep to find the maximum light intensity
     if (!returning_to_best_) {
@@ -44,7 +54,8 @@ void SpinScan::poll() {
         float sl = ff->_fire_bank->_sl->getFilteredV();
         float current_intensity = sr < sl ? sr : sl; // takes minimum of side PT
 
-        if (ff->firesExtinguished() >= 1 && current_intensity > 1.0f) {
+        float early_exit_intensity = ff->firesExtinguished() == 0 ? 1.8f : 0.6f;
+        if (current_intensity > early_exit_intensity) {
             ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
             ff->println("SPIN_SCAN: High intensity found early -> SEARCH");
             ff->switchState(State::SEARCH);
