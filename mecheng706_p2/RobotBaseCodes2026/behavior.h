@@ -7,7 +7,7 @@ class FireFighter; // forward declaration (defined elsewhere)
 namespace BehaviorNS {
 
 // High-level robot states (behaviour-based control)
-enum class StateName : uint8_t {
+enum class StateName {
     INITIALISE,
     SEARCH,
     EXTINGUISH,
@@ -15,9 +15,10 @@ enum class StateName : uint8_t {
 };
 
 // Sub-behaviours used while in SEARCH
-enum class SearchBehaviour : uint8_t {
+enum class SearchBehaviour {
     FIND_FIRE,
     AVOID,
+    RETURN_TO_HEADING,
     MOVE_TO_FIRE,
 };
 

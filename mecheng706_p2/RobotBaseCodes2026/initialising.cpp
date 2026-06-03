@@ -45,10 +45,14 @@ void Initialising::poll() {
     // Pump filtered reads into every sensor's ring buffer / EWMA so that by
     // the time SEARCH starts, "getAvg()" returns a real value rather than the
     // -1.0 placeholder used while empty.
-    firefighter_->_front_left_ir->getAvg();
-    firefighter_->_front_right_ir->getAvg();
-    firefighter_->_rear_left_ir->getAvg();
-    firefighter_->_rear_right_ir->getAvg();
+
+    firefighter_->_front_left_ir->readSensor();
+    firefighter_->_front_right_ir->readSensor();
+    firefighter_->_rear_left_ir->readSensor();
+    firefighter_->_rear_right_ir->readSensor();
+
+    firefighter_->_fire_bank->update();
+
     firefighter_->_ultrasonic->getAvg();
     // _fire_bank is updated centrally in FireFighter::pollState().
     count_++;

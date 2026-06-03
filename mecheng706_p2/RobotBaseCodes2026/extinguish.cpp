@@ -29,7 +29,7 @@
 
 // Number of consecutive "all below threshold" polls before we declare the
 // fire out. With a 10 ms loop period this is ~100 ms of darkness.
-static const int FIRE_OUT_DEBOUNCE = 10;
+static const int FIRE_OUT_DEBOUNCE = 5;
 
 void Extinguish::begin() {
     FireFighter* ff = firefighter_;
@@ -53,16 +53,12 @@ void Extinguish::end() {
     firefighter_->_fan->off();
     firefighter_->println("EXTINGUISH: fan OFF and moving back");
 
-    firefighter_->_motors->writeAllMotors(-15, 0, 0);
-    delay(200);
+    // pushing in a few PT updates for MA
+    firefighter_->_fire_bank->update();
+    firefighter_->_fire_bank->update();
 
-    firefighter_->println("EXTINGUISH: stopped, spinning start");
-    firefighter_->_motors->writeAllMotors(0, 0, 100);
-    delay(1000);
-
-    firefighter_->_motors->writeAllMotors(0, 0, 0);
-    delay(50);
-    firefighter_->println("EXTINGUISH: spinning end");
+    firefighter_->_motors->writeAllMotors(50, 0, 0);
+    delay(300);
 }
 
 void Extinguish::poll() {

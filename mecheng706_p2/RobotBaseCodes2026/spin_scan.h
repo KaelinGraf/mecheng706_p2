@@ -24,6 +24,14 @@
 // testSensors(), so SpinScan owns the fire-bank sampling and the motors.
 // ---------------------------------------------------------------------------
 class SpinScan : public State {
+  private:
+    float max_intensity_;
+    float best_angle_;
+    bool returning_to_best_;
+    float prev_angle_;
+    float total_swept_angle_;
+    unsigned long last_status_print_ms_;
+    
   public:
     SpinScan(FireFighter* firefighter) : State(State::SPIN_SCAN, firefighter) {};
     ~SpinScan() {};
