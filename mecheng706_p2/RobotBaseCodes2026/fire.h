@@ -105,6 +105,13 @@ class FireBank {
         return _sl->getFilteredV() >= v && _sr->getFilteredV() >= v;
     }
 
+    // True if EITHER outer cell (_sl, _sr) exceeds v. Looser sibling of
+    // bothOuterAbove, used by the RELAXED turret lock gate so an off-centre fire
+    // (lighting only one of the flat pair) still acquires.
+    inline bool eitherOuterAbove(float v) const {
+        return _sl->getFilteredV() >= v || _sr->getFilteredV() >= v;
+    }
+
     // True if ALL cells are below the "out" threshold (used by EXTINGUISH to
     // declare the fire put out and bail early).
     bool allBelow(float threshold = FIRE_OUT_V) const;

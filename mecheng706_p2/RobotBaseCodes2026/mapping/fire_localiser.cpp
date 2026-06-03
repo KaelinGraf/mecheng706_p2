@@ -24,9 +24,19 @@ void FireLocaliser::update_localisation(const Pose2D& robotPose, Pose2D turretPo
 Pose2D FireLocaliser::solvePose() {
     float det = m00 * m11 - m01 * m01;
     float trace = m00 + m11;
+    // Display ASAP: hand back the estimate the moment the system is numerically
+    // solvable, even at LOW confidence. The viewer scales the marker size/opacity by
+    // confidence (the .th field), so an early, uncertain fix shows up faint and firms
+    // up as more (spatially diverse) bearings arrive — we no longer wait for a strong
+    // determinant before revealing anything. The only gate left is a numerical floor
+    // on det so the divide can't throw the estimate to infinity.
+    // NOTE: triangulation needs >= 2 bearings from DIFFERENT robot positions; a
+    // STATIONARY robot gives one ray (det stays ~0) so no point fix is possible yet.
+    // See implementation.md: plan is to drive along the last lock bearing to build a
+    // baseline, then converge.
     float confidence = (trace > 0.0f) ? (det / (trace * trace)) * 4.0f : 0.0f;
-    if (det <= 1e-6f * trace) {          // degenerate: too few / near-parallel rays
-        return {0.0f, 0.0f, 0.0f};       // or whatever your "no fix" sentinel is
+    if (det <= 1e-9f) {                  // numerically singular -> no usable fix yet
+        return {0.0f, 0.0f, 0.0f};       // "no fix" sentinel (viewer hides conf<=0)
     }
     float fireX = (c0 * m11 - c1 * m01) / det;
     float fireY = (m00 * c1 - m01 * c0) / det;

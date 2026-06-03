@@ -1,8 +1,25 @@
 #ifndef POSE_H
 #define POSE_H
 
-#define KX 0.5f // correction factor for velocity to account for wheel slip, etc.
-#define KY 0.5f  
+
+struct Lut1D {
+    const float* xs;   // ascending sample inputs (command magnitude)
+    const float* ys;   // gain at each sample
+    int          n;
+    // Linear interpolation, clamped flat outside the sampled range.
+    float eval(float x) const {
+        if (n <= 0)       return 0.0f;
+        if (x <= xs[0])   return ys[0];
+        if (x >= xs[n-1]) return ys[n-1];
+        int i = 1;
+        while (i < n && xs[i] < x) ++i;            // first sample >= x
+        float t = (x - xs[i-1]) / (xs[i] - xs[i-1]);
+        return ys[i-1] + t * (ys[i] - ys[i-1]);
+    }
+};
+
+extern const Lut1D KX_LUT;   // forward gain vs |vx|
+extern const Lut1D KY_LUT;   // strafe  gain vs |vy|
 
 struct rMatrix2D {
     float m00, m01, m10, m11;

@@ -10,6 +10,12 @@
 #include "servo_control.h"
 #include "pid.h"
 
+// Mapping layer is forward-declared only: firefighter.h is included BY the
+// mapping headers (occupancy_grid.h, world_model.hpp), so it must not include
+// them back. firefighter.cpp pulls in the full definitions under ENABLE_MAPPING.
+class WorldModel;
+struct RobotModel;
+
 
 struct Tap{
     //Tap becomes the package of information passed to world model each tick
@@ -33,6 +39,11 @@ private:
     // task is over (after the second fire, the brief requires us to stop).
     int fires_extinguished_ = 0;
 
+    // Onboard mapping pipeline. Pointers (forward-declared types) so this header
+    // need not see the mapping definitions; instantiated only under ENABLE_MAPPING.
+    WorldModel *_world = nullptr;
+    RobotModel *_robot_model = nullptr;
+
 public:
     ShortRangeIR *_front_left_ir;
     ShortRangeIR *_front_right_ir;
@@ -41,6 +52,9 @@ public:
     Gyroscope *_gyro;
     Ultrasonic *_ultrasonic;
     driveMotors *_motors;
+    // The turret is created in the .ino after the FireFighter; setTurret() wires
+    // it in so buildTap() can read turret angle / lock state for fire localising.
+    Turret *_turret = nullptr;
 
     // Fire-detection bank + fan (added for Project 2). The four photocells are
     // owned by the FireFighter and aggregated through _fire_bank for the FSM.
@@ -73,10 +87,22 @@ public:
     void setBearing(float bearing);
     float bearing_ = 0.0f;
 
+    // Wire in the turret (owned by the .ino) so buildTap() can reach it.
+    inline void setTurret(Turret *t) { _turret = t; }
+    // Consolidate this tick's inputs (pose/heading, last command, turret, ranges)
+    // into the snapshot the WorldModel consumes. Single point for unit conversion.
+    Tap buildTap();
+
     inline void setSerialCom(HardwareSerial *serialCom) { serialCom_ = serialCom; };
     inline void setBluetoothSerial(SoftwareSerial *btSerial) { btSerial_ = btSerial; };
     void updateIrSensors();
 
+    // Print helpers. These ALWAYS route to BOTH links (USB serialCom_ + Bluetooth
+    // btSerial_) when present, so anything you ff->print() — including the
+    // occupancy frames from WorldModel::printSet() — auto-reaches the MATLAB viewer
+    // over Bluetooth, no SERIAL_DEBUG gate required. Bandwidth note: SoftwareSerial
+    // at 115200 is the bottleneck, so keep per-tick chatter light or it crowds the
+    // ~3 KB occupancy frame.
     template <typename... Args>
     inline void print(Args... args)
     {

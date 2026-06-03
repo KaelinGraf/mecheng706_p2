@@ -227,7 +227,7 @@ void Tracking::poll() {
                         motor_vx = -AVOID_SPEED;
                         motor_vy = 50;
 
-                        ff->_motors->writeAllMotors((-motor_vx / 2), motor_vy, motor_vtheta);
+                        ff->_motors->writeAllMotors((motor_vx / 2), motor_vy, motor_vtheta);
                         return;
                     }
                 } else {
@@ -265,7 +265,7 @@ void Tracking::poll() {
             ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
             return;
         }
-        ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+        ff->_motors->writeAllMotors((motor_vx/2), motor_vy, motor_vtheta);
         return;
     }
     
@@ -347,12 +347,14 @@ void Tracking::poll() {
         // ff->println("[TRACK] FF");
     }
 
-    // Write motors once at the end
+    // Write motors once at the end. The mixer is now +vx=forward (servo_control.h),
+    // so motor_vx is forward-positive and written directly — no -vx compensation.
+    // The /2 preserves the original approach/search speed.
     // ff->print("vx= ");
-    // ff->print(-motor_vx, 2); // Moving backwards, fix
+    // ff->print(motor_vx, 2);
     // ff->print(", vy= ");
     // ff->print(motor_vy, 2);
     // ff->print(", vtheta= ");
     // ff->println(motor_vtheta, 2);
-    ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+    ff->_motors->writeAllMotors((motor_vx/2), motor_vy, motor_vtheta);
 }

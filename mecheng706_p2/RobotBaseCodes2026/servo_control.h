@@ -11,13 +11,19 @@
 const int chassis_scale = (L_len+l_len);
 
 
-const int left_front_multis[3] = {-1, 1, 1};
+// Mecanum mix multipliers [vx, vy, vtheta] per wheel. THIS IS THE SINGLE SOURCE OF
+// TRUTH for drive direction. The vx column (first entry of each row) is set so that
+// +vx = FORWARD. (The committed values had +vx = backward, so every caller used to
+// undo it with a -vx; those compensations were removed in the SAME pass — see
+// tracking.cpp, extinguish.cpp, and the dead-reckoner in pose.cpp.) Convention is
+// now uniform everywhere: +vx = forward, +vy = strafe right.
+const int left_front_multis[3] = {1, 1, 1};
 
-const int right_front_multis[3] = {1, 1, 1};
+const int right_front_multis[3] = {-1, 1, 1};
 
-const int left_rear_multis[3] = {-1, -1,1};
+const int left_rear_multis[3] = {1, -1,1};
 
-const int right_rear_multis[3] = {1, -1,1};
+const int right_rear_multis[3] = {-1, -1,1};
 
 
 enum motorName{
@@ -61,9 +67,9 @@ class driveMotors{
     Motor _right_rear_motor;
 
     struct last_motor_commands{
-      float vx;
-      float vy;
-      float vtheta;
+      float vx = 0.0f;
+      float vy = 0.0f;
+      float vtheta = 0.0f;
     } last_commands;
 
 
@@ -74,6 +80,10 @@ class driveMotors{
     void writeMotor(motorName target_motor, uint16_t speed);
     void writeAllMotors(float vx, float vy, float vtheta);
     void attatchAll();
+
+    // Last commanded body-frame velocities, latched on every writeAllMotors().
+    // This is the single source of truth for dead-reckoning's motion model.
+    const last_motor_commands& getLastCommand() const { return last_commands; }
 
 };
 

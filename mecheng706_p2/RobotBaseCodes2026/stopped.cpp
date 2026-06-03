@@ -4,7 +4,7 @@
 
 void Stopped::begin() {
   firefighter_->_motors->writeAllMotors(0.0, 0.0, 0.0);
-  Serial.println("STOPPED: Completed Fire Figthing!!");
+  DBGLN("STOPPED: Completed Fire Figthing!!");
 }
 
 void Stopped::end() {

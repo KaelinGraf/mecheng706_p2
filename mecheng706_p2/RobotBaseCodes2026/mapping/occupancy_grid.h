@@ -4,17 +4,17 @@
 #include <string.h>   // memmove, memset
 
 
-#include "utils.h"
+#include "../utils.h"
+#include "../firefighter.h"
 
 #include "robot_model.hpp"
-#include "firefighter.h"
 #include "pose.hpp"
 
 
 #define WIN_N 30
 #define CELL_CM 5.0f
 #define LOC_OCC 4
-#define LOC_FREE 1
+#define LOC_FREE 3
 #define LOC_CLAMP 12
 #define LOC_THRESH 5
 
@@ -37,6 +37,11 @@ public:
     bool isCellOccupied(int x, int y) const;
     inline int idx(int x, int y) const{ return y * WIN_N + x;}
     inline int8_t& at (int x, int y){ return L[idx(x, y)]; }
+    // Read-only accessors for the serial emitter + offline tests: raw log-odds
+    // (not thresholded like isCellOccupied) and the window origin in world cells.
+    inline int8_t logOddsAt(int x, int y) const { return L[idx(x, y)]; }
+    inline int originX() const { return org_cx; }
+    inline int originY() const { return org_cy; }
 
     void shiftX(int dx);
     void shiftY(int dy);

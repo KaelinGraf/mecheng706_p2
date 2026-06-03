@@ -29,7 +29,14 @@ public:
     ~WorldModel();
 
     void update(Tap* tap); //updates world model based on new sensor readings, should be called every iter in control loop before navigate
+    void printSet(); //prints occupancy map + robot pose + target pose (if converged)
 
+    // Read-only views consumed by printSet() and by host-side offline tests. The
+    // formatting (occupancy serial protocol) is driven off these so the same
+    // frame can be produced on-device (Arduino Print) and host-side (stdout).
+    const OccupancyGrid& grid() const { return _occupancyGrid; }
+    Pose2D robotPose() const { return _deadReckoner.getPose(); }
+    Pose2D fireEstimate()     { return _fireLocaliser.solvePose(); } // .th carries confidence [0..1]
 private:
     OccupancyGrid _occupancyGrid;
     FireLocaliser _fireLocaliser;

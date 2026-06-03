@@ -123,13 +123,26 @@ class Gyroscope: public Sensor{
   public:
     Gyroscope(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue, HardwareSerial* SerialCom)
       : Sensor(uint8_t(0)), _bno08x(bno08x), _sensorValue(sensorValue), _serial_com(SerialCom) {
+      // Settle delay: let the BNO08x finish its power-on reset before we talk to
+      // it. On a cold boot (especially with the motor rail loaded) the chip needs
+      // ~200 ms after power before it cleanly accepts a report enable. Without this,
+      // begin_I2C()/enableReport() can land mid-reset: the enable is acknowledged
+      // but the report never actually streams, so getSensorEvent() returns nothing
+      // and getHeading() reads a constant 0. Boot-time only, so the cost is free.
+      delay(300);
+#if SERIAL_DEBUG
       _serial_com->println("Enabling Gyroscope...");
+#endif
       // 6-axis fused orientation (accel+gyro, no magnetometer -> immune to motor EMI).
       while (!_bno08x->begin_I2C() ||
              !_bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000)) {  // 100 Hz
+#if SERIAL_DEBUG
         _serial_com->println("IMU failed");
+#endif
       }
+#if SERIAL_DEBUG
       _serial_com->println("Gyro Success!");
+#endif
     }
 
     float readSensor() override;                                 // poll BNO, advance the continuous heading

@@ -4,14 +4,9 @@
 #include "pose.hpp"
 
 struct RobotModel {
-    inline static const Pose2D SensorPose[5] = { // Define the poses of the 5 sensors relative to the robot's center
-        {0.0f, 0.0f, 0.0f},   // ultrasonic sensor at the front
-        {0.0f, 0.0f, 0.0f}, // Left front IR sensor
-        {0.0f, 0.0f, 0.0f}, // Right front IR sensor
-        {0.0f, 0.0f, 0.0f}, // rear left ir sensor
-        {0.0f, 0.0f, 0.0f} // rear right ir sensor
-    };
-    inline static const Pose2D TurretPose = {0.0f,0.0f,0.0f}; //turret translation relative to robot base
+
+    static const Pose2D SensorPose[5];   // robot-frame poses of the 5 sensors
+    static const Pose2D TurretPose;      // turret translation relative to robot base
     enum SensorType {ULTRASONIC, IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_REAR_LEFT, IR_REAR_RIGHT}; // Enum to identify sensor types
     
     Pose2D getSensorPose(SensorType type) const { // Function to get the pose of a specific sensor

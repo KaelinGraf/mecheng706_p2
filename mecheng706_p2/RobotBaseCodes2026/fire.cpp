@@ -55,14 +55,15 @@ bool FireBank::allBelow(float threshold) const {
 }
 
 void FireBank::printFireSensors() {
-    Serial.print(_sl->getFilteredV());
-    Serial.print(" ");
-    Serial.print(_l->getFilteredV());
-    Serial.print(" ");
-    Serial.print(_r->getFilteredV());
-    Serial.print(" ");
-    Serial.print(_sr->getFilteredV());
-    Serial.println(" ");
+    // Raw-Serial diagnostic; gated so the normal run path stays occupancy-only.
+    DBG(_sl->getFilteredV());
+    DBG(" ");
+    DBG(_l->getFilteredV());
+    DBG(" ");
+    DBG(_r->getFilteredV());
+    DBG(" ");
+    DBG(_sr->getFilteredV());
+    DBGLN(" ");
 }
 
 

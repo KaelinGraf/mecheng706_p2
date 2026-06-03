@@ -1,4 +1,4 @@
-#include "mapping/occupancy_grid.h"
+#include "occupancy_grid.h"
 
 static const int8_t UNKNOWN = 0;   // log-odds 0
 
@@ -24,10 +24,24 @@ void OccupancyGrid::update(const Pose2D& robotPose, float* sensorReadings) {
         Pose2D sensorPose = sensorPoses[i];
         float _sensor_reading = sensorReadings[i]; 
         if (_sensor_reading <= 0) continue; // Skip if no valid reading
-        Pose2D _sensor_target = {_sensor_reading,0,0};//TODO get sensor reading from firefighter class
+        Pose2D _sensor_target = {_sensor_reading,0.0f,0.0f};//TODO get sensor reading from firefighter class
         Pose2D sensor_target_world = sensorPose.chain(_sensor_target); //calculates target in world coordinates by chaining the sensor pose with the reading (which is in the sensor's local frame)
         //We can now apply voxel traversal + probibalistic occupancy grid mapping
         this->voxelTraversal(sensorPose, sensor_target_world);
+        // Ultrasonic (i==0): model the sensor's ~15 deg cone with two extra rays at
+        // +/-7.5 deg off boresight. Each must be a proper WORLD-frame ray: rotate the
+        // sensor pose by the cone half-angle, chain the range to get the world
+        // endpoint, then traverse with that SAME rotated pose. voxelTraversal takes
+        // its DDA direction from sensorPose.th, so the pose and the endpoint must
+        // agree. (Being off-axis, these also dodge the exact-axis-aligned traversal
+        // bug.)
+        if (i == 0) {
+          Pose2D coneL = sensorPose; coneL.th += deg2rad(-7.5f);
+          Pose2D coneR = sensorPose; coneR.th += deg2rad( 7.5f);
+          this->voxelTraversal(coneL, coneL.chain(Pose2D(_sensor_reading, 0.0f, 0.0f)));
+          this->voxelTraversal(coneR, coneR.chain(Pose2D(_sensor_reading, 0.0f, 0.0f)));
+        }
+
     }
 }
 
@@ -41,10 +55,20 @@ void OccupancyGrid::voxelTraversal(const Pose2D& sensorPose, const Pose2D& targe
     int Y = startCell.y;
     float c = fabs(cosf(sensorPose.th));
     float s = fabs(sinf(sensorPose.th));
-    float tMaxX = ((stepX > 0) ? (X + 1 + org_cx) * CELL_CM - sensorPose.x : (sensorPose.x - (X + org_cx) * CELL_CM))/c; //location of first x boundary
-    float tMaxY = ((stepY > 0) ? (Y + 1 + org_cy) * CELL_CM - sensorPose.y : (sensorPose.y - (Y + org_cy) * CELL_CM))/s; //location of first y boundary
-    float tDeltaX = CELL_CM/c; //distance between x boundaries
-    float tDeltaY = CELL_CM/s; //distance between y boundaries
+    const float EPS = 1e-6f;
+    float tMaxX, tDeltaX, tMaxY, tDeltaY;
+    if (c < EPS) {
+        tMaxX = INFINITY; tDeltaX = INFINITY;
+    } else {
+        tMaxX = ((stepX > 0) ? (X + 1 + org_cx) * CELL_CM - sensorPose.x : (sensorPose.x - (X + org_cx) * CELL_CM)) / c; //dist to first x boundary
+        tDeltaX = CELL_CM / c; //dist between x boundaries
+    }
+    if (s < EPS) {
+        tMaxY = INFINITY; tDeltaY = INFINITY;
+    } else {
+        tMaxY = ((stepY > 0) ? (Y + 1 + org_cy) * CELL_CM - sensorPose.y : (sensorPose.y - (Y + org_cy) * CELL_CM)) / s; //dist to first y boundary
+        tDeltaY = CELL_CM / s; //dist between y boundaries
+    }
 
     while (X >= 0 && X < WIN_N && Y >= 0 && Y < WIN_N) { //while in bounds
         if (X == _endCell.x && Y == _endCell.y) { //can only happen if end cell is within bounds, if we reached it, mark as occupied and stop traversal

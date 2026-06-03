@@ -1,7 +1,7 @@
 #ifndef FIRE_LOCALISER_H
 #define FIRE_LOCALISER_H
 
-#include "mapping/pose.hpp"
+#include "pose.hpp"
 #include "math.h"
 
 class FireLocaliser {

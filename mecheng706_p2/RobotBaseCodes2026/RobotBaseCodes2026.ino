@@ -23,6 +23,7 @@
 #include "servo_control.h"
 #include "firefighter.h"
 #include "sweep_test.h"
+#include "drive_calibration.h"
 
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
@@ -30,12 +31,12 @@
 
 // ===========================================================================
 // SWEEP_TEST: bench characterisation of the outer (flat) phototransistor pair.
-// When defined, setup()/loop() run the sensor-sweep test (sweep_test.*) INSTEAD
-// of the firefighting FSM. Left OFF (commented) for normal robot operation;
-// uncomment to re-run a bench sweep.
+// When true, setup()/loop() run the sensor-sweep test (sweep_test.*) INSTEAD of
+// the firefighting FSM. The toggle now lives in mappings.h (so firefighter.h can
+// see it and keep FireFighter::print/println live for the sweep CSV even with
+// SERIAL_DEBUG=0); set it there. Left OFF (false) for normal robot operation.
 // ===========================================================================
 #define TEST_FIRE_BANK false
-#define SWEEP_TEST  false
 SoftwareSerial BluetoothSerial(BLUETOOTH_RX, BLUETOOTH_TX);
 
 // Gyroscope initialisation
@@ -68,7 +69,6 @@ int pos = 0;
 FireFighter *firefighter = nullptr;
 Turret *turret = nullptr;
 SweepTest *sweepTest = nullptr;
-int noFireDetectCount = 0;
 long lastSensPrint;
 long lastSensTurret;
 
@@ -90,26 +90,27 @@ void setup(void)
   // Setup the Serial port and pointer, the pointer allows switching the debug
   // info through the USB port(Serial) or Bluetooth port(Serial1) with ease.
   BluetoothSerial.begin(115200);
-  Serial.println("0");
+  DBGLN("0");
 
   firefighter = new FireFighter(&bno08x, &sensorValue, &Serial);
-  Serial.println("1");
+  DBGLN("1");
   firefighter->setBluetoothSerial(&BluetoothSerial); // Enable dual-printing to Bluetooth
-  Serial.println("2");
+  DBGLN("2");
   //firefighter->println("Serial");
 
   // Now that the FireFighter (and its Ultrasonic instance) exist, enable
   // the external interrupt which the Ultrasonic ISR expects.
   EIMSK |= (1 << INT4);
-  Serial.println("3");
+  DBGLN("3");
 
   // Turret is independent of FireFighter — create and initialise here.
   turret = new Turret(firefighter->_fire_bank, turret_pin);
+  firefighter->setTurret(turret);   // wire it in so buildTap() can read angle/lock
 
   turret->attach();
   turret->center();
   //firefighter->println("Turret middle");
-  Serial.println("4");
+  DBGLN("4");
 
   delay(2000); // settling time but not really needed
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
@@ -142,7 +143,13 @@ void setup(void)
 
 void loop(void) // main loop
 {
-#if SWEEP_TEST
+#if DRIVE_CALIBRATION
+  // Drive-gain calibration owns the loop: a blocking timed drive/stop sequence
+  // that bypasses the FSM entirely. run() never returns.
+  static DriveCalibration cal(firefighter);
+  cal.run();
+  return;
+#elif SWEEP_TEST
   // Outer-pair sensor sweep test owns the loop while enabled; everything below
   // (the firefighting FSM) is skipped.
   sweepTest->loop();
@@ -223,8 +230,8 @@ void updateTurret() {
   static unsigned long last_scan_print_ms = 0;
   unsigned long now = millis();
   if (now - last_error_print_ms >= 250UL) {
-    Serial.print("Error ");
-    Serial.println(angleError);
+    DBG("Error ");
+    DBGLN(angleError);
     last_error_print_ms = now;
   }
   // Serial.print("Locked ");  
@@ -233,18 +240,40 @@ void updateTurret() {
   // Serial.println(turret->angle_);
   // Serial.print("Readings ");  
 
-  // Behaviour 1: lock on only when BOTH outer (long-range) cells exceed the
-  // gate. Hysteresis: once locked, hold until both fall below the lower unlock
-  // threshold for LOCK_LOSS_DEBOUNCE consecutive updates.
-  float lock_v = turret->locked_on_ ? FIRE_UNLOCK_OUTER_V : FIRE_LOCK_OUTER_V;
-  if (!firefighter->_fire_bank->isValid()) {
-    noFireDetectCount++;
-    if (noFireDetectCount > LOCK_LOSS_DEBOUNCE) {
-      turret->lockOn(false);
+  // Behaviour 1: RELAXED lock with light dual hysteresis (see mappings.h). The
+  // localiser's displacement-gated ingestion now guards observation quality, so the
+  // lock just answers "is there a fire to track?" — keep it permissive so we actually
+  // acquire fires:
+  //   * acquire when EITHER outer (flat, long-range) cell reads >= FIRE_LOCK_OUTER_V
+  //     for LOCK_GAIN_DEBOUNCE consecutive updates (off-centre fires still lock);
+  //   * hold until BOTH fall below FIRE_UNLOCK_OUTER_V for LOCK_LOSS_DEBOUNCE updates.
+  static int lock_gain_count = 0;    // consecutive detections toward a lock
+  static int lock_loss_count = 0;    // consecutive faded updates toward release
+  bool can_lock      = firefighter->_fire_bank->eitherOuterAbove(FIRE_LOCK_OUTER_V);
+  bool still_present = firefighter->_fire_bank->eitherOuterAbove(FIRE_UNLOCK_OUTER_V);
+
+  if (!turret->locked_on_) {
+    lock_loss_count = 0;
+    if (can_lock) {
+      if (++lock_gain_count >= LOCK_GAIN_DEBOUNCE) {
+        turret->lockOn(true);
+        firefighter->println("[LOCK] acquired");
+        lock_gain_count = 0;
+      }
+    } else {
+      lock_gain_count = 0;           // must be SUSTAINED: any miss resets the run
     }
   } else {
-    noFireDetectCount = 0;
-    turret->lockOn(true);
+    lock_gain_count = 0;
+    if (!still_present) {
+      if (++lock_loss_count >= LOCK_LOSS_DEBOUNCE) {
+        turret->lockOn(false);
+        firefighter->println("[LOCK] released");
+        lock_loss_count = 0;
+      }
+    } else {
+      lock_loss_count = 0;           // a strong-enough reading refreshes the lock
+    }
   }
 
   if (!turret->locked_on_) {
@@ -258,14 +287,14 @@ void updateTurret() {
 
   float old_angle = turret->angle_;
   if (fabs(angleError)<4.0){
-    Serial.println("Aimed");  
+    DBGLN("Aimed");
     return;
   }
   float MAX_SLEW = 10.0;
   //if(fabs(angleError - old_angle)> )
   angleControl = turret->angle_ + 0.6 * angleError;
-  Serial.print("Control ");  
-  Serial.println(angleControl);
+  DBG("Control ");
+  DBGLN(angleControl);
 
   if(firefighter->_fire_bank->isValid()) turret->writeAngle(angleControl);
 }
@@ -345,13 +374,13 @@ void readTurretSerial()
     }
 
     buffer[bufferIndex] = '\0';
-    Serial.print("Turret input: ");
-    Serial.println(buffer);
+    DBG("Turret input: ");
+    DBGLN(buffer);
 
     int angle = atoi(buffer);
     turret->writeAngle(angle);
-    Serial.print("Turret angle set to: ");
-    Serial.println(turret->angle_);
+    DBG("Turret angle set to: ");
+    DBGLN(turret->angle_);
     bufferIndex = 0;
   };
 
@@ -377,8 +406,8 @@ void readTurretSerial()
     }
     else
     {
-      Serial.print("Ignored turret input char: ");
-      Serial.println(incoming);
+      DBG("Ignored turret input char: ");
+      DBGLN(incoming);
       bufferIndex = 0;
     }
   }

@@ -119,6 +119,9 @@ class RingBuffer {
 };
 
 
-
+// Convert degrees to radians
+inline float deg2rad(float deg){
+    return deg * (3.14159265358979323846f / 180.0f);
+}
 
 #endif // UTILS_H

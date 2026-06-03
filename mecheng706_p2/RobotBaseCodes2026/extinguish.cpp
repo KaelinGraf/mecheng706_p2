@@ -57,7 +57,9 @@ void Extinguish::end() {
     firefighter_->_fire_bank->update();
     firefighter_->_fire_bank->update();
 
-    firefighter_->_motors->writeAllMotors(50, 0, 0);
+    // Reverse away from the just-extinguished fire (mixer is +vx=forward now, so
+    // backing up is -vx). Keeps us clear before the next SPIN_SCAN.
+    firefighter_->_motors->writeAllMotors(-50, 0, 0);
     delay(300);
 }
 
