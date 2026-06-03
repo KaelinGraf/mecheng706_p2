@@ -215,9 +215,8 @@ void Tracking::poll() {
 
                         } else {
                 if (obstacle_ahead && aimed) {
-                    bool light_thresh = turret->atFire();
 
-                    if (light_thresh) {
+                    if (close_to_fire) {
                         active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
                         ff->println("[AVOID] -> APPROACH FIRE");
                         behavior_start_ms_ = now;
@@ -288,7 +287,7 @@ void Tracking::poll() {
     }
     if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {      
         // Check if close enough to extinguish
-        if (close_front && aimed && !ff->recentExtinguish() && turret->atFire()) {
+        if (close_front && aimed && !ff->recentExtinguish() && close_to_fire) {
             motor_vx = 0.0f;
             motor_vy = 0.0f;
             motor_vtheta = 0.0f;
