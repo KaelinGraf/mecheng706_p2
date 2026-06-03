@@ -76,7 +76,7 @@ float FireBank::estimateBearing(float threshold) {
     float sr = _sr->getFilteredV();
 
     // Early exit if we don't meet the absolute minimum confidence threshold
-    if (maxV() < threshold) {
+    if (maxV() < threshold || (sl <= l-0.2) || (sr <= r-0.2)) {
         _angleValid = false;
         return 0.0f;
     }

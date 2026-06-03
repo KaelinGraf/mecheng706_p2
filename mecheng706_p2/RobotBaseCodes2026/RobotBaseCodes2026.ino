@@ -115,6 +115,7 @@ void setup(void)
   // Brief rotational nudge to confirm motors are alive, then zero the gyro
   firefighter->_gyro->resetAngle();
   lastSensPrint = millis();
+  Wire.setWireTimeout(3000, true);
 
 #if SWEEP_TEST
   // Bench test mode: drive the outer-pair sweep instead of the FSM. Reads
@@ -179,6 +180,7 @@ void loop(void) // main loop
       firefighter->testSensors();
     }
     printFireSensors();  
+    firefighter->testSensors();
     lastSensPrint = millis();
   }
 #endif
