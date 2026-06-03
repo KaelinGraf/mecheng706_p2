@@ -269,7 +269,8 @@ float Gyroscope::readSensor(){
   // The BNO can spontaneously reset; re-enable the report and drop the unwrap
   // anchor so the reset's yaw discontinuity isn't integrated into the heading.
   if (_bno08x->wasReset()) {
-    _bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000);
+    _serial_com->println("sensor was reset");
+    configureGameRotationVector();
     _have_yaw = false;
   }
 
@@ -285,9 +286,6 @@ float Gyroscope::readSensor(){
     _heading += wrapPi(yaw - _last_yaw);                     // unwrap into a continuous angle
     _last_yaw = yaw;
   }
-  // In readSensor(), before the unwrap line, print raw yaw:
-  Serial.print("raw_yaw=%.4f last_yaw=%.4f delta=%.4f heading=%.4f\n");
-  Serial.println(_last_yaw, _heading);
 
   return _heading;
 }

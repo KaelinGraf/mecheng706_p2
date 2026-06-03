@@ -220,7 +220,7 @@ void Tracking::poll() {
                     if (lf_cm <= AVOID_URGENT) {
                         // Reverse and turn
                         motor_vtheta = AVOID_ROTATE_SPEED*1.5;
-                        motor_vx = -AVOID_SPEED;
+                        motor_vx = AVOID_SPEED;
                         motor_vy = 50;
                     } else {
                         // Go forward and around

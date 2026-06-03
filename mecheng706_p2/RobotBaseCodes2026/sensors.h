@@ -109,17 +109,26 @@ class Gyroscope: public Sensor{
     float _offset   = 0.0f;   // reference for getAngle() (zeroed by resetAngle)
     bool  _have_yaw = false;  // re-anchors the unwrap on the first reading and after a BNO reset
 
+    void configureGameRotationVector() {
+      if (!_bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000)) {
+        _serial_com->println("Could not enable game vector");
+      }
+    }
+
   public:
     Gyroscope(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue, HardwareSerial* SerialCom)
       : Sensor(uint8_t(0)), _bno08x(bno08x), _sensorValue(sensorValue), _serial_com(SerialCom) {
 
       _serial_com->println("Enabling Gyroscope...");
-      // 6-axis fused orientation (accel+gyro, no magnetometer -> immune to motor EMI).
-      while (!_bno08x->begin_I2C() ||
-             !_bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000)) {  // 100 Hz
-        _serial_com->println("IMU failed");
+      // Follow the Adafruit BNO08x pattern: initialize once, then enable the
+      // fused game rotation vector report used for heading.
+      while (!_bno08x->begin_I2C()) {
+        _serial_com->println("Failed to find BNO08x chip");
+        delay(10);
       }
 
+      _serial_com->println("BNO08x Found!");
+      configureGameRotationVector();
       _serial_com->println("Gyro Success!");
     }
 
