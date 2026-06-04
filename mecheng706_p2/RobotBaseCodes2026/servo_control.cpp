@@ -41,7 +41,7 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->maxVMid() > 0.8));
+  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->_l->getFilteredV() + _fb->_r->getFilteredV() >= 1.0));
 }
 
 void Turret::writeAngle(int angle){

@@ -57,8 +57,11 @@ void Extinguish::end() {
     firefighter_->_fire_bank->update();
     firefighter_->_fire_bank->update();
 
-    firefighter_->_motors->writeAllMotors(50, 0, 0);
-    delay(300);
+    if (firefighter_->firesExtinguished() < 2) {
+        firefighter_->_motors->writeAllMotors(50, 0, 0);
+        delay(300);
+    }
+    firefighter_->_motors->writeAllMotors(0, 0, 0);
 }
 
 void Extinguish::poll() {
