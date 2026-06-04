@@ -34,6 +34,7 @@ void SpinScan::end() {
 }
 
 void SpinScan::poll() {
+
     FireFighter* ff = firefighter_;
     ff->_fire_bank->update();
 

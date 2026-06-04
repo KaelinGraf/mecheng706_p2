@@ -23,7 +23,6 @@
 #include "servo_control.h"
 #include "firefighter.h"
 #include "sweep_test.h"
-#include "drive_calibration.h"
 
 // Bluetooth Setup matching WirelessSetup2026.ino
 #define BLUETOOTH_RX 19
@@ -160,7 +159,7 @@ void loop(void) // main loop
 
   if ((millis() - lastSensTurret > 50)) {
 
-    updateTurret();
+    //updateTurret();
     lastSensTurret = millis();
   }
 
@@ -176,7 +175,7 @@ void loop(void) // main loop
   firefighter->setBearing(turret->angle_);
   if ((millis() - lastSensTurret > 30)) {
 
-    updateTurret();
+    //updateTurret();
     lastSensTurret = millis();
   }
   if (millis() - lastSensPrint > 1000) {

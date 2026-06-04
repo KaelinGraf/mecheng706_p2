@@ -11,5 +11,6 @@ void Search::end() {
 }
 
 void Search::poll() {
+    
     tracking_.poll();
 }
