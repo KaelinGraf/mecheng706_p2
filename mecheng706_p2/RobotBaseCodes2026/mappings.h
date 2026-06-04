@@ -95,28 +95,28 @@
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM_F     10.0f
-#define OBSTACLE_TRIGGER_CM_US     7.0f
+#define OBSTACLE_TRIGGER_CM_US     5.0f
 #define OBSTACLE_TRIGGER_CM_R     8.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
-#define OBSTACLE_CLEAR_CM_F      20.0f
-#define OBSTACLE_CLEAR_CM_R      13.0f
+#define OBSTACLE_CLEAR_CM_F      15.0f
+#define OBSTACLE_CLEAR_CM_R      15.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
-#define WALL_FOLLOW_CM          15.0f
+#define WALL_FOLLOW_CM           15.0f
 #define SEARCH_SPEED             55.0f
 
 // APPROACH: speed toward detected fire, turn gain for bearing correction
-#define APPROACH_FORWARD_SPEED  70.0f
+#define APPROACH_FORWARD_SPEED  100.0f
 #define APPROACH_TURN_GAIN      17.0f
 #define APPROACH_MAX_TURN       100.0f
 
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
-#define AVOID_ROTATE_SPEED      30.0f
-#define AVOID_URGENT            6.0f
+#define AVOID_ROTATE_SPEED      50.0f
+#define AVOID_URGENT            5.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
@@ -160,7 +160,7 @@
 // ---------------------------------------------------------------------------
 #define FIRE_LOCK_OUTER_V       0.8f
 #define FIRE_UNLOCK_OUTER_V     0.20f
-#define LOCK_LOSS_DEBOUNCE      8
+#define LOCK_LOSS_DEBOUNCE      4
 
 // ---------------------------------------------------------------------------
 // Behaviour 2: 360-degree spin-scan localisation. On startup and after the

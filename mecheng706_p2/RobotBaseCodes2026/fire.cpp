@@ -106,7 +106,7 @@ float FireBank::estimateBearing(float threshold) {
         const float PHOTO_SR_GAIN = 1.0f;
         const float BEARING_DEG_PER_UNIT = 58.0f;
         const float PHOTO_SAT_V = 4.80f;
-        const float BEARING_MIN_SUM_V = 1;
+        const float BEARING_MIN_SUM_V = 2;
         const float BEARING_MAX_DEG = 28.0f;
         
         float sum = sl + sr;

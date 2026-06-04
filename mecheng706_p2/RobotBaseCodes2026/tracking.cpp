@@ -42,13 +42,13 @@ static void avoidLeft(FireFighter *ff,
 
     if (lf_cm <= AVOID_URGENT) {
         ff->println("[TRACK] AVOID Left Urgent");
-        motor_vtheta = AVOID_ROTATE_SPEED * 1.5f;
+        motor_vtheta = AVOID_ROTATE_SPEED;
         motor_vx     = -AVOID_SPEED;
         motor_vy     = 50;
     } else {
         ff->println("[TRACK] AVOID Left");
-        motor_vtheta = AVOID_ROTATE_SPEED;
-        motor_vx     = AVOID_SPEED;
+        motor_vtheta = AVOID_ROTATE_SPEED * 1.25f;
+        motor_vx     = AVOID_SPEED * 0.75f;
     }
 }
 
@@ -61,13 +61,13 @@ static void avoidRight(FireFighter *ff,
 
     if (rf_cm <= AVOID_URGENT) {
         ff->println(" [TRACK] AVOID Right Urgent");
-        motor_vtheta = -AVOID_ROTATE_SPEED * 1.5f;
+        motor_vtheta = -AVOID_ROTATE_SPEED;
         motor_vx     = -AVOID_SPEED;
         motor_vy     = -50;
     } else {
         ff->println(" [TRACK] AVOID Right");
-        motor_vtheta = -AVOID_ROTATE_SPEED;
-        motor_vx     = -AVOID_SPEED;
+        motor_vtheta = -AVOID_ROTATE_SPEED * 1.25f;
+        motor_vx     = -AVOID_SPEED * 0.75f;
     }
 }
 
@@ -81,8 +81,14 @@ static void avoidSide(FireFighter *ff,
 
     auto blocked = [](float v, float thr) { return (v > 0.0f) && (v < thr); };
 
-    motor_vtheta = 0.0f;
-    motor_vy     = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) ? 40 : -40;
+    if (blocked(lr_cm, OBSTACLE_TRIGGER_CM_R)){
+        motor_vy += 40;
+        motor_vtheta -= 30;
+    }
+    if (blocked(rr_cm, OBSTACLE_TRIGGER_CM_R)){
+        motor_vy -= 40;
+        motor_vtheta += 30;
+    }
     motor_vx     = AVOID_SPEED;
 }
 
@@ -109,7 +115,7 @@ static bool avoidAhead(FireFighter *ff, float fr, float fl,
         }
     } else {
         ff->println("[AVOID] -> AHEAD NOT AIMED");
-        motor_vtheta = (fr < fl) ? AVOID_ROTATE_SPEED : -AVOID_ROTATE_SPEED;
+        motor_vtheta = (fr < fl) ? -AVOID_ROTATE_SPEED * 0.75f : AVOID_ROTATE_SPEED * 0.75f;
         motor_vx     = -AVOID_SPEED;
     }
     return false;
@@ -354,7 +360,7 @@ void Tracking::poll() {
             motor_vtheta = 0.0f;
             motor_vx     = SEARCH_SPEED;
 
-            if (now - behavior_start_ms_ > 35000) {
+            if (now - behavior_start_ms_ > 3500) {
                 ff->println("Reset, spin scan");
                 ff->switchState(State::SPIN_SCAN);
                 return;
