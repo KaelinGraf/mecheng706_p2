@@ -15,7 +15,7 @@ static const unsigned long AVOID_TIMEOUT_MS = 3000;
 static const unsigned long NUDGE_PERIOD_MS  = 4000;
 static const unsigned long NUDGE_LEN_MS     = 350;
 static const float NUDGE_TURN              = 60.0f;
-static const float BEARING_PIVOT_THRESH    = 50.0f;
+static const float BEARING_PIVOT_THRESH    = 80.0f;
 static const float RAD_PER_DEG             = 0.017453292519943295f;
 volatile bool still_wall = 0;
 }
@@ -321,7 +321,7 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                if (avoid_count > 10){
+                if (avoid_count > 12){
                     ff->println("[TRACK] AVOID clear count");
                     active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
                     behavior_start_ms_ = now;
@@ -373,7 +373,7 @@ void Tracking::poll() {
         case BehaviorNS::SearchBehaviour::RETURN_TO_HEADING: {
             float heading_error = wrap_angle_error(resume_bearing_ - ff->_gyro->getAngle());
 
-            if (fabsf(heading_error) > 0.12f) {
+            if (fabsf(heading_error) > 1.0f) {
                 still_wall = (blocked(lr_cm, 20.0f) || blocked(rr_cm, 20.0f)) ? 1 : 0;
                 if (still_wall) {
                     ff->println("Still Wall");

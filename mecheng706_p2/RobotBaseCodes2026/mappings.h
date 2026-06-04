@@ -96,12 +96,12 @@
 // dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM_F     9.0f
 #define OBSTACLE_TRIGGER_CM_US     9.0f
-#define OBSTACLE_TRIGGER_CM_R     8.0f
+#define OBSTACLE_TRIGGER_CM_R     4.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
-#define OBSTACLE_CLEAR_CM_F      15.0f
-#define OBSTACLE_CLEAR_CM_R      8.0f
+#define OBSTACLE_CLEAR_CM_F      12.0f
+#define OBSTACLE_CLEAR_CM_R      5.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM           15.0f
