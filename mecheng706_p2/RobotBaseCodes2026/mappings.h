@@ -122,7 +122,7 @@
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more
 // forgiving value is used to allow for sensor noise / cylinder curvature.
-#define EXTINGUISH_RANGE_CM     8.0f
+#define EXTINGUISH_RANGE_CM     10.0f
 
 // do not transition back to extinguish state if we put out a fire less than
 // this ammount of MS ago as it may be the same fire
