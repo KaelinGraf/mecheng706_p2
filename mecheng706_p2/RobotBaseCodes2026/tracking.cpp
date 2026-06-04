@@ -126,6 +126,32 @@ static void avoidTimeout(float &motor_vtheta, int strafe_sign_)
     motor_vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
 }
 
+static void continueLastAvoid(FireFighter *ff,
+                              Tracking::AvoidMode mode,
+                              float lf_cm, float rf_cm, float lr_cm, float rr_cm,
+                              float &motor_vx, float &motor_vy, float &motor_vtheta)
+{
+    switch (mode) {
+        case Tracking::AvoidMode::LEFT:
+            avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta);
+            break;
+        case Tracking::AvoidMode::RIGHT:
+            avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
+            break;
+        case Tracking::AvoidMode::SIDE:
+            avoidSide(ff, lr_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
+            break;
+        case Tracking::AvoidMode::AHEAD:
+            ff->println("[TRACK] AVOID continue ahead");
+            motor_vtheta = AVOID_ROTATE_SPEED * 0.75f;
+            motor_vx     = -AVOID_SPEED;
+            break;
+        case Tracking::AvoidMode::NONE:
+        default:
+            break;
+    }
+}
+
 // ---------------------------------------------------------------------------
 
 Tracking::Tracking(FireFighter *firefighter)
@@ -135,6 +161,7 @@ Tracking::Tracking(FireFighter *firefighter)
       resume_bearing_(0.0f),
       resume_to_move_(false),
       strafe_sign_(1),
+    last_avoid_mode_(AvoidMode::NONE),
       behavior_start_ms_(0),
       last_seen_ms_(0),
       last_nudge_ms_(0),
@@ -148,6 +175,7 @@ void Tracking::begin() {
     resume_bearing_  = 0.0f;
     resume_to_move_  = false;
     active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+    last_avoid_mode_ = AvoidMode::NONE;
     behavior_start_ms_ = millis();
     last_nudge_ms_     = behavior_start_ms_;
     nudge_active_      = false;
@@ -280,24 +308,32 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                    ff->println("[TRACK] leaving AVOID -> FF");
-                    active_behavior_   = BehaviorNS::SearchBehaviour::FIND_FIRE;
-                    behavior_start_ms_ = now;
+                ff->println("[TRACK] AVOID clear, continue last obstacle");
+                continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,
+                                  motor_vx, motor_vy, motor_vtheta);
             } else if (elapsed > AVOID_TIMEOUT_MS) {
                 ff->print("[TRACK] AVOID timeout");
                 avoidTimeout(motor_vtheta, strafe_sign_);
             } else if (obstacle_left) {
+                last_avoid_mode_ = AvoidMode::LEFT;
                 avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta);
             } else if (obstacle_right) {
+                last_avoid_mode_ = AvoidMode::RIGHT;
                 avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
             } else if (obstacle_side) {
+                last_avoid_mode_ = AvoidMode::SIDE;
                 avoidSide(ff, lr_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
-            } else {
+            } else if (obstacle_ahead || close_front){
+                last_avoid_mode_ = AvoidMode::AHEAD;
                 if (avoidAhead(ff, rf_cm, lf_cm, aimed, close_to_fire, now,
                                active_behavior_, behavior_start_ms_,
                                motor_vx, motor_vy, motor_vtheta)) {
                     return;
                 }
+            } else {
+                ff->println("[TRACK] AVOID no fresh obstacle, continue last obstacle");
+                continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,
+                                  motor_vx, motor_vy, motor_vtheta);
             }
             break;
         }

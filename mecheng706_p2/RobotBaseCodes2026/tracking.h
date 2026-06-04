@@ -11,6 +11,14 @@ class FireFighter;
 // - MOVE_TO_FIRE: steer toward the detected bearing
 class Tracking {
 public:
+    enum class AvoidMode {
+        NONE,
+        LEFT,
+        RIGHT,
+        SIDE,
+        AHEAD,
+    };
+
     explicit Tracking(FireFighter *firefighter);
 
     void begin();
@@ -26,6 +34,7 @@ private:
     bool resume_to_move_;
 
     int strafe_sign_;
+    AvoidMode last_avoid_mode_;
     unsigned long behavior_start_ms_;
     unsigned long last_seen_ms_;
 
