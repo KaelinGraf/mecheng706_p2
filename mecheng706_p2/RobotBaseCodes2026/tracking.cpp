@@ -57,8 +57,9 @@ void Tracking::poll() {
     FireFighter *ff = firefighter_;
     unsigned long now = millis();
 
-    // Read all sensors
-    float us_cm = ff->_ultrasonic->readBlocking();
+    // Read all sensors. Ultrasonic is the NON-BLOCKING cache now (FireFighter::pollState() pumps
+    // _ultrasonic->service() every loop); getAvg() returns the median of recent pings without stalling.
+    float us_cm = ff->_ultrasonic->getAvg();
     float lf_cm = ff->_front_left_ir->getAvg();
     float rf_cm = ff->_front_right_ir->getAvg();
     float lr_cm = ff->_rear_left_ir->getAvg();
@@ -110,16 +111,50 @@ void Tracking::poll() {
     }
     bool close_to_fire = turret->atFire();
 
-    if (((obstacle_ahead || close_front) && ((curr_turret==1) ^ close_front))
-        || (obstacle_left && ((curr_turret==0) || close_front))
-        || (obstacle_right &&  ((curr_turret==2) || close_front))
-        || obstacle_side) {
-        // PRIORITY 1: Obstacle ahead triggers AVOID
+    // === STRAFE-CENTRIC CLEARANCE ============================================================
+    // Closest obstacle on each side (cm; large = open). Front IR are short-range, rear IR long-range.
+    auto side_min = [&](float a, float b) {
+        float m = 1.0e6f;
+        if (a > 0.0f && a < m) m = a;
+        if (b > 0.0f && b < m) m = b;
+        return m;
+    };
+    const float left_clear  = side_min(lf_cm, lr_cm);
+    const float right_clear = side_min(rf_cm, rr_cm);
+
+    // Centering / clearance strafe (+vy = RIGHT -- confirmed vs the mecanum mix + mapping). When a side
+    // is within the care band, steer toward the roomier side: this CENTRES the robot in a gap and edges
+    // it away from a near side object WITHOUT rotating, so a barely-fit gap stays threadable and side
+    // objects are never clipped. This term is ADDED to the normal drive (MOVE_TO_FIRE / FIND_FIRE)
+    // below; the heavy reverse/rotate AVOID is reserved for a true frontal wall (boxed-in fallback).
+    // STRAFE_DIR_SIGN is the one-line flip if the bench shows the strafe goes the wrong way.
+    float vy_clear = 0.0f;
+    const bool side_near = (left_clear < WALL_CARE_CM) || (right_clear < WALL_CARE_CM);
+    if (side_near) {
+        vy_clear = WALL_CENTER_GAIN * (right_clear - left_clear);   // >0 => more room right => go right
+        if (vy_clear >  WALL_STRAFE_SPEED) vy_clear =  WALL_STRAFE_SPEED;
+        if (vy_clear < -WALL_STRAFE_SPEED) vy_clear = -WALL_STRAFE_SPEED;
+    }
+    // Hard imminent-collision override: a side this close -> decisive full strafe away.
+    if (left_clear  < SIDE_HARD_MIN_CM) vy_clear =  WALL_STRAFE_SPEED;
+    if (right_clear < SIDE_HARD_MIN_CM) vy_clear = -WALL_STRAFE_SPEED;
+    vy_clear *= STRAFE_DIR_SIGN;
+    // Creep the forward speed when a side is tight, so the strafe has time to clear it before we pass.
+    float creep = 1.0f;
+    if (side_near)                                                    creep = 0.6f;
+    if (left_clear < SIDE_HARD_MIN_CM || right_clear < SIDE_HARD_MIN_CM) creep = 0.35f;
+
+    // FRONTAL block ONLY: the ULTRASONIC (centre) is the gap/wall discriminator -- a gap's centre is
+    // OPEN at close range (the posts fall outside the cone) while a wall's centre is CLOSED. SIDE
+    // objects are handled by the clearance strafe above, NOT by this heavy reverse/rotate avoid (that
+    // was what made gaps un-threadable and twitched against side walls). `aimed`/`close_to_fire`
+    // suppress avoiding the FIRE itself on final approach. Reverse/rotate AVOID is now only the
+    // boxed-in fallback for a real wall ahead.
+    if (obstacle_ahead && !aimed && !close_to_fire) {
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             resume_bearing_ = ff->_gyro->getAngle();
-            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE 
+            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
             || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
-            //ff->println(resume_to_move_);
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
         }
@@ -141,12 +176,11 @@ void Tracking::poll() {
         behavior_start_ms_ = now;
     }
 
-    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
-    {
-        active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
-        behavior_start_ms_ = now;
-    }
-    
+    // (Removed the blind ">1000 ms -> RETURN_TO_HEADING" cap: it cut AVOID off after 1 s regardless of
+    // whether the path had cleared -- and made the AVOID_TIMEOUT_MS branch below dead code -- so any
+    // obstacle needing >1 s to clear produced the back-away/twitch cycle. AVOID now exits on the actual
+    // `clear` check below, with AVOID_TIMEOUT_MS as the rotate-in-place backstop.)
+
     // Handle AVOID behavior
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
         unsigned long elapsed = now - behavior_start_ms_;
@@ -198,9 +232,11 @@ void Tracking::poll() {
                     motor_vx = -AVOID_SPEED;
                     motor_vy = -50;
                 } else {
-                    // Go forward and around
+                    // Go FORWARD and around (matches the obstacle_left branch; the old
+                    // motor_vx = -AVOID_SPEED drove BACKWARD here -- asymmetric with left and with
+                    // this branch's own "forward" comment). +motor_vx = forward via the -motor_vx/2 write.
                     motor_vtheta = -AVOID_ROTATE_SPEED;
-                    motor_vx = -AVOID_SPEED;
+                    motor_vx = AVOID_SPEED;
                 }
             } else if (obstacle_side) {
                 ff->print(" r: ");
@@ -311,16 +347,24 @@ void Tracking::poll() {
         if (vtheta > APPROACH_MAX_TURN) vtheta = APPROACH_MAX_TURN;
         if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
 
-        float vx = (fabsf(bearing_error) > BEARING_PIVOT_THRESH)
-                       ? 0.0f
-                       : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
-        
-                       vx = 100.0f;  // For testing
+        // Pivot-then-go: only translate once the chassis is actually aimed at the fire (turret near
+        // centre); otherwise hold vx = 0 and let vtheta yaw us onto it. cosf() needs RADIANS, but
+        // bearing_error is a deg/10 pseudo-unit -- build the real off-boresight angle from the turret
+        // offset directly. (The previous code computed this correctly, then threw it away with a
+        // hard-coded `vx = 100.0f; // For testing` that drove full speed regardless of aim -- the main
+        // reason the robot charged forward without keeping heading on the fire.)
+        const float err_deg = SERVO_CENTER - target_bearing;     // real degrees off boresight
+        float vx = (fabsf(err_deg) > BEARING_PIVOT_THRESH)
+                       ? 0.0f                                     // not aimed -> pivot in place
+                       : (APPROACH_FORWARD_SPEED * cosf(err_deg * RAD_PER_DEG));
         motor_vtheta = vtheta;
 
-        // If close then slow down
-        motor_vx = obstacle_ahead ? (vx*0.6) : vx;
-        motor_vx = close_front ? (0.0) : vx;
+        // Slow for an obstacle ahead, then stop hard at extinguish range. CHAINED: the old second
+        // line re-read `vx` and silently clobbered the obstacle slow-down on the line above.
+        motor_vx = obstacle_ahead ? (vx * 0.6f) : vx;
+        if (close_front) motor_vx = 0.0f;
+        motor_vx *= creep;        // creep when a side is tight, so the strafe can clear it
+        motor_vy += vy_clear;     // centre in gaps / edge away from side objects while approaching
 
         //ff->println("[TRACK] MTF");
     }
@@ -328,7 +372,8 @@ void Tracking::poll() {
     else if (active_behavior_ == BehaviorNS::SearchBehaviour::FIND_FIRE) {
         motor_vtheta = 0.0f;
 
-        motor_vx = SEARCH_SPEED;
+        motor_vx = SEARCH_SPEED * creep;   // creep past tight sides
+        motor_vy += vy_clear;              // centre between / edge away from side obstacles while cruising
 
         if (now - behavior_start_ms_ > 5000) {  // If 2 seconds have passed
             //sweep

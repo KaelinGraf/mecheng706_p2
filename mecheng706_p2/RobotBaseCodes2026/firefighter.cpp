@@ -15,10 +15,10 @@ ISR(INT4_vect) {
     // ISR called before the Ultrasonic instance is ready; do nothing.
     return;
   }
-  // Rising edge on the echo pin: rotate the timestamp window forward
-  if (digitalRead(US_INT_PIN)) {
-    unsigned long last_t1 = ultrasonicISR->getSentTime();
-    ultrasonicISR->setLastSent(last_t1);
+  // Rising edge on the echo pin: stamp the send time. Direct port read instead of
+  // digitalRead() to cut ISR latency. US_INT_PIN (pin 2) is PE4 on the Mega. service()
+  // pairs sent_time/return_time into a distance, so the ISR just records the two edges.
+  if (PINE & _BV(PE4)) {
     ultrasonicISR->setSentTime(micros());
   }
   // Falling edge: capture the return time
@@ -76,8 +76,15 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
   }
 
   if (!is_battery_voltage_OK()) {
-    // Fall back to initialising on undervoltage
+    // Fall back to initialising on undervoltage. STOP the motors and run the state's entry action:
+    // the old code set current_state_ without calling begin(), so the chassis kept whatever it was
+    // last commanded (it could run away on a brownout mid-drive) and the next poll() ran an un-entered
+    // state.
     current_state_ = states_[State::INITIALISING];
+    if (current_state_) {
+      _motors->writeAllMotors(0, 0, 0);
+      current_state_->begin();
+    }
     return false;
   }
 
@@ -101,6 +108,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 
 void FireFighter::pollState() {
   _gyro->readSensor();
+  _ultrasonic->service();   // pump the non-blocking ultrasonic: schedule pings + fold echoes into cache
   _fire_bank->update();
   updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
@@ -116,7 +124,7 @@ void FireFighter::setBearing(float bearing) {
 }
 
 void FireFighter::testSensors() {
-  print("us med: "); println(_ultrasonic->readBlocking());
+  print("us med: "); println(_ultrasonic->getAvg());   // non-blocking cache (service() keeps it fresh)
 
   print("front left:");
   println(_front_left_ir->getAvg());

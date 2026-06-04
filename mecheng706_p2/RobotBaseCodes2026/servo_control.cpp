@@ -25,6 +25,9 @@ uint16_t Motor::scaleMotor(float control_effort_sum, float output_min, float out
 
 
 void Turret::attach(){
+  // DEFAULT attach (NO min/max): Servo::write(angle) then uses the library's standard 0-180 deg ->
+  // 544-2400 us mapping. We only ever command within [TURRET_DEG_MIN, TURRET_DEG_MAX] (writeAngle
+  // clips), so no deg->us map and no writeMicroseconds on the run path.
   _motor.attach(_motor_pin);
   _is_attatched = true;
 }
@@ -46,8 +49,10 @@ bool Turret::atFire(){
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-  if (angle < (SERVO_CENTER - 60)) angle = SERVO_CENTER - 60;
-  if (angle > (SERVO_CENTER + 60)) angle = SERVO_CENTER + 60;
+  // Clip to the usable travel [TURRET_DEG_MIN, TURRET_DEG_MAX] = [10, 170] (was the narrower
+  // SERVO_CENTER +/-60 = [30,150]) and drive the servo DIRECTLY with Servo::write(degrees).
+  if (angle < TURRET_DEG_MIN) angle = TURRET_DEG_MIN;
+  if (angle > TURRET_DEG_MAX) angle = TURRET_DEG_MAX;
   this->angle_ = angle;
   _motor.write(angle);
 }
@@ -62,9 +67,9 @@ void Turret::pan_scan(unsigned long current_time_ms){
   const unsigned long scan_period_ms = 5000; 
   const unsigned long half_period_ms = scan_period_ms / 2;
   
-  // Set boundaries
-  const int min_angle = 30;
-  const int max_angle = 150;
+  // Set boundaries to the full usable travel [TURRET_DEG_MIN, TURRET_DEG_MAX] = [10, 170].
+  const int min_angle = TURRET_DEG_MIN;
+  const int max_angle = TURRET_DEG_MAX;
   const int scan_range_deg = max_angle - min_angle; // 160 degrees
 
   // Calculate our exact position within the current half-period (0.0 to 1.0)

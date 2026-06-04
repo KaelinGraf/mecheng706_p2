@@ -38,9 +38,7 @@ void Extinguish::begin() {
     // 20 cm extinguish radius mid-blow.
     ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
 
-    // Soft-start the fan. on() blocks for ~250 ms during the ramp; that's
-    // acceptable because no other state machine work needs to happen while
-    // we're parked.
+    // Turn the fan on (single digitalWrite HIGH; non-blocking, no ramp -- A8 is not PWM-capable).
     ff->_fan->on();
 
     _start_millis = millis();

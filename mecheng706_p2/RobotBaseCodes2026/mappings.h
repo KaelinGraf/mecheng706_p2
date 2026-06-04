@@ -35,24 +35,32 @@
 #define min_duty_motor 700
 #define neutral        1500
 
-// Turret / small servo PWM duty range (microseconds)
+// Turret / small servo PWM duty range (microseconds). LEGACY: the turret is now driven directly with
+// Servo::write(degrees) on a default attach, so these us values are no longer on the run path.
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
 #define SERVO_CENTER 90
+// Turret usable travel (deg) -- mimics the mapping branch. The servo is driven DIRECTLY with
+// Servo::write(angle) on a DEFAULT attach (no min/max -> the library's standard 0-180 deg -> 544-2400 us
+// map); we command ONLY within [TURRET_DEG_MIN, TURRET_DEG_MAX]. SERVO_CENTER (90) is dead-forward.
+#define TURRET_DEG_MIN 10
+#define TURRET_DEG_MAX 170
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
 // Project 2 constraint: only 2 IR sensors of each type may be used.
-// Layout finalised for Project 2 (see sensor_layout.html):
-//   * 2x long-range 2Y0A21 on the front, splayed +/-30 deg from forward
-//   * 2x short-range 2Y0A41SK over the rear wheels, facing forward but
-//     splayed +/-40 deg outward to cover the rear quarters during strafes
+// Layout (confirmed against the hardware; the FireFighter ctor classes are ground truth):
+//   * 2x SHORT-range (2Y0A41SK, reliable ~4-30 cm) on the FRONT -> the close obstacle + approach band.
+//     Instantiated as ShortRangeIR.
+//   * 2x LONG-range (2Y0A21, ~10-80 cm) over the REAR wheels -> wider side coverage during strafes.
+//     Instantiated as LongRangeIR.
+// (Earlier comments here had front/rear and short/long SWAPPED -- corrected to match the wiring.)
 // ---------------------------------------------------------------------------
-#define front_left_ir_pin  A9    // long-range, body-left front (yaw +30 deg)
-#define front_right_ir_pin A15   // long-range, body-right front (yaw -30 deg)
-#define rear_left_ir_pin   A3    // short-range, over rear-left wheel (yaw +40 deg)
-#define rear_right_ir_pin  A4    // short-range, over rear-right wheel (yaw -40 deg)
+#define front_left_ir_pin  A9    // SHORT-range, body-left front
+#define front_right_ir_pin A15   // SHORT-range, body-right front
+#define rear_left_ir_pin   A3    // LONG-range, over rear-left wheel
+#define rear_right_ir_pin  A4    // LONG-range, over rear-right wheel
 
 // ---------------------------------------------------------------------------
 // Phototransistor analog input pins (4x for fire LED detection)
@@ -95,7 +103,6 @@
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM_F     10.0f
-#define OBSTACLE_TRIGGER_CM_F     7.0f
 #define OBSTACLE_TRIGGER_CM_R     8.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
@@ -107,8 +114,12 @@
 #define WALL_FOLLOW_CM          15.0f
 #define SEARCH_SPEED             55.0f
 
-// APPROACH: speed toward detected fire, turn gain for bearing correction
-#define APPROACH_FORWARD_SPEED  10.0f
+// APPROACH: speed toward detected fire, turn gain for bearing correction.
+// Was 10.0f -- below the chassis deadband AND halved again by the -motor_vx/2 at the writeAllMotors
+// call, so once the debug "vx = 100" override was removed the robot would pivot to aim but never
+// actually drive forward to the fire. Raised so it moves reliably (SEARCH_SPEED=55 is proven to
+// drive through the same -motor_vx/2 path). BENCH-TUNE for a controlled closing speed.
+#define APPROACH_FORWARD_SPEED  60.0f
 #define APPROACH_TURN_GAIN      17.0f
 #define APPROACH_MAX_TURN       100.0f
 
@@ -117,6 +128,17 @@
 #define AVOID_SPEED             60.0f
 #define AVOID_ROTATE_SPEED      30.0f
 #define AVOID_URGENT            6.0f
+
+// STRAFE-CENTRIC clearance. Instead of the reverse/rotate AVOID for anything on a side, the robot
+// CENTRES itself between side obstacles by strafing (+vy = RIGHT) -- so a barely-fit gap stays
+// threadable and side objects are edged away (1 cm miss is fine) without rotating. Tracking adds a
+// strafe term proportional to the left/right clearance imbalance to its normal drive; reverse/rotate
+// AVOID is kept ONLY as the boxed-in fallback for a true frontal wall.
+#define WALL_CARE_CM        18.0f   // begin centring/clearing once a side IR reads within this (cm)
+#define SIDE_HARD_MIN_CM     5.0f   // a side this close => decisive full strafe away (collision-imminent)
+#define WALL_CENTER_GAIN     3.0f   // strafe effort per cm of left/right clearance imbalance
+#define WALL_STRAFE_SPEED   60.0f   // max lateral effort while clearing/centring
+#define STRAFE_DIR_SIGN      1      // flip to -1 if the bench shows the strafe goes the WRONG way
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
@@ -133,9 +155,11 @@
 // Tune on the bench: cover all 4, read the noise floor, then add ~3 sigma.
 #define FIRE_DETECT_V           0.3f
 
-// Phototransistor threshold for declaring a fire is OUT (LED has gone dark).
-// Lower than detect threshold by a margin to provide hysteresis against
-// flickering / partial obscuration.
+// Phototransistor threshold for declaring a fire is OUT (LED has gone dark). Used ONLY by
+// Extinguish::poll() -> FireBank::allBelow(FIRE_OUT_V): at extinguish range a LIT fire saturates the
+// cells (~4.8 V), so when the LED cuts they fall through 0.7 V and allBelow() latches "out". This is
+// an extinguish-RANGE threshold, NOT a detect-hysteresis pair with FIRE_DETECT_V -- it is intentionally
+// ABOVE FIRE_DETECT_V (0.3) and must stay above the post-extinguish floor for reliable detection.
 #define FIRE_OUT_V              0.7f
 
 // Maximum time the fan runs on a single fire (per brief: up to 10 s, after

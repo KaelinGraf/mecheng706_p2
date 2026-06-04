@@ -151,11 +151,9 @@ void Fan::begin() {
     _on = false;
 }
 
-// Soft-start ramp: short PWM ramp from 0 to 255 over 250 ms before pinning
-// the output high. analogWrite on a non-PWM pin would just go HIGH at >127,
-// which is fine - we still get a slower turn-on dominated by the MOSFET gate
-// charge time. The end state is a hard digitalWrite HIGH so we don't keep
-// the timer running.
+// Hard turn-on: a single digitalWrite HIGH. There is NO soft-start / PWM ramp -- fan_pin (A8) is not
+// a PWM-capable pin, so despite older comments the gate just goes high in one write (non-blocking).
+// _on_started_ms is latched only so msSinceOn() can report dwell time.
 void Fan::on() {
     if (_on) return;
     digitalWrite(_pin, HIGH);
