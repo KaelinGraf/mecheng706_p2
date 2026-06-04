@@ -86,7 +86,12 @@ static void avoidSide(FireFighter *ff,
     auto blocked = [](float v, float thr) { return (v > 0.0f) && (v < thr); };
 
     motor_vtheta = 0.0f;
-    motor_vy     = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) ? 40 : -40;
+    if (blocked(lr_cm, OBSTACLE_TRIGGER_CM_R)){
+        motor_vy += 40;
+    }
+    if (blocked(rr_cm, OBSTACLE_TRIGGER_CM_R)){
+        motor_vy -= 40;
+    }
     motor_vx     = AVOID_SPEED;
 }
 
@@ -204,10 +209,10 @@ void Tracking::poll() {
     // -----------------------------------------------------------------------
     // Priority 1: obstacle → AVOID
     // -----------------------------------------------------------------------
-    if (((obstacle_ahead || close_front) && ((curr_turret == 1) ^ close_front))
+    if ((((obstacle_ahead || close_front) && ((curr_turret == 1) ^ close_front))
         || (obstacle_left  || ((curr_turret == 0) ^ close_front))
         || (obstacle_right || ((curr_turret == 2) ^ close_front))
-        || obstacle_side)
+        || obstacle_side) && !close_to_fire)
     {
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
             if (active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING)
