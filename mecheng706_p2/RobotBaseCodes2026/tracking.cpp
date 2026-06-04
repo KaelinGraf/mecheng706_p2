@@ -18,9 +18,11 @@ static const float RAD_PER_DEG = 0.017453292519943295f;
 volatile bool still_wall = 0;
 
 static float wrap_angle_error(float angle) {
-    while (angle > PI) angle -= TWO_PI;
-    while (angle < -PI) angle += TWO_PI;
-    return angle;
+    // NaN/inf-hardened (teammates' fix): the old while-loops HANG on +inf and propagate NaN.
+    if (!isfinite(angle)) return 0.0f;
+    angle = fmodf(angle + PI, TWO_PI);
+    if (angle < 0.0f) angle += TWO_PI;
+    return angle - PI;
 }
 }
 
@@ -56,6 +58,12 @@ void Tracking::end() {
 void Tracking::poll() {
     FireFighter *ff = firefighter_;
     unsigned long now = millis();
+
+    // RAMBO mode (default OFF, mappings.h): ignore ALL obstacle avoidance EXCEPT a frontal wall --
+    // no side-object strafe-centring, no recent-fire back-away. The robot charges at the fire; on a
+    // wall it turns AWAY from the heading that drove it in. (A local bool so a runtime toggle -- serial
+    // char / button -> set this -- is a one-line change; for now it's the compile-time RAMBO_MODE.)
+    const bool rambo = RAMBO_MODE;
 
     // Read all sensors. Ultrasonic is the NON-BLOCKING cache now (FireFighter::pollState() pumps
     // _ultrasonic->service() every loop); getAvg() returns the median of recent pings without stalling.
@@ -141,8 +149,9 @@ void Tracking::poll() {
     vy_clear *= STRAFE_DIR_SIGN;
     // Creep the forward speed when a side is tight, so the strafe has time to clear it before we pass.
     float creep = 1.0f;
-    if (side_near)                                                    creep = 0.6f;
-    if (left_clear < SIDE_HARD_MIN_CM || right_clear < SIDE_HARD_MIN_CM) creep = 0.35f;
+    if (side_near)                                                    creep = 0.75f;  // gentle slow near a side
+    if (left_clear < SIDE_HARD_MIN_CM || right_clear < SIDE_HARD_MIN_CM) creep = 0.5f;   // (was 0.6/0.35 -> too slow)
+    if (rambo) { vy_clear = 0.0f; creep = 1.0f; }   // RAMBO: ignore side objects entirely -- charge through
 
     // FRONTAL block ONLY: the ULTRASONIC (centre) is the gap/wall discriminator -- a gap's centre is
     // OPEN at close range (the posts fall outside the cone) while a wall's centre is CLOSED. SIDE
@@ -152,19 +161,23 @@ void Tracking::poll() {
     // boxed-in fallback for a real wall ahead.
     if (obstacle_ahead && !aimed && !close_to_fire) {
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-            resume_bearing_ = ff->_gyro->getAngle();
+            // Don't clobber the saved heading when re-entering AVOID from RETURN_TO_HEADING (teammates' fix).
+            if (active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING)
+                resume_bearing_ = ff->_gyro->getAngle();
             resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
             || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
         }
     }
-    // recent fire
-    if (ff->recentExtinguish() && (close_front || obstacle_ahead)){
+    // recent fire (skipped in RAMBO -- it's avoidance, not the wall case)
+    if (!rambo && ff->recentExtinguish() && (close_front || obstacle_ahead)){
         ff->println("[TRACK] RECENT FIRE");
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-            resume_bearing_ = ff->_gyro->getAngle();
-            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE 
+            // Don't clobber the saved heading when re-entering AVOID from RETURN_TO_HEADING (teammates' fix).
+            if (active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING)
+                resume_bearing_ = ff->_gyro->getAngle();
+            resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
             || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
             active_behavior_ = BehaviorNS::SearchBehaviour::AVOID;
             behavior_start_ms_ = now;
@@ -183,6 +196,24 @@ void Tracking::poll() {
 
     // Handle AVOID behavior
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
+        if (rambo) {
+            // RAMBO wall escape: rotate AWAY from the heading that drove us into the wall
+            // (resume_bearing_ captured it on AVOID entry) by RAMBO_TURN_AWAY_DEG, then resume the
+            // charge -- we deliberately do NOT return to that heading (it points at the wall). Rotate
+            // in place (the chassis spins about its centre, so it doesn't push further into the wall);
+            // same rotate-toward-target sign convention as RETURN_TO_HEADING below (proven to converge).
+            const float target = resume_bearing_ + RAMBO_TURN_AWAY_DEG * RAD_PER_DEG;
+            const float herr   = wrap_angle_error(target - ff->_gyro->getAngle());
+            if (fabsf(herr) < 0.15f || (now - behavior_start_ms_) > 4000UL) {
+                active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+                behavior_start_ms_ = now;
+                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+                return;
+            }
+            float rot = (herr > 0.0f) ? -AVOID_ROTATE_SPEED * 1.5f : AVOID_ROTATE_SPEED * 1.5f;
+            ff->_motors->writeAllMotors(0.0f, 0.0f, rot);
+            return;
+        }
         unsigned long elapsed = now - behavior_start_ms_;
 
         // Check if obstacle is now clear
@@ -347,16 +378,14 @@ void Tracking::poll() {
         if (vtheta > APPROACH_MAX_TURN) vtheta = APPROACH_MAX_TURN;
         if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
 
-        // Pivot-then-go: only translate once the chassis is actually aimed at the fire (turret near
-        // centre); otherwise hold vx = 0 and let vtheta yaw us onto it. cosf() needs RADIANS, but
-        // bearing_error is a deg/10 pseudo-unit -- build the real off-boresight angle from the turret
-        // offset directly. (The previous code computed this correctly, then threw it away with a
-        // hard-coded `vx = 100.0f; // For testing` that drove full speed regardless of aim -- the main
-        // reason the robot charged forward without keeping heading on the fire.)
-        const float err_deg = SERVO_CENTER - target_bearing;     // real degrees off boresight
-        float vx = (fabsf(err_deg) > BEARING_PIVOT_THRESH)
-                       ? 0.0f                                     // not aimed -> pivot in place
-                       : (APPROACH_FORWARD_SPEED * cosf(err_deg * RAD_PER_DEG));
+        const float err_deg = SERVO_CENTER - target_bearing;     // real degrees off boresight (turret offset)
+        // Drive briskly toward the fire, tapered by aim: full speed when aimed, easing to 0 by 90 deg
+        // off (clamp negative cos so a way-off fire pivots via vtheta rather than reversing). vtheta
+        // steers onto the fire concurrently, so heading is kept. The old hard "vx=0 if |err|>5deg"
+        // pivot-gate made the robot pivot-CRAWL near the fire and never reach close_front -> never
+        // extinguish (matches how the teammates drive: advance + steer, no pivot-stop).
+        const float c = cosf(err_deg * RAD_PER_DEG);
+        float vx = (c > 0.0f) ? (APPROACH_FORWARD_SPEED * c) : 0.0f;
         motor_vtheta = vtheta;
 
         // Slow for an obstacle ahead, then stop hard at extinguish range. CHAINED: the old second

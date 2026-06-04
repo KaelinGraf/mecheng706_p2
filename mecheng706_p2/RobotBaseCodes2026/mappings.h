@@ -114,12 +114,12 @@
 #define WALL_FOLLOW_CM          15.0f
 #define SEARCH_SPEED             55.0f
 
-// APPROACH: speed toward detected fire, turn gain for bearing correction.
-// Was 10.0f -- below the chassis deadband AND halved again by the -motor_vx/2 at the writeAllMotors
-// call, so once the debug "vx = 100" override was removed the robot would pivot to aim but never
-// actually drive forward to the fire. Raised so it moves reliably (SEARCH_SPEED=55 is proven to
-// drive through the same -motor_vx/2 path). BENCH-TUNE for a controlled closing speed.
-#define APPROACH_FORWARD_SPEED  60.0f
+// APPROACH: speed toward detected fire, turn gain for bearing correction. The write path halves this
+// (-motor_vx/2), so the effective effort is ~half. 60 was WAY too slow once locked on; raised to 150
+// (~teammates' brisk approach) so the robot actually closes on the fire. It hard-stops at close_front
+// (us < EXTINGUISH_RANGE_CM), so a higher speed just reaches the fire faster, it doesn't overshoot the
+// extinguish gate. BENCH-TUNE down if it overshoots.
+#define APPROACH_FORWARD_SPEED  150.0f
 #define APPROACH_TURN_GAIN      17.0f
 #define APPROACH_MAX_TURN       100.0f
 
@@ -136,9 +136,16 @@
 // AVOID is kept ONLY as the boxed-in fallback for a true frontal wall.
 #define WALL_CARE_CM        18.0f   // begin centring/clearing once a side IR reads within this (cm)
 #define SIDE_HARD_MIN_CM     5.0f   // a side this close => decisive full strafe away (collision-imminent)
-#define WALL_CENTER_GAIN     3.0f   // strafe effort per cm of left/right clearance imbalance
-#define WALL_STRAFE_SPEED   60.0f   // max lateral effort while clearing/centring
+#define WALL_CENTER_GAIN     6.0f   // strafe effort per cm of imbalance (was 3 -- strafe responded too slowly)
+#define WALL_STRAFE_SPEED  100.0f   // max lateral effort while clearing/centring (was 60 -- too slow)
 #define STRAFE_DIR_SIGN      1      // flip to -1 if the bench shows the strafe goes the WRONG way
+
+// RAMBO mode (default OFF). When 1, Tracking ignores ALL obstacle avoidance EXCEPT a frontal WALL:
+// no side-object strafe-centring, no recent-fire back-away -- the robot charges straight at the fire.
+// On a frontal wall it rotates AWAY from the heading that drove it in (by RAMBO_TURN_AWAY_DEG) rather
+// than reversing and returning to that heading, then resumes the charge. Toggle to 1 to enable.
+#define RAMBO_MODE              0
+#define RAMBO_TURN_AWAY_DEG     150.0f   // degrees to rotate off the wall-entry heading before resuming
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
 // brief. The ultrasonic measures from the front face, so trigger when the
@@ -184,7 +191,7 @@
 // ---------------------------------------------------------------------------
 #define FIRE_LOCK_OUTER_V       0.8f
 #define FIRE_UNLOCK_OUTER_V     0.20f
-#define LOCK_LOSS_DEBOUNCE      8
+#define LOCK_LOSS_DEBOUNCE      4     // teammates' bench value (down from 8): faster lock-loss recovery
 
 // ---------------------------------------------------------------------------
 // Behaviour 2: 360-degree spin-scan localisation. On startup and after the

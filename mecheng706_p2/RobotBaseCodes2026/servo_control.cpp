@@ -44,7 +44,10 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->maxVMid() > 0.8));
+  // "At fire": an outer cell saturated AND the inner pair sum is strong. Inner-pair SUM >= 1.0
+  // (teammates' bench-calibrated value for the current flat-outer-pair hardware) replaces the old
+  // max(_l,_r) > 0.8 -- same robot, so use their measured threshold.
+  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->_l->getFilteredV() + _fb->_r->getFilteredV() >= 1.0));
 }
 
 void Turret::writeAngle(int angle){

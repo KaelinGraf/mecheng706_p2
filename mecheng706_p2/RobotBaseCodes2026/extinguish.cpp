@@ -55,8 +55,15 @@ void Extinguish::end() {
     firefighter_->_fire_bank->update();
     firefighter_->_fire_bank->update();
 
-    firefighter_->_motors->writeAllMotors(50, 0, 0);
-    delay(300);
+    // Back away to clear the just-extinguished fire -- but NOT after the SECOND fire (the brief
+    // requires ceasing all movement immediately once the 2nd fire is out). Then force a stop.
+    // (writeAllMotors(50,...) = +vx-arg = BACKWARD under the inverted-x convention -> away from fire.)
+    // [teammates' fix: BASE/ours nudged unconditionally, moving after the final fire.]
+    if (firefighter_->firesExtinguished() < 2) {
+        firefighter_->_motors->writeAllMotors(50, 0, 0);
+        delay(300);
+    }
+    firefighter_->_motors->writeAllMotors(0, 0, 0);
 }
 
 void Extinguish::poll() {
