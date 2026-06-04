@@ -39,7 +39,7 @@
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
-#define SERVO_CENTER 85
+#define SERVO_CENTER 60
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins

@@ -14,15 +14,15 @@ namespace {
   // steps (10, 30, ... 190 cm = 10 sweeps covering ~10 cm to 2 m). Tweak freely.
   const float DIST_START_CM = 10.0f;
   const float DIST_END_CM   = 200.0f;
-  const float DIST_STEP_CM  = 20.0f;
+  const float DIST_STEP_CM  = 15.0f;
 
   // Timed pause before each sweep so the operator can reposition the lamp. No
   // serial input is needed; bump this if you need more time to move the light.
-  const unsigned long PAUSE_BETWEEN_MS  = 12000;  // total pause per distance
+  const unsigned long PAUSE_BETWEEN_MS  = 6000;  // total pause per distance
   const unsigned long COUNTDOWN_TICK_MS = 2000;   // countdown print interval
 
   const unsigned long SETTLE_BIG_MS  = 500;  // after a large move (centre <-> ends)
-  const unsigned long SETTLE_STEP_MS = 60;   // after each 1 deg step
+  const unsigned long SETTLE_STEP_MS = 50;   // after each 1 deg step
   const uint8_t       N_FLUSH        = 12;    // EWMA convergence reads per step
   const unsigned long FLUSH_GAP_MS   = 4;     // spacing between convergence reads
 }
