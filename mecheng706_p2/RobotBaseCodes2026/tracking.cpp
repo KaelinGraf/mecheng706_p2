@@ -7,6 +7,7 @@
 // Global turret instance (defined in RobotBaseCodes2026.ino)
 extern Turret *turret;
 int avoid_count = 0;
+int continue_strafe = 0;
 
 namespace {
 static const unsigned long LOST_FIRE_MS   = 1500;
@@ -36,12 +37,13 @@ static float wrap_angle_error(float angle) {
 
 static void avoidLeft(FireFighter *ff,
                       float lf_cm, float lr_cm,
-                      float &motor_vx, float &motor_vy, float &motor_vtheta)
+                      float &motor_vx, float &motor_vy, float &motor_vtheta,
+                      int strafe)
 {
     ff->print("f: "); ff->print(lf_cm);
     ff->print(" r: "); ff->println(lr_cm);
 
-    if (lf_cm <= AVOID_URGENT) {
+    if (lf_cm <= AVOID_URGENT || strafe) {
         ff->println("[TRACK] AVOID Left Urgent");
         motor_vy     = 50;
     } else {
@@ -54,19 +56,22 @@ static void avoidLeft(FireFighter *ff,
 
 static void avoidRight(FireFighter *ff,
                        float rf_cm, float rr_cm,
-                       float &motor_vx, float &motor_vy, float &motor_vtheta)
+                       float &motor_vx, float &motor_vy, float &motor_vtheta,
+                       int strafe)
 {
     ff->print("f: "); ff->print(rf_cm);
     ff->print(" r: "); ff->print(rr_cm);
 
-    if (rf_cm <= AVOID_URGENT) {
+    if (rf_cm <= AVOID_URGENT || strafe) {
         ff->println(" [TRACK] AVOID Right Urgent");
         motor_vy     = -50;
+        continue_strafe = 1;
     } else {
         ff->println(" [TRACK] AVOID Right");
         motor_vtheta = -AVOID_ROTATE_SPEED * 1.25f;
         motor_vx     = -AVOID_SPEED * 0.75f;
         motor_vy     = -50;
+        continue_strafe = 0;
     }
 }
 
@@ -132,10 +137,10 @@ static void continueLastAvoid(FireFighter *ff,
 {
     switch (mode) {
         case Tracking::AvoidMode::LEFT:
-            avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta);
+            avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta, 0);
             break;
         case Tracking::AvoidMode::RIGHT:
-            avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
+            avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta, 0);
             break;
         case Tracking::AvoidMode::SIDE:
             avoidSide(ff, lr_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
@@ -266,11 +271,17 @@ void Tracking::poll() {
     }
 
     if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID
-        && ((now - behavior_start_ms_) > 1500))
+        && ((now - behavior_start_ms_) > AVOID_TIMEOUT_MS))
     {
-        ff->println("Avoid Timeout -> FF");
-        active_behavior_   = BehaviorNS::SearchBehaviour::FIND_FIRE;
+        ff->println("Avoid Timeout -> back up");
+        active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
         behavior_start_ms_ = now;
+        avoid_count = 0;
+        continue_strafe = 0;
+        ff->_motors->writeAllMotors(50, 0, 0);
+        delay(800);
+        ff->_motors->writeAllMotors(0, 0, 0);
+
     } else if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID && active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING) {
         // -----------------------------------------------------------------------
         // Priority 2: turret lock → MOVE_TO_FIRE / FIND_FIRE
@@ -298,6 +309,7 @@ void Tracking::poll() {
 
         case BehaviorNS::SearchBehaviour::AVOID: {
             unsigned long elapsed = now - behavior_start_ms_;
+            ff->println(elapsed > AVOID_TIMEOUT_MS);
 
             bool clear = !obstacle_ahead
                       && ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F))
@@ -307,11 +319,12 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                if (avoid_count > 15){
+                if (avoid_count > 12){
                     ff->println("[TRACK] AVOID clear count");
-                    active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+                    active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
                     behavior_start_ms_ = now;
                     avoid_count = 0;
+                    continue_strafe = 0;
                 } else {
                 ff->println("[TRACK] AVOID exit");
                 continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,
@@ -319,18 +332,28 @@ void Tracking::poll() {
                 avoid_count++;
                 }
             } else if (elapsed > AVOID_TIMEOUT_MS) {
-                ff->print("[TRACK] AVOID timeout");
-                avoidTimeout(motor_vtheta, strafe_sign_);
+                active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
+                behavior_start_ms_ = now;
+                avoid_count = 0;
+                continue_strafe = 0;
+                ff->_motors->writeAllMotors(50, 0, 0);
+                delay(800);
+                ff->_motors->writeAllMotors(0, 0, 0);
+
             } else if (obstacle_left) {
+                avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::LEFT;
-                avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta);
+                avoidLeft(ff, lf_cm, lr_cm, motor_vx, motor_vy, motor_vtheta, continue_strafe);
             } else if (obstacle_right) {
+                avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::RIGHT;
-                avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
+                avoidRight(ff, rf_cm, rr_cm, motor_vx, motor_vy, motor_vtheta, continue_strafe);
             } else if (obstacle_side) {
+                avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::SIDE;
                 avoidSide(ff, lr_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
             } else if (obstacle_ahead || close_front){
+                avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::AHEAD;
                 if (avoidAhead(ff, rf_cm, lf_cm, aimed, close_to_fire, now,
                                active_behavior_, behavior_start_ms_,
@@ -403,7 +426,7 @@ void Tracking::poll() {
             motor_vtheta = 0.0f;
             motor_vx     = SEARCH_SPEED;
 
-            if (now - behavior_start_ms_ > 3500) {
+            if (now - behavior_start_ms_ > 2000) {
                 ff->println("Reset, spin scan");
                 ff->switchState(State::SPIN_SCAN);
                 return;

@@ -39,7 +39,7 @@
 #define max_duty_turret 2100
 #define min_duty_turret 900
 #define neutral_turret  1500
-#define SERVO_CENTER 90
+#define SERVO_CENTER 80
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
@@ -94,14 +94,14 @@
 // Distance below which an object on the front arc is treated as an obstacle
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
-#define OBSTACLE_TRIGGER_CM_F     10.0f
-#define OBSTACLE_TRIGGER_CM_US     7.0f
+#define OBSTACLE_TRIGGER_CM_F     9.0f
+#define OBSTACLE_TRIGGER_CM_US     6.0f
 #define OBSTACLE_TRIGGER_CM_R     8.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
 // SEARCH/APPROACH. Wider than OBSTACLE_TRIGGER_CM to avoid limit-cycling.
 #define OBSTACLE_CLEAR_CM_F      15.0f
-#define OBSTACLE_CLEAR_CM_R      10.0f
+#define OBSTACLE_CLEAR_CM_R      8.0f
 
 // Wall-follow band - if a side IR reads below this, nudge away from that side.
 #define WALL_FOLLOW_CM           15.0f
@@ -122,7 +122,7 @@
 // brief. The ultrasonic measures from the front face, so trigger when the
 // front-of-robot reading is <= (20 cm - half chassis length) ~ 5 cm; a more
 // forgiving value is used to allow for sensor noise / cylinder curvature.
-#define EXTINGUISH_RANGE_CM     10.0f
+#define EXTINGUISH_RANGE_CM     9.0f
 
 // do not transition back to extinguish state if we put out a fire less than
 // this ammount of MS ago as it may be the same fire
