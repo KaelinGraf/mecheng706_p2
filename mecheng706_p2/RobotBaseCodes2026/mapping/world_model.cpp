@@ -93,6 +93,10 @@ void WorldModel::update(Tap* tap){
     Navigator replans are also called asynchronously as needed.
     */
    long now = micros();
+    _searchBehavior = tap->search_behaviour;
+    _closeToFire = tap->close_to_fire;
+    _navigator.setSearchBehavior(_searchBehavior);
+    _navigator.setCloseToFire(_closeToFire);
    //First update pose (affects all downstream functions)
     _deadReckoner.updatePose(tap->heading,tap->vx,tap->vy,(now-_lastUpdateTime));
     //compute pose once, reuse downstream
@@ -121,4 +125,8 @@ void WorldModel::update(Tap* tap){
         }
     }
     _lastUpdateTime = now;
+}
+
+Pose2D WorldModel::navigationCommand() const {
+    return _navigator.suggestCommand();
 }

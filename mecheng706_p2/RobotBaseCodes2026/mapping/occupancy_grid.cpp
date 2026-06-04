@@ -149,6 +149,13 @@ OccupancyGrid::idx_xy OccupancyGrid::worldToIndex(float wx, float wy) const {
     return cell;
 }
 
+bool OccupancyGrid::isCellOccupied(int x, int y) const {
+  if (x < 0 || x >= WIN_N || y < 0 || y >= WIN_N) {
+    return true;
+  }
+  return L[idx(x, y)] >= LOC_THRESH;
+}
+
 
 void OccupancyGrid::reset(const Pose2D& robotPose) {
     memset(L, UNKNOWN, sizeof(L)); // Clear the grid

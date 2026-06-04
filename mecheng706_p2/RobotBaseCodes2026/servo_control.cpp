@@ -25,7 +25,8 @@ uint16_t Motor::scaleMotor(float control_effort_sum, float output_min, float out
 
 
 void Turret::attach(){
-  attachMotor();
+  _motor.attach(_motor_pin, min_duty_turret, max_duty_turret);
+  _is_attatched = true;
 }
 
 void Turret::detach(){
@@ -45,10 +46,20 @@ bool Turret::atFire(){
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-  if (angle < (SERVO_CENTER - 50)) angle = SERVO_CENTER - 50;
-  if (angle > (SERVO_CENTER + 50)) angle = SERVO_CENTER + 50;
+  
+  // Safety constraints: The FS90-C running degree is 120 degrees.
+  // We clip the input angle to respect the hardware limits.
+  if (angle < 10) angle = 10;
+  if (angle > 110) angle = 110;
+  
   this->angle_ = angle;
-  _motor.write(angle);
+
+  // Map the angle range (0 to 120) to the microsecond range (900 to 2100)
+  // 60 degrees (Center) will perfectly map to 1500us.
+  uint16_t pulse_width = map(angle, 0, 120, 900, 2100);
+  
+  // Use your existing writeUS method, or _motor.writeMicroseconds directly
+  writeUS(pulse_width);
 }
 
 void Turret::writeUS(uint16_t microseconds){

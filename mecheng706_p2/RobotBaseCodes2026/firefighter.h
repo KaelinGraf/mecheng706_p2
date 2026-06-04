@@ -9,6 +9,7 @@
 #include "fire.h"
 #include "servo_control.h"
 #include "pid.h"
+#include "behavior.h"
 
 // Mapping layer is forward-declared only: firefighter.h is included BY the
 // mapping headers (occupancy_grid.h, world_model.hpp), so it must not include
@@ -23,6 +24,8 @@ struct Tap{
     float vx, vy; //last commanded velocities
     float turret_angle, angle_error = 0; //angle error is recorded angle discrepancy between turret and fire this tick 
     bool fire_locked; //is turret locking to a fire
+    bool close_to_fire = false;
+    BehaviorNS::SearchBehaviour search_behaviour = BehaviorNS::SearchBehaviour::FIND_FIRE;
     float range[5]; //Sensor readings in order: ULTRASONIC, IR_FRONT_LEFT, IR_FRONT_RIGHT, IR_REAR_LEFT, IR_REAR_RIGHT
 };
 
@@ -43,6 +46,7 @@ private:
     // need not see the mapping definitions; instantiated only under ENABLE_MAPPING.
     WorldModel *_world = nullptr;
     RobotModel *_robot_model = nullptr;
+    BehaviorNS::SearchBehaviour _search_behaviour = BehaviorNS::SearchBehaviour::FIND_FIRE;
 
 public:
     ShortRangeIR *_front_left_ir;
@@ -86,6 +90,10 @@ public:
     void pollState();
     void setBearing(float bearing);
     float bearing_ = 0.0f;
+
+    inline void setSearchBehavior(BehaviorNS::SearchBehaviour behavior) { _search_behaviour = behavior; }
+    inline BehaviorNS::SearchBehaviour getSearchBehavior() const { return _search_behaviour; }
+    inline WorldModel* worldModel() const { return _world; }
 
     // Wire in the turret (owned by the .ino) so buildTap() can reach it.
     inline void setTurret(Turret *t) { _turret = t; }

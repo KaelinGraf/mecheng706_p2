@@ -200,6 +200,7 @@ void FireFighter::pollState() {
 Tap FireFighter::buildTap() {
   Tap t;
   t.heading = _gyro->getHeading();                 // rad, continuous (never reset) -> pose
+  t.search_behaviour = _search_behaviour;
 
   const auto &cmd = _motors->getLastCommand();
   t.vx = cmd.vx;                                   // RAW command; DeadReckoner applies KX/KY
@@ -211,9 +212,11 @@ Tap FireFighter::buildTap() {
     // localises mirrored about the forward axis.
     t.turret_angle = -(_turret->angle_ - SERVO_CENTER) * DEG_TO_RAD;  // servo deg (SERVO_CENTER=dead-fwd) -> rad, CW frame
     t.fire_locked  = _turret->locked_on_;
+    t.close_to_fire = _turret->atFire();
   } else {
     t.turret_angle = 0.0f;
     t.fire_locked  = false;
+    t.close_to_fire = false;
   }
   t.angle_error = -_fire_bank->estimateBearing() * DEG_TO_RAD;  // deg off-axis -> rad, CW frame
 

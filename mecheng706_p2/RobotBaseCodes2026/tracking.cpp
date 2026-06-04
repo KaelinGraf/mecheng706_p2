@@ -3,6 +3,10 @@
 #include "tracking.h"
 #include "firefighter.h"
 #include "mappings.h"
+#include "mapping/pose.hpp"
+#if ENABLE_MAPPING
+#include "mapping/world_model.hpp"
+#endif
 
 // Global turret instance (defined in RobotBaseCodes2026.ino)
 extern Turret *turret;
@@ -99,6 +103,7 @@ static bool avoidAhead(FireFighter *ff, float fr, float fl,
             active_behavior_    = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
             behavior_start_ms_  = now;
             ff->println("[AVOID] -> APPROACH FIRE");
+            ff->setSearchBehavior(active_behavior_);
         } else {
             ff->println("[AVOID] -> FIRE_BEHIND");
             motor_vtheta = AVOID_ROTATE_SPEED * 1.5f;
@@ -154,6 +159,7 @@ void Tracking::end() {
 void Tracking::poll() {
     FireFighter *ff  = firefighter_;
     unsigned long now = millis();
+    ff->setSearchBehavior(active_behavior_);
 
     // Read all sensors
     float us_cm = ff->_ultrasonic->readBlocking();
@@ -237,6 +243,7 @@ void Tracking::poll() {
         ff->println("Avoid Timeout -> FF");
         active_behavior_   = BehaviorNS::SearchBehaviour::FIND_FIRE;
         behavior_start_ms_ = now;
+        ff->setSearchBehavior(active_behavior_);
     }
     else {
         // -----------------------------------------------------------------------
@@ -247,12 +254,14 @@ void Tracking::poll() {
                 ff->println("[TRACK] turret locked -> MOVE_TO_FIRE");
                 active_behavior_   = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
                 behavior_start_ms_ = now;
+                ff->setSearchBehavior(active_behavior_);
             }
         } else {
             if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {
                 ff->println("[TRACK] turret lost lock -> FIND_FIRE");
                 active_behavior_   = BehaviorNS::SearchBehaviour::FIND_FIRE;
                 behavior_start_ms_ = now;
+                ff->setSearchBehavior(active_behavior_);
                 if (!turret) ff->println("Turret Issue - HOW DID WE GET HERE");
             }
         }
@@ -278,12 +287,14 @@ void Tracking::poll() {
                     ff->println("[TRACK] leaving AVOID -> RETURN_TO_HEADING");
                     active_behavior_   = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
                     behavior_start_ms_ = now;
+                    ff->setSearchBehavior(active_behavior_);
                     ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
                     return;
                 } else {
                     ff->println("[TRACK] leaving AVOID -> FF");
                     active_behavior_   = BehaviorNS::SearchBehaviour::FIND_FIRE;
                     behavior_start_ms_ = now;
+                    ff->setSearchBehavior(active_behavior_);
                 }
             } else if (elapsed > AVOID_TIMEOUT_MS) {
                 ff->print("[TRACK] AVOID timeout");
@@ -325,6 +336,7 @@ void Tracking::poll() {
                     ? BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
                     : BehaviorNS::SearchBehaviour::FIND_FIRE;
                 behavior_start_ms_ = now;
+                ff->setSearchBehavior(active_behavior_);
                 ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
                 return;
             }
@@ -341,18 +353,28 @@ void Tracking::poll() {
                 return;
             }
 
-            float vtheta = APPROACH_TURN_GAIN * bearing_error;
-            if (vtheta >  APPROACH_MAX_TURN) vtheta =  APPROACH_MAX_TURN;
-            if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
+#if ENABLE_MAPPING
+            if (ff->worldModel()) {
+                Pose2D nav = ff->worldModel()->navigationCommand();
+                motor_vx     = nav.x;
+                motor_vy     = nav.y;
+                motor_vtheta = nav.th;
+            } else {
+#endif
+                float vtheta = APPROACH_TURN_GAIN * bearing_error;
+                if (vtheta >  APPROACH_MAX_TURN) vtheta =  APPROACH_MAX_TURN;
+                if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
 
-            float vx = (fabsf(bearing_error) > BEARING_PIVOT_THRESH)
-                       ? 0.0f
-                       : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
+                float vx = (fabsf(bearing_error) > BEARING_PIVOT_THRESH)
+                           ? 0.0f
+                           : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
 
-            vx = 100.0f;  // For testing
-            motor_vtheta = vtheta;
-            motor_vx     = close_front   ? 0.0f  :
-                           obstacle_ahead ? vx * 0.6f : vx;
+                motor_vtheta = vtheta;
+                motor_vx     = close_front   ? 0.0f  :
+                               obstacle_ahead ? vx * 0.6f : vx;
+#if ENABLE_MAPPING
+            }
+#endif
             break;
         }
 
@@ -379,5 +401,6 @@ void Tracking::poll() {
         }
     }
 
+    ff->setSearchBehavior(active_behavior_);
     ff->_motors->writeAllMotors((motor_vx / 2), motor_vy, motor_vtheta);
 }

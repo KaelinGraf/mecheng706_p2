@@ -3,6 +3,7 @@
 
 #include "occupancy_grid.h"
 #include "fire_localiser.hpp"
+#include "../behavior.h"
 #include "pose.hpp"
 #include "robot_model.hpp"
 #include "navigator.hpp"
@@ -37,11 +38,15 @@ public:
     const OccupancyGrid& grid() const { return _occupancyGrid; }
     Pose2D robotPose() const { return _deadReckoner.getPose(); }
     Pose2D fireEstimate()     { return _fireLocaliser.solvePose(); } // .th carries confidence [0..1]
+    Pose2D navigationCommand() const;
+    BehaviorNS::SearchBehaviour searchBehavior() const { return _searchBehavior; }
 private:
     OccupancyGrid _occupancyGrid;
     FireLocaliser _fireLocaliser;
     DeadReckoner _deadReckoner;
     Navigator _navigator;
+    bool _closeToFire = false;
+    BehaviorNS::SearchBehaviour _searchBehavior = BehaviorNS::SearchBehaviour::FIND_FIRE;
     FireFighter* _ff;
     RobotModel* _robot;
 
