@@ -25,9 +25,10 @@ uint16_t Motor::scaleMotor(float control_effort_sum, float output_min, float out
 
 
 void Turret::attach(){
-  _motor.attach(_motor_pin, min_duty_turret, max_duty_turret);
+  _motor.attach(_motor_pin);
   _is_attatched = true;
 }
+
 void Turret::detach(){
   _motor.detach();
   _is_attatched = false;
@@ -40,30 +41,15 @@ void Turret::pollState(){
 }
 
 bool Turret::atFire(){
-  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->maxVMid() > 0.6));
+  return (((_fb->_sl->getFilteredV() > 4.8) || (_fb->_sr->getFilteredV() > 4.8)) && (_fb->maxVMid() > 0.8));
 }
 
 void Turret::writeAngle(int angle){
   if (!_is_attatched) attachMotor();
-
-  // Safety constraints: The FS90-C running degree is 120 degrees.
-  // We clip the input angle to respect the hardware limits.
-  if (angle < 10) angle = 10;
-  if (angle > 110) angle = 110;
-  
+  if (angle < (SERVO_CENTER - 60)) angle = SERVO_CENTER - 60;
+  if (angle > (SERVO_CENTER + 60)) angle = SERVO_CENTER + 60;
   this->angle_ = angle;
-
-  // Map the angle range (0 to 120) to the microsecond range (900 to 2100)
-  // 60 degrees (Center) will perfectly map to 1500us.
-  uint16_t pulse_width = map(angle, 0, 120, 900, 2100);
-  
-  // Use your existing writeUS method, or _motor.writeMicroseconds directly
-  writeUS(pulse_width);
-}
-
-void Turret::writeUS(uint16_t microseconds){
-  if (!_is_attatched) attachMotor();
-  _motor.writeMicroseconds(int(clip<uint16_t>(microseconds,min_duty_turret,max_duty_turret)));
+  _motor.write(angle);
 }
 
 void Turret::center(){
@@ -72,19 +58,30 @@ void Turret::center(){
 }
 
 void Turret::pan_scan(unsigned long current_time_ms){
-  // Simple pan-scan behavior when not locked on
-  // Sweeps between 0 and 180 degrees at a fixed speed
-  const unsigned long scan_period_ms = 2000; // Time for a full sweep (back and forth)
-  const int scan_range_deg = 300; // Total range of motion
-  const int scan_speed_deg_per_sec = (scan_range_deg * 2) / (scan_period_ms / 1000.0); // Degrees per second
+  // Time for a full back-and-forth sweep
+  const unsigned long scan_period_ms = 5000; 
+  const unsigned long half_period_ms = scan_period_ms / 2;
+  
+  // Set boundaries
+  const int min_angle = 30;
+  const int max_angle = 150;
+  const int scan_range_deg = max_angle - min_angle; // 160 degrees
 
-  // Calculate the angle based on the current time
-  float angle = (current_time_ms % scan_period_ms) / static_cast<float>(scan_period_ms) * scan_range_deg;
-  if ((current_time_ms / (scan_period_ms / 2)) % 2 == 1) {
-    angle = scan_range_deg - angle; // Reverse direction on the second half of the period
+  // Calculate our exact position within the current half-period (0.0 to 1.0)
+  unsigned long time_in_half = current_time_ms % half_period_ms;
+  float proportion = static_cast<float>(time_in_half) / half_period_ms;
+
+  float angle;
+  // Determine if we are on the forward or backward stroke
+  if ((current_time_ms / half_period_ms) % 2 == 0) {
+    // Forward sweep: 10 -> 170
+    angle = min_angle + (proportion * scan_range_deg);
+  } else {
+    // Reverse sweep: 170 -> 10
+    angle = max_angle - (proportion * scan_range_deg);
   }
   
-  writeAngle(static_cast<int>(angle + 15));
+  writeAngle(static_cast<int>(angle));
 }
 
 void driveMotors::writeAllMotors(float vx, float vy, float vtheta){

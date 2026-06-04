@@ -99,55 +99,50 @@ class Ultrasonic: public Sensor{
 
 
 };
+
 class Gyroscope: public Sensor{
   private:
-    Adafruit_BNO08x*   _bno08x;
+    Adafruit_BNO08x* _bno08x;
     sh2_SensorValue_t* _sensorValue;
-    HardwareSerial*    _serial_com;
-    float _heading  = 0.0f;   // continuous, unwrapped fused yaw (rad) -- drift-corrected by the BNO
-    float _last_yaw = 0.0f;   // previous wrapped yaw, used to unwrap into _heading
-    float _offset   = 0.0f;   // reference for getAngle() (zeroed by resetAngle)
-    bool  _have_yaw = false;  // re-anchors the unwrap on the first reading and after a BNO reset
+    float _rad = 0.0;
+    float _last_omega = 0.0;
+    uint32_t _prev_micros = 0.0;
+    HardwareSerial* _serial_com;
+    RingBuffer<float,4>* _prev_measurements;
+    float _deadband = 0.01;
+    float _yaw_offset = 0.0;
 
-    void configureGameRotationVector() {
-      if (!_bno08x->enableReport(SH2_GAME_ROTATION_VECTOR, 10000)) {
-        _serial_com->println("Could not enable game vector");
-      }
-    }
+
 
   public:
-    Gyroscope(Adafruit_BNO08x* bno08x, sh2_SensorValue_t* sensorValue, HardwareSerial* SerialCom)
-      : Sensor(uint8_t(0)), _bno08x(bno08x), _sensorValue(sensorValue), _serial_com(SerialCom) {
-
+    Gyroscope(Adafruit_BNO08x* bno08x,sh2_SensorValue_t* sensorValue,HardwareSerial* SerialCom):Sensor(uint8_t(0)),_bno08x(bno08x),_sensorValue(sensorValue),_serial_com(SerialCom){
+      _prev_measurements = new RingBuffer<float,4>();
+      _prev_micros = micros();
       _serial_com->println("Enabling Gyroscope...");
-      // Follow the Adafruit BNO08x pattern: initialize once, then enable the
-      // fused game rotation vector report used for heading.
-      while (!_bno08x->begin_I2C()) {
-        _serial_com->println("Failed to find BNO08x chip");
-        delay(10);
-      }
 
-      _serial_com->println("BNO08x Found!");
-      configureGameRotationVector();
+      while (!_bno08x->begin_I2C() ||
+          !_bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED, 10000)) {
+            _serial_com->println("IMU failed");
+          }
+
       _serial_com->println("Gyro Success!");
-    }
 
-    float readSensor() override;                                 // poll BNO, advance the continuous heading
-    inline float applyCalibration(float adc_voltage) override { return adc_voltage; }
+      _bno08x->enableReport(SH2_GYROSCOPE_CALIBRATED,10000);
+      
+    };
+    float readSensor(bool apply_filter = true);
+    inline float applyCalibration(float adc_voltage) override {return adc_voltage;};
+    void resetAngle() { _yaw_offset += _rad; _rad = 0.0; }
+    float getAngle() { return _rad; }
 
-    // Continuous absolute heading for mapping/nav -- NEVER reset, so spin-scan's
-    // resetAngle() can't yank the map frame out from under the dead-reckoner.
-    float getHeading() const { return _heading; }
-    // Heading since the last resetAngle() -- used by spin-scan / tracking.
-    float getAngle()   const { return _heading - _offset; }
-    void  resetAngle()       { _offset = _heading; }
 
-    static float wrapPi(float a) {
-      while (a >  PI) a -= TWO_PI;
-      while (a < -PI) a += TWO_PI;
-      return a;
-    }
-    void setHeading(float new_head) { _heading = new_head; }
+
+};
+
+
+struct gyroData{
+
+
 };
 
 

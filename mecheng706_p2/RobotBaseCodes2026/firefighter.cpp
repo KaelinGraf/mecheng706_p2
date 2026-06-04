@@ -100,7 +100,7 @@ bool FireFighter::switchState(State::Name newState, StateData data) {
 }
 
 void FireFighter::pollState() {
-  _gyro->setHeading(_gyro->readSensor());
+  _gyro->readSensor();
   _fire_bank->update();
   updateIrSensors();
   // Refresh the four phototransistor EWMAs every loop so any state's poll()
@@ -116,8 +116,6 @@ void FireFighter::setBearing(float bearing) {
 }
 
 void FireFighter::testSensors() {
-  print("Heading: "); println(_gyro->getHeading());
-
   print("us med: "); println(_ultrasonic->readBlocking());
 
   print("front left:");

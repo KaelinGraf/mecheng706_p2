@@ -76,7 +76,7 @@ float FireBank::estimateBearing(float threshold) {
     float sr = _sr->getFilteredV();
 
     // Early exit if we don't meet the absolute minimum confidence threshold
-    if (maxV() < threshold || (sl <= l-0.2) || (sr <= r-0.2)) {
+    if (maxV() < threshold) {
         _angleValid = false;
         return 0.0f;
     }
@@ -103,7 +103,7 @@ float FireBank::estimateBearing(float threshold) {
     // --- FAR RANGE: Outer-pair differential ---
     else {
         // Calibrated constants from the guide
-        const float PHOTO_SR_GAIN = 1.7f;
+        const float PHOTO_SR_GAIN = 1.0f;
         const float BEARING_DEG_PER_UNIT = 58.0f;
         const float PHOTO_SAT_V = 4.80f;
         const float BEARING_MIN_SUM_V = 1;

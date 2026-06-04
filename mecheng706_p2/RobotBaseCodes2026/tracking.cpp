@@ -16,22 +16,13 @@ static const float NUDGE_TURN = 60.0f;
 static const float BEARING_PIVOT_THRESH = 5.0f;
 static const float RAD_PER_DEG = 0.017453292519943295f;
 volatile bool still_wall = 0;
-}
 
 static float wrap_angle_error(float angle) {
-    if (!isfinite(angle)) {
-        return 0.0f;
-    }
-
-    angle = fmodf(angle + PI, TWO_PI);
-
-    if (angle < 0.0f) {
-        angle += TWO_PI;
-    }
-
-    return angle - PI;
+    while (angle > PI) angle -= TWO_PI;
+    while (angle < -PI) angle += TWO_PI;
+    return angle;
 }
-
+}
 
 Tracking::Tracking(FireFighter *firefighter)
     : firefighter_(firefighter),
@@ -120,14 +111,12 @@ void Tracking::poll() {
     bool close_to_fire = turret->atFire();
 
     if (((obstacle_ahead || close_front) && ((curr_turret==1) ^ close_front))
-        || (obstacle_left && ((curr_turret==0) ^ close_front))
-        || (obstacle_right &&  ((curr_turret==2) ^ close_front))
+        || (obstacle_left && ((curr_turret==0) || close_front))
+        || (obstacle_right &&  ((curr_turret==2) || close_front))
         || obstacle_side) {
         // PRIORITY 1: Obstacle ahead triggers AVOID
         if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID) {
-            if (active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING){
-                resume_bearing_ = ff->_gyro->getAngle();
-            }
+            resume_bearing_ = ff->_gyro->getAngle();
             resume_to_move_ = (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE 
             || active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING);
             //ff->println(resume_to_move_);
@@ -152,11 +141,136 @@ void Tracking::poll() {
         behavior_start_ms_ = now;
     }
 
-    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1500) )
+    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID && ((now-behavior_start_ms_) > 1000) )
     {
-        ff->println("Avoid Timeout -> FF");
-        active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+        active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
         behavior_start_ms_ = now;
+    }
+    
+    // Handle AVOID behavior
+    if (active_behavior_ == BehaviorNS::SearchBehaviour::AVOID) {
+        unsigned long elapsed = now - behavior_start_ms_;
+
+        // Check if obstacle is now clear
+        bool clear = !obstacle_ahead &&
+                     ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F)) &&
+                     ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM_F)) &&
+                     ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)) && 
+                     ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) && 
+                     ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
+                     
+        if (clear && (elapsed > AVOID_STRAFE_MS)) {
+            ff->println("[TRACK] leaving AVOID -> RETURN_TO_HEADING");
+            active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
+            behavior_start_ms_ = now;
+            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+            return;
+        } else if (elapsed > AVOID_TIMEOUT_MS) {
+            // Timeout: rotate in place
+            motor_vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
+            ff->print("[TRACK] AVOID timeout");
+        } else {
+            if(obstacle_left) {
+                ff->print("f: ");
+                ff->print(lf_cm);
+                ff->print(" r: ");
+                ff->println(lr_cm);
+                ff->println("[TRACK] AVOID Left");
+                if (lf_cm <= AVOID_URGENT) {
+                    // Reverse and turn
+                    motor_vtheta = AVOID_ROTATE_SPEED*1.5;
+                    motor_vx = -AVOID_SPEED;
+                    motor_vy = 50;
+                } else {
+                    // Go forward and around
+                    motor_vtheta = AVOID_ROTATE_SPEED;
+                    motor_vx = AVOID_SPEED;
+                }
+            } else if (obstacle_right){
+                ff->print("f: ");
+                ff->print(rf_cm);
+                ff->print(" r: ");
+                ff->print(rr_cm);
+                ff->println(" [TRACK] AVOID Right");
+                if (rf_cm <= AVOID_URGENT) {
+                    // Reverse and turn
+                    motor_vtheta = -AVOID_ROTATE_SPEED*1.5;
+                    motor_vx = -AVOID_SPEED;
+                    motor_vy = -50;
+                } else {
+                    // Go forward and around
+                    motor_vtheta = -AVOID_ROTATE_SPEED;
+                    motor_vx = -AVOID_SPEED;
+                }
+            } else if (obstacle_side) {
+                ff->print(" r: ");
+                ff->print(rr_cm);
+                ff->print(" l: ");
+                ff->print(lr_cm);
+                ff->println(" [TRACK] AVOID Side");
+                
+                motor_vtheta = 0.0f;
+                if (blocked(lr_cm, OBSTACLE_TRIGGER_CM_R)) {
+                    motor_vy += 40;
+                }
+                if (blocked(rr_cm, OBSTACLE_TRIGGER_CM_R)) {
+                    motor_vy -= 40;
+                }
+                motor_vx = AVOID_SPEED;
+
+                        } else {
+                if (obstacle_ahead && aimed) {
+
+                    if (close_to_fire) {
+                        active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
+                        ff->println("[AVOID] -> APPROACH FIRE");
+                        behavior_start_ms_ = now;
+                    } else {
+                        ff->println("[AVOID] -> FIRE_BEHIND");
+
+                        motor_vtheta = (rf_cm < lf_cm) ? AVOID_ROTATE_SPEED : -AVOID_ROTATE_SPEED;
+                        motor_vx = -AVOID_SPEED;
+
+                        ff->_motors->writeAllMotors((-motor_vx / 2), motor_vy, motor_vtheta);
+                        return;
+                    }
+                } else {
+                    // Obstacle ahead and not aimed, just go left
+                    ff->println("[AVOID] -> AHEAD NOT AIMED");
+                    motor_vtheta = -AVOID_ROTATE_SPEED;
+                    motor_vx = -AVOID_SPEED;
+                }
+            }
+        }
+    }
+
+    else if (active_behavior_ == BehaviorNS::SearchBehaviour::RETURN_TO_HEADING) {
+        float heading_error = wrap_angle_error(resume_bearing_ - ff->_gyro->getAngle());
+
+        if (fabsf(heading_error) > 0.12f) {
+
+            still_wall = (blocked(lr_cm, 20.0) || blocked(rr_cm, 20.0)) ? 1 : 0;
+            if (still_wall){
+                ff->println("Still Wall");
+                motor_vx = AVOID_SPEED/2;
+                motor_vtheta = 0;
+            } else {
+                ff->println("No Wall");
+                motor_vx = 0;
+                motor_vtheta = 2*((heading_error > 0.0f) ? -AVOID_ROTATE_SPEED : AVOID_ROTATE_SPEED);
+            }
+        } else {
+            ff->println("[TRACK] heading restored");
+            still_wall = 0;
+            active_behavior_ = resume_to_move_
+                ? BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
+                : BehaviorNS::SearchBehaviour::FIND_FIRE;
+            behavior_start_ms_ = now;
+            ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
+            return;
+        }
+        ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+        return;
     }
     
     // PRIORITY 2: Use turret lock to switch between FIND_FIRE and MOVE_TO_FIRE
@@ -172,201 +286,77 @@ void Tracking::poll() {
                 ff->println("[TRACK] turret lost lock -> FIND_FIRE");
                 active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
                 behavior_start_ms_ = now;
-                if (!turret){
-                    ff->println("Turret Issue - HOW DID WE GET HERE");
-                }
             }
         }
     }
+    if (active_behavior_ == BehaviorNS::SearchBehaviour::MOVE_TO_FIRE) {      
+        // Check if close enough to extinguish
+        if (close_front && aimed && !ff->recentExtinguish() && close_to_fire) {
+            motor_vx = 0.0f;
+            motor_vy = 0.0f;
+            motor_vtheta = 0.0f;
+            ff->_motors->writeAllMotors(motor_vx, motor_vy, motor_vtheta);
 
-    // act on basis of current behaviour
+            // If phototransistors read strong enough
 
-    switch(active_behavior_) {
-        case BehaviorNS::SearchBehaviour::AVOID: {
-            unsigned long elapsed = now - behavior_start_ms_;
-
-            // Check if obstacle is now clear
-            bool clear = !obstacle_ahead &&
-                        ((us_cm < 0.0f) || (us_cm >= OBSTACLE_CLEAR_CM_F)) &&
-                        ((lf_cm < 0.0f) || (lf_cm >= OBSTACLE_CLEAR_CM_F)) &&
-                        ((rf_cm < 0.0f) || (rf_cm >= OBSTACLE_CLEAR_CM_F)) && 
-                        ((lr_cm < 0.0f) || (lr_cm >= OBSTACLE_CLEAR_CM_R)) && 
-                        ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
-                        
-            if (clear) {
-                if (resume_to_move_){
-                ff->println("[TRACK] leaving AVOID -> RETURN_TO_HEADING");
-                active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
-                behavior_start_ms_ = now;
-                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
-                return;
-                }
-                else {
-                    ff->println("[TRACK] leaving AVOID -> FF");
-                active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
-                behavior_start_ms_ = now;
-                }
-            } else if (elapsed > AVOID_TIMEOUT_MS) {
-                // Timeout: rotate in place
-                motor_vtheta = -SEARCH_TURN_SPEED * strafe_sign_;
-                ff->print("[TRACK] AVOID timeout");
-            } else {
-                if(obstacle_left) {
-                    ff->print("f: ");
-                    ff->print(lf_cm);
-                    ff->print(" r: ");
-                    ff->println(lr_cm);
-                    ff->println("[TRACK] AVOID Left");
-                    if (lf_cm <= AVOID_URGENT) {
-                        // Reverse and turn
-                        motor_vtheta = AVOID_ROTATE_SPEED*1.5;
-                        motor_vx = AVOID_SPEED;
-                        motor_vy = 50;
-                    } else {
-                        // Go forward and around
-                        motor_vtheta = AVOID_ROTATE_SPEED;
-                        motor_vx = AVOID_SPEED;
-                    }
-                } else if (obstacle_right){
-                    ff->print("f: ");
-                    ff->print(rf_cm);
-                    ff->print(" r: ");
-                    ff->print(rr_cm);
-                    ff->println(" [TRACK] AVOID Right");
-                    if (rf_cm <= AVOID_URGENT) {
-                        // Reverse and turn
-                        motor_vtheta = -AVOID_ROTATE_SPEED*1.5;
-                        motor_vx = -AVOID_SPEED;
-                        motor_vy = -50;
-                    } else {
-                        // Go forward and around
-                        motor_vtheta = -AVOID_ROTATE_SPEED;
-                        motor_vx = AVOID_SPEED;
-                    }
-                } else if (obstacle_side) {
-                    ff->print(" r: ");
-                    ff->print(rr_cm);
-                    ff->print(" l: ");
-                    ff->print(lr_cm);
-                    ff->println(" [TRACK] AVOID Side");
-                    
-                    motor_vtheta = 0.0f;
-                    motor_vy = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) ? 40 : -40;
-                    motor_vx = AVOID_SPEED;
-
-                } else {
-                    if (aimed) {
-
-                        if (close_to_fire) {
-                            active_behavior_ = BehaviorNS::SearchBehaviour::MOVE_TO_FIRE;
-                            ff->println("[AVOID] -> APPROACH FIRE");
-                            behavior_start_ms_ = now;
-                        } else {
-                            ff->println("[AVOID] -> FIRE_BEHIND");
-
-                            motor_vtheta = AVOID_ROTATE_SPEED * 1.5;
-                            motor_vx = -AVOID_SPEED;
-                            motor_vy = 50;
-
-                            ff->_motors->writeAllMotors((-motor_vx / 2), motor_vy, motor_vtheta);
-                            return;
-                        }
-                    } else {
-                        // Obstacle ahead and not aimed, just go left
-                        ff->println("[AVOID] -> AHEAD NOT AIMED");
-                        motor_vtheta = -AVOID_ROTATE_SPEED * 1.5;
-                        motor_vx = -AVOID_SPEED;
-                    }
-                }
-            }
-            break;
-        }
-
-        case BehaviorNS::SearchBehaviour::RETURN_TO_HEADING: {
-            float heading_error = wrap_angle_error(resume_bearing_ - ff->_gyro->getAngle());
-
-            if (fabsf(heading_error) > 0.12f) {
-
-                still_wall = (blocked(lr_cm, 20.0) || blocked(rr_cm, 20.0)) ? 1 : 0;
-                if (still_wall){
-                    ff->println("Still Wall");
-                    motor_vx = AVOID_SPEED;
-                    motor_vtheta = 0;
-                } else {
-                    ff->println("No Wall");
-                    motor_vx = 0;
-                    motor_vtheta = 2*((heading_error > 0.0f) ? -AVOID_ROTATE_SPEED : AVOID_ROTATE_SPEED);
-                }
-            } else {
-                ff->println("[TRACK] heading restored");
-                still_wall = 0;
-                active_behavior_ = resume_to_move_
-                    ? BehaviorNS::SearchBehaviour::MOVE_TO_FIRE
-                    : BehaviorNS::SearchBehaviour::FIND_FIRE;
-                behavior_start_ms_ = now;
-                ff->_motors->writeAllMotors(0.0f, 0.0f, 0.0f);
-                return;
-            }
-            ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
+            ff->print("Moving to Extinguish, time: ");
+            ff->println(millis());
+            
+            ff->switchState(State::EXTINGUISH);
             return;
         }
 
-        case BehaviorNS::SearchBehaviour::MOVE_TO_FIRE: {
-            // Check if close enough to extinguish
-            if (close_front && aimed && !ff->recentExtinguish() && close_to_fire) {
-                motor_vx = 0.0f;
-                motor_vy = 0.0f;
-                motor_vtheta = 0.0f;
-                ff->_motors->writeAllMotors(motor_vx, motor_vy, motor_vtheta);
+        // Calculate approach motion
+        float vtheta = APPROACH_TURN_GAIN * bearing_error;
+        if (vtheta > APPROACH_MAX_TURN) vtheta = APPROACH_MAX_TURN;
+        if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
 
-                // If phototransistors read strong enough
-
-                ff->print("Moving to Extinguish, time: ");
-                ff->println(millis());
-            
-                ff->switchState(State::EXTINGUISH);
-                return;
-            }
-
-            // Calculate approach motion
-            float vtheta = APPROACH_TURN_GAIN * bearing_error;
-            if (vtheta > APPROACH_MAX_TURN) vtheta = APPROACH_MAX_TURN;
-            if (vtheta < -APPROACH_MAX_TURN) vtheta = -APPROACH_MAX_TURN;
-
-            float vx = (fabsf(bearing_error) > BEARING_PIVOT_THRESH)
+        float vx = (fabsf(bearing_error) > BEARING_PIVOT_THRESH)
                        ? 0.0f
                        : (APPROACH_FORWARD_SPEED * cosf(bearing_error));
         
                        vx = 100.0f;  // For testing
-            motor_vtheta = vtheta;
+        motor_vtheta = vtheta;
 
-            // If close then slow down
-            motor_vx = obstacle_ahead ? (vx*0.6) : vx;
-            motor_vx = close_front ? (0.0) : vx;
-            break;
-        }
-        case BehaviorNS::SearchBehaviour::FIND_FIRE: {
-            ff->print("time in ff ");
-            ff->println(now - behavior_start_ms_);
-            motor_vtheta = 0.0f;
+        // If close then slow down
+        motor_vx = obstacle_ahead ? (vx*0.6) : vx;
+        motor_vx = close_front ? (0.0) : vx;
 
-            motor_vx = SEARCH_SPEED;
-
-            if (now - behavior_start_ms_ > 3500) {  // If seconds have passed
-                //sweep
-                ff->println("Reset, spin scan");
-                ff->switchState(State::SPIN_SCAN);
-                return;
-            }
-            break;
-        }
-        default: {
-            ff->println("   ----------");
-            ff->println("--------------------");
-            ff->println("\t\tNO BEHAVIOUR");
-            ff->println("--------------------");
-            ff->println("   ----------");
-        }
+        //ff->println("[TRACK] MTF");
     }
+    // PRIORITY 3: Search (FIND_FIRE)
+    else if (active_behavior_ == BehaviorNS::SearchBehaviour::FIND_FIRE) {
+        motor_vtheta = 0.0f;
+
+        motor_vx = SEARCH_SPEED;
+
+        if (now - behavior_start_ms_ > 5000) {  // If 2 seconds have passed
+            //sweep
+            ff->println("Reset, spin scan");
+            ff->switchState(State::SPIN_SCAN);
+            return;
+        }
+
+        /*
+        // Wall follow with rear IR sensors
+        if (blocked(lr_cm, WALL_FOLLOW_CM)) {
+            motor_vtheta -= SEARCH_TURN_SPEED * (1.0f - lr_cm / WALL_FOLLOW_CM);
+        }
+        if (blocked(rr_cm, WALL_FOLLOW_CM)) {
+            motor_vtheta += SEARCH_TURN_SPEED * (1.0f - rr_cm / WALL_FOLLOW_CM);
+        }
+
+        motor_vtheta = motor_vtheta;
+        */
+        // ff->println("[TRACK] FF");
+    }
+
+    // Write motors once at the end
+    // ff->print("vx= ");
+    // ff->print(-motor_vx, 2); // Moving backwards, fix
+    // ff->print(", vy= ");
+    // ff->print(motor_vy, 2);
+    // ff->print(", vtheta= ");
+    // ff->println(motor_vtheta, 2);
     ff->_motors->writeAllMotors((-motor_vx/2), motor_vy, motor_vtheta);
 }
