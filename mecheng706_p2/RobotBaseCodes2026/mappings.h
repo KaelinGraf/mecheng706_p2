@@ -111,7 +111,7 @@
 #define right_rear_pin  50
 #define right_front_pin 51
 // Small servo (turret) pin
-#define turret_pin 9
+#define turret_pin 8
 
 // Drive motor PWM duty range (microseconds)
 #define max_duty_motor 2300
@@ -122,7 +122,7 @@
 #define max_duty_turret 2000
 #define min_duty_turret 1000
 #define neutral_turret  1500
-#define SERVO_CENTER 66
+#define SERVO_CENTER 90
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins

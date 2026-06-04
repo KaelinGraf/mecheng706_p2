@@ -93,14 +93,17 @@ class driveMotors{
 
 
 // Turret (SG90) wrapper class providing a simple, safe API.
-class Turret : public Motor {
+class Turret {
   private:
     FireBank *_fb;
+    Servo _motor;
+    int _motor_pin;
+    bool _is_attatched;
   public:
     int angle_ = 90; // Current angle in degrees (0-180)
     bool locked_on_ = false; // Whether the turret is facing fire
 
-    Turret(FireBank *fb, uint8_t motor_pin = turret_pin) : Motor(motor_pin), _fb(fb) {};
+    Turret(FireBank *fb, uint8_t motor_pin = turret_pin) :_fb(fb), _motor_pin(motor_pin) {};
     void pollState();
     void attach();
     void detach();
