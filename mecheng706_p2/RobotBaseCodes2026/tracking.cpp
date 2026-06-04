@@ -308,9 +308,9 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                ff->println("[TRACK] AVOID clear, continue last obstacle");
-                continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,
-                                  motor_vx, motor_vy, motor_vtheta);
+                ff->println("[TRACK] AVOID clear");
+                active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+                behavior_start_ms_ = now;
             } else if (elapsed > AVOID_TIMEOUT_MS) {
                 ff->print("[TRACK] AVOID timeout");
                 avoidTimeout(motor_vtheta, strafe_sign_);
