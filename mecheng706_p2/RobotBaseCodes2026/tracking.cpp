@@ -46,11 +46,12 @@ static void avoidLeft(FireFighter *ff,
     if (lf_cm <= AVOID_URGENT || strafe) {
         ff->println("[TRACK] AVOID Left Urgent");
         motor_vy     = 50;
+        continue_strafe = 1;
     } else {
         ff->println("[TRACK] AVOID Left");
-        motor_vtheta = AVOID_ROTATE_SPEED * 1.25f;
-        motor_vx     = AVOID_SPEED * 0.75f;
+        motor_vtheta = AVOID_ROTATE_SPEED * 0.25f;
         motor_vy     = 50;
+        continue_strafe = 0;
     }
 }
 
@@ -68,8 +69,7 @@ static void avoidRight(FireFighter *ff,
         continue_strafe = 1;
     } else {
         ff->println(" [TRACK] AVOID Right");
-        motor_vtheta = -AVOID_ROTATE_SPEED * 1.25f;
-        motor_vx     = -AVOID_SPEED * 0.75f;
+        motor_vtheta = -AVOID_ROTATE_SPEED * 0.25f;
         motor_vy     = -50;
         continue_strafe = 0;
     }
@@ -119,7 +119,7 @@ static bool avoidAhead(FireFighter *ff, float fr, float fl,
         }
     } else {
         ff->println("[AVOID] -> AHEAD NOT AIMED");
-        motor_vtheta = (fr < fl) ? -AVOID_ROTATE_SPEED * 0.75f : AVOID_ROTATE_SPEED * 0.75f;
+        motor_vtheta = (fr < fl) ? -AVOID_ROTATE_SPEED * 0.25f : AVOID_ROTATE_SPEED * 0.25f;
         motor_vx     = -AVOID_SPEED;
     }
     return false;
@@ -274,13 +274,15 @@ void Tracking::poll() {
         && ((now - behavior_start_ms_) > AVOID_TIMEOUT_MS))
     {
         ff->println("Avoid Timeout -> back up");
-        active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
-        behavior_start_ms_ = now;
-        avoid_count = 0;
-        continue_strafe = 0;
+        // active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
+        // behavior_start_ms_ = now;
+        // avoid_count = 0;
+        // continue_strafe = 0;
         ff->_motors->writeAllMotors(50, 0, 0);
-        delay(800);
+        delay(300);
         ff->_motors->writeAllMotors(0, 0, 0);
+
+        ff->switchState(State::SPIN_SCAN);
 
     } else if (active_behavior_ != BehaviorNS::SearchBehaviour::AVOID && active_behavior_ != BehaviorNS::SearchBehaviour::RETURN_TO_HEADING) {
         // -----------------------------------------------------------------------
@@ -319,7 +321,7 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                if (avoid_count > 12){
+                if (avoid_count > 10){
                     ff->println("[TRACK] AVOID clear count");
                     active_behavior_ = BehaviorNS::SearchBehaviour::RETURN_TO_HEADING;
                     behavior_start_ms_ = now;
@@ -340,6 +342,14 @@ void Tracking::poll() {
                 delay(800);
                 ff->_motors->writeAllMotors(0, 0, 0);
 
+            }  else if (obstacle_ahead || close_front){
+                avoid_count = 0;
+                last_avoid_mode_ = AvoidMode::AHEAD;
+                if (avoidAhead(ff, rf_cm, lf_cm, aimed, close_to_fire, now,
+                               active_behavior_, behavior_start_ms_,
+                               motor_vx, motor_vy, motor_vtheta)) {
+                    return;
+                }
             } else if (obstacle_left) {
                 avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::LEFT;
@@ -352,14 +362,6 @@ void Tracking::poll() {
                 avoid_count = 0;
                 last_avoid_mode_ = AvoidMode::SIDE;
                 avoidSide(ff, lr_cm, rr_cm, motor_vx, motor_vy, motor_vtheta);
-            } else if (obstacle_ahead || close_front){
-                avoid_count = 0;
-                last_avoid_mode_ = AvoidMode::AHEAD;
-                if (avoidAhead(ff, rf_cm, lf_cm, aimed, close_to_fire, now,
-                               active_behavior_, behavior_start_ms_,
-                               motor_vx, motor_vy, motor_vtheta)) {
-                    return;
-                }
             } else {
                 ff->println("[TRACK] AVOID no fresh obstacle, continue last obstacle");
                 continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,

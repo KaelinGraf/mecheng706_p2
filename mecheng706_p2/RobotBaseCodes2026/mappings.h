@@ -95,7 +95,7 @@
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM_F     9.0f
-#define OBSTACLE_TRIGGER_CM_US     6.0f
+#define OBSTACLE_TRIGGER_CM_US     9.0f
 #define OBSTACLE_TRIGGER_CM_R     8.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to
@@ -115,7 +115,7 @@
 // AVOID: strafe and rotation speeds
 #define AVOID_STRAFE_MS         50.0f
 #define AVOID_SPEED             60.0f
-#define AVOID_ROTATE_SPEED      70.0f
+#define AVOID_ROTATE_SPEED      50.0f
 #define AVOID_URGENT            5.0f
 
 // EXTINGUISH gate: robot's centre is within 20 cm of the fire's centre per the
