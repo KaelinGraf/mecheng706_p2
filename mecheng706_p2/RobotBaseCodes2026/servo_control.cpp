@@ -56,7 +56,7 @@ void Turret::writeAngle(int angle){
 
   // Map the angle range (0 to 120) to the microsecond range (900 to 2100)
   // 60 degrees (Center) will perfectly map to 1500us.
-  uint16_t pulse_width = map(angle, 0, 120, 900, 2100);
+  uint16_t pulse_width = map(angle, 0, 120, 1100, 2000);
   
   // Use your existing writeUS method, or _motor.writeMicroseconds directly
   writeUS(pulse_width);

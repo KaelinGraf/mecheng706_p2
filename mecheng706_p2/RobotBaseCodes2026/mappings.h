@@ -56,7 +56,7 @@
 // auto-compile, so enabling this also requires the unity shim mapping_build.cpp
 // to pull those translation units into the build. Flip to 1 once the mapping
 // layer is build-verified on-device.
-#define ENABLE_MAPPING    1
+#define ENABLE_MAPPING    0
 // Minimum interval between full WorldModel updates (ms). The grid walk is heavy
 // and serial bandwidth is finite, so we throttle rather than run every loop.
 #define MAPPING_UPDATE_MS 50
@@ -119,10 +119,10 @@
 #define neutral        1500
 
 // Turret / small servo PWM duty range (microseconds)
-#define max_duty_turret 2100
-#define min_duty_turret 900
+#define max_duty_turret 2000
+#define min_duty_turret 1000
 #define neutral_turret  1500
-#define SERVO_CENTER 60
+#define SERVO_CENTER 66
 
 // ---------------------------------------------------------------------------
 // IR sensor analog input pins
