@@ -49,6 +49,7 @@ void Tracking::begin() {
     behavior_start_ms_ = millis();
     last_nudge_ms_ = behavior_start_ms_;
     nudge_active_ = false;
+    last_avoid_mode_ = AvoidMode::NONE;
 }
 
 void Tracking::end() {
@@ -96,7 +97,7 @@ void Tracking::poll() {
     bool obstacle_side = 0;
 
     // Obstacle detection
-    obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_F);
+    obstacle_ahead = blocked(us_cm, OBSTACLE_TRIGGER_CM_US);   // tight frontal-US trigger (5cm) -- don't avoid the fire
     obstacle_left = blocked(lf_cm, OBSTACLE_TRIGGER_CM_F);
     obstacle_right = blocked(rf_cm, OBSTACLE_TRIGGER_CM_F); 
     obstacle_side = blocked(lr_cm, OBSTACLE_TRIGGER_CM_R) || blocked(rr_cm, OBSTACLE_TRIGGER_CM_R);
@@ -241,6 +242,7 @@ void Tracking::poll() {
                 ff->print(" r: ");
                 ff->println(lr_cm);
                 ff->println("[TRACK] AVOID Left");
+                last_avoid_mode_ = AvoidMode::LEFT;
                 if (lf_cm <= AVOID_URGENT) {
                     // Reverse and turn
                     motor_vtheta = AVOID_ROTATE_SPEED*1.5;
@@ -257,6 +259,7 @@ void Tracking::poll() {
                 ff->print(" r: ");
                 ff->print(rr_cm);
                 ff->println(" [TRACK] AVOID Right");
+                last_avoid_mode_ = AvoidMode::RIGHT;
                 if (rf_cm <= AVOID_URGENT) {
                     // Reverse and turn
                     motor_vtheta = -AVOID_ROTATE_SPEED*1.5;
@@ -275,7 +278,8 @@ void Tracking::poll() {
                 ff->print(" l: ");
                 ff->print(lr_cm);
                 ff->println(" [TRACK] AVOID Side");
-                
+                last_avoid_mode_ = AvoidMode::SIDE;
+
                 motor_vtheta = 0.0f;
                 if (blocked(lr_cm, OBSTACLE_TRIGGER_CM_R)) {
                     motor_vy += 40;
@@ -302,10 +306,23 @@ void Tracking::poll() {
                         return;
                     }
                 } else {
-                    // Obstacle ahead and not aimed, just go left
-                    ff->println("[AVOID] -> AHEAD NOT AIMED");
-                    motor_vtheta = -AVOID_ROTATE_SPEED;
-                    motor_vx = -AVOID_SPEED;
+                    // CONTINUATION (anti-chatter, teammates' #3): no fresh L/R/S obstacle flag this tick
+                    // (obstacle sitting in the hysteresis band, or a sensor flicker) -> repeat the LAST
+                    // avoid manoeuvre instead of a generic turn, so the avoid doesn't stutter/switch.
+                    switch (last_avoid_mode_) {
+                        case AvoidMode::LEFT:
+                            motor_vtheta = AVOID_ROTATE_SPEED;  motor_vx = AVOID_SPEED; break;
+                        case AvoidMode::RIGHT:
+                            motor_vtheta = -AVOID_ROTATE_SPEED; motor_vx = AVOID_SPEED; break;
+                        case AvoidMode::SIDE:
+                            motor_vtheta = 0.0f;                motor_vx = AVOID_SPEED; break;
+                        default:   // AHEAD / NONE -> turn toward the more-open front side (#2: fr < fl)
+                            ff->println("[AVOID] -> AHEAD NOT AIMED");
+                            motor_vtheta = (rf_cm < lf_cm) ? -AVOID_ROTATE_SPEED : AVOID_ROTATE_SPEED;
+                            motor_vx = -AVOID_SPEED;
+                            last_avoid_mode_ = AvoidMode::AHEAD;
+                            break;
+                    }
                 }
             }
         }

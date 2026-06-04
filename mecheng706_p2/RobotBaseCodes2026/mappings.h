@@ -103,6 +103,10 @@
 // (forces transition to AVOID). Sized so the robot can react before the ~10 cm
 // dia. cylinder enters the dead-zone of the long-range IRs.
 #define OBSTACLE_TRIGGER_CM_F     10.0f
+// Front ULTRASONIC frontal-obstacle trigger -- tighter than the IR (10) so the frontal AVOID doesn't
+// fire on the FIRE during the close approach (it sits below EXTINGUISH_RANGE_CM=8): the robot reaches
+// close_front + extinguishes instead of avoiding the fire. (Teammates' value; used for obstacle_ahead.)
+#define OBSTACLE_TRIGGER_CM_US     5.0f
 #define OBSTACLE_TRIGGER_CM_R     8.0f
 
 // Hysteresis: must read this clear before AVOID is allowed to release back to

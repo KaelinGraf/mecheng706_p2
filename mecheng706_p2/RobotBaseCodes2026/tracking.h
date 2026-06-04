@@ -13,6 +13,10 @@ class Tracking {
 public:
     explicit Tracking(FireFighter *firefighter);
 
+    // Which avoid manoeuvre we last committed to, so a transient flag-flicker / hysteresis-band tick
+    // repeats it instead of stuttering (teammates' anti-chatter continuation).
+    enum class AvoidMode { NONE, LEFT, RIGHT, SIDE, AHEAD };
+
     void begin();
     void end();
     void poll();
@@ -20,6 +24,7 @@ public:
 private:
     FireFighter *firefighter_;
     BehaviorNS::SearchBehaviour active_behavior_;
+    AvoidMode last_avoid_mode_ = AvoidMode::NONE;
 
     float bearing_;
     float resume_bearing_;
