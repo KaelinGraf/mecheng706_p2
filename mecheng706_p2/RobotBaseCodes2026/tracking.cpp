@@ -6,6 +6,7 @@
 
 // Global turret instance (defined in RobotBaseCodes2026.ino)
 extern Turret *turret;
+int avoid_count = 0;
 
 namespace {
 static const unsigned long LOST_FIRE_MS   = 1500;
@@ -42,13 +43,12 @@ static void avoidLeft(FireFighter *ff,
 
     if (lf_cm <= AVOID_URGENT) {
         ff->println("[TRACK] AVOID Left Urgent");
-        motor_vtheta = AVOID_ROTATE_SPEED;
-        motor_vx     = -AVOID_SPEED;
         motor_vy     = 50;
     } else {
         ff->println("[TRACK] AVOID Left");
         motor_vtheta = AVOID_ROTATE_SPEED * 1.25f;
         motor_vx     = AVOID_SPEED * 0.75f;
+        motor_vy     = 50;
     }
 }
 
@@ -61,13 +61,12 @@ static void avoidRight(FireFighter *ff,
 
     if (rf_cm <= AVOID_URGENT) {
         ff->println(" [TRACK] AVOID Right Urgent");
-        motor_vtheta = -AVOID_ROTATE_SPEED;
-        motor_vx     = -AVOID_SPEED;
         motor_vy     = -50;
     } else {
         ff->println(" [TRACK] AVOID Right");
         motor_vtheta = -AVOID_ROTATE_SPEED * 1.25f;
         motor_vx     = -AVOID_SPEED * 0.75f;
+        motor_vy     = -50;
     }
 }
 
@@ -308,9 +307,17 @@ void Tracking::poll() {
                       && ((rr_cm < 0.0f) || (rr_cm >= OBSTACLE_CLEAR_CM_R));
 
             if (clear) {
-                ff->println("[TRACK] AVOID clear");
-                active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
-                behavior_start_ms_ = now;
+                if (avoid_count > 15){
+                    ff->println("[TRACK] AVOID clear count");
+                    active_behavior_ = BehaviorNS::SearchBehaviour::FIND_FIRE;
+                    behavior_start_ms_ = now;
+                    avoid_count = 0;
+                } else {
+                ff->println("[TRACK] AVOID exit");
+                continueLastAvoid(ff, last_avoid_mode_, lf_cm, rf_cm, lr_cm, rr_cm,
+                                  motor_vx, motor_vy, motor_vtheta);
+                avoid_count++;
+                }
             } else if (elapsed > AVOID_TIMEOUT_MS) {
                 ff->print("[TRACK] AVOID timeout");
                 avoidTimeout(motor_vtheta, strafe_sign_);
